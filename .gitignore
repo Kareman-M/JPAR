@@ -1,0 +1,17 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/JPAR/DesignTimeBuild/.dtbcache.v2
+/.vs/JPAR/FileContentIndex/5bd2ebd4-1a27-46dc-b6c3-2c88a74f3eed.vsidx
+/.vs/JPAR/FileContentIndex/77b9bb05-e996-40de-a778-b9dd74f1a4fc.vsidx
+/.vs/JPAR/FileContentIndex/8aa3feb4-33b2-4e7b-95c2-ee20bd6ed8d0.vsidx
+/.vs/JPAR/FileContentIndex/8d6326d8-7910-4d98-ab82-212ff7d88bb5.vsidx
+/.vs/JPAR/FileContentIndex/cc3bdf3c-3cab-4eb4-9eae-3673829ff2ca.vsidx
+/.vs/JPAR/FileContentIndex/df684c63-f870-4428-867e-1cb560b844a8.vsidx
+/.vs/JPAR/FileContentIndex/edbde85e-3d8b-4fe7-98a6-a1e1319f47ed.vsidx
+/.vs/JPAR/FileContentIndex/f9eac52f-f634-4ea3-b8e2-85973d81ffd8.vsidx
+/JPAR.API/obj/Debug/net8.0/JPAR.API.AssemblyInfo.cs
+/JPAR.API/obj/Debug/net8.0/JPAR.API.AssemblyInfoInputs.cache
+/JPAR.Service/obj/Debug/net8.0/JPAR.Service.AssemblyInfoInputs.cache
+/JPAR.Service/obj/Debug/net8.0/JPAR.Service.AssemblyInfo.cs
