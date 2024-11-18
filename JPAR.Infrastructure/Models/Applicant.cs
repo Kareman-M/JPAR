@@ -1,5 +1,9 @@
-﻿internal class Applicant : User
+﻿using System.ComponentModel.DataAnnotations;
+
+internal class Applicant : User
 {
+    [Key]
+    public int Id { get; set; }
     public DateTime Birthdate { get; set; }
     public Gender Gender { get; set; }
     public string Nationality { get; set; }
@@ -29,4 +33,5 @@
     public List<Certification> Certifications { get; set; }
     public List<OnlinePresence> OnlinePresences { get; set; }
     public string Achivement { get; set; }
+
 }
