@@ -1,3 +1,3 @@
-﻿internal class Recruiter : User
+﻿public class Recruiter : User
 {
 }
