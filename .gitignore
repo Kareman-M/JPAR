@@ -56,3 +56,10 @@
 /.vs/JPAR/FileContentIndex/b5250c59-72e2-4374-a4fe-f1359a1a0274.vsidx
 /.vs/JPAR/FileContentIndex/fe52f064-8e9b-4482-9eca-9380b2aa97aa.vsidx
 *.vsidx
+/JPAR.API/obj/Debug/net8.0/JPAR.API.assets.cache
+/JPAR.API/obj/Debug/net8.0/JPAR.API.csproj.AssemblyReference.cache
+/JPAR.API/obj/JPAR.API.csproj.nuget.dgspec.json
+/JPAR.API/obj/JPAR.API.csproj.nuget.g.props
+/JPAR.API/obj/JPAR.API.csproj.nuget.g.targets
+/JPAR.API/obj/project.assets.json
+/JPAR.API/obj/project.nuget.cache
