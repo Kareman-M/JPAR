@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-internal class Applicant : User
+public class Applicant : User
 {
     [Key]
     public int Id { get; set; }
