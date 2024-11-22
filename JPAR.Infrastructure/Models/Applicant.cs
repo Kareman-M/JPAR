@@ -17,12 +17,17 @@ internal class Applicant : User
     public string AlternativeMobileNumber { get; set; }
 
     public Level Level { get; set; }
+    //Full time, part time, Freelance, internship, contract
     public JobType JobType { get; set; }
+    //onSite/ remote
     public WorkPlace WorkPlace { get; set; }
+    //List of Strings > web dev, full stack,..
     public List<string> JobTitles { get; set; }
+    //List of Strings -> IT, Marketing, Finance, HR,..
     public List<string> JobCategories { get; set; }
+    //Expected salary
     public decimal DesiredNetSalaryPerMonth { get; set; }
-
+    //DB stores only path of CV, not the CV itself.
     public string UploadedCVPath { get; set; }
 
     public int YearsOfExperince { get; set; }
