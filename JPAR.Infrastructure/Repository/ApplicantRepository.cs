@@ -12,9 +12,12 @@ namespace JPAR.Infrastructure.Repository
             _context = context;
         }
 
-        public bool Add(Applicant applicant)
+        public bool Add(Guid userId)
         {
-            throw new NotImplementedException();
+            var applicant = new Applicant();
+            applicant.UserId = userId;
+            _context.Applicants.Add(applicant);
+            return _context.SaveChanges() > 0;
         }
 
         public bool Delete(int id)

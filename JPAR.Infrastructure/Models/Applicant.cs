@@ -1,9 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class Applicant : User
+public class Applicant
 {
     [Key]
     public int Id { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
     public DateTime Birthdate { get; set; }
     public Gender Gender { get; set; }
     public string Nationality { get; set; }
@@ -14,6 +17,7 @@ public class Applicant : User
     public string Area { get; set; }
     public string PostalCode { get; set; }
 
+    public string MobileNumber { get; set; }
     public string AlternativeMobileNumber { get; set; }
 
     public Level Level { get; set; }
@@ -38,5 +42,9 @@ public class Applicant : User
     public List<Certification> Certifications { get; set; }
     public List<OnlinePresence> OnlinePresences { get; set; }
     public string Achivement { get; set; }
+
+    public Guid UserId { get; set; }
+    [ForeignKey(nameof(UserId))]
+    public User User { get; set; }
 
 }

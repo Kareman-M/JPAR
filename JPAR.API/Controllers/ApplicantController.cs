@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using JPAR.Service.DTOs;
+using JPAR.Service.IServices;
+using Microsoft.AspNetCore.Mvc;
 
 namespace JPAR.API.Controllers
 {
@@ -6,5 +8,18 @@ namespace JPAR.API.Controllers
     [ApiController]
     public class ApplicantController : ControllerBase
     {
+        private readonly IApplicantService _applicantService;
+
+        public ApplicantController(IApplicantService applicantService)
+        {
+            _applicantService = applicantService;
+        }
+
+        [HttpPut("UpdateGeneralInfo")]
+        public IActionResult UpdateGeneralInfo(UpdateApplicantGeneralInfoDTO applicantGeneralInfo)
+        {
+
+            return Ok();
+        }
     }
 }

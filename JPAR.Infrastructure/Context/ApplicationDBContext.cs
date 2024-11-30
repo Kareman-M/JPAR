@@ -7,8 +7,8 @@ namespace JPAR.Infrastructure.Context
     {
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options):base(options) { }
 
-        DbSet<Applicant> Applicants { get; set; }
-        DbSet<Certification> Certifications { get; set; }
-        DbSet<Recruiter> Recruiters { get; set; }
+        public DbSet<Applicant> Applicants { get; set; }
+        public DbSet<Certification> Certifications { get; set; }
+        public DbSet<Recruiter> Recruiters { get; set; }
     }
 }

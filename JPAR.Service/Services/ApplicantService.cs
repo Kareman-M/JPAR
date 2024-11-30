@@ -13,11 +13,6 @@ namespace JPAR.Service.Services
             _applicantRepository = applicantRepository;
         }
 
-        public bool Add(AddApplicantDTO applicant)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool Delete(int id)
         {
             throw new NotImplementedException();
@@ -28,7 +23,7 @@ namespace JPAR.Service.Services
             throw new NotImplementedException();
         }
 
-        public bool Update(UpdateApplicantDTO applicant)
+        public bool Update(UpdateApplicantGeneralInfoDTO applicant)
         {
             throw new NotImplementedException();
         }
