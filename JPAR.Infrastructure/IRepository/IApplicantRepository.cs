@@ -3,7 +3,7 @@
     public interface IApplicantRepository
     {
         Applicant GetById(int id);
-        bool Add(Guid userId);
+        bool Add(string userId);
         bool Update(Applicant applicant);
         bool Delete(int id);
     }

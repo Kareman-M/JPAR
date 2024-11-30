@@ -10,5 +10,8 @@ namespace JPAR.Infrastructure.Context
         public DbSet<Applicant> Applicants { get; set; }
         public DbSet<Certification> Certifications { get; set; }
         public DbSet<Recruiter> Recruiters { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<UniversityDegree> UniversityDegrees { get; set; }
+        public DbSet<OnlinePresence> OnlinePresences { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace JPAR.Infrastructure.Repository
             _context = context;
         }
 
-        public bool Add(Guid userId)
+        public bool Add(string userId)
         {
             var applicant = new Applicant();
             applicant.UserId = userId;
