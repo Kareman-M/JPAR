@@ -23,9 +23,36 @@ namespace JPAR.Service.Services
             throw new NotImplementedException();
         }
 
-        public bool Update(UpdateApplicantGeneralInfoDTO applicant)
+        public bool UpdateCareerInterest(UpdateCareerInterestDTO updateCareerInterest)
         {
-            throw new NotImplementedException();
+            var applicant = _applicantRepository.GetByUserId(updateCareerInterest.UserId);
+           
+            applicant.Level = updateCareerInterest.Level;
+            applicant.JobType = updateCareerInterest.JobType;
+            applicant.WorkPlace = updateCareerInterest.WorkPlace;
+            
+            return _applicantRepository.Update(applicant);
+
+        }
+
+        public bool UpdateGenralInfo(UpdateApplicantGeneralInfoDTO applicantDto)
+        {
+            var applicant = _applicantRepository.GetByUserId(applicantDto.UserId);
+            applicant = UpdateInfo(applicant, applicantDto);
+            return _applicantRepository.Update(applicant);
+        }
+
+        private Applicant UpdateInfo(Applicant applicant,UpdateApplicantGeneralInfoDTO applicantDto)
+        {
+
+            applicant.FirstName = applicantDto.FirstName;
+            applicant.LastName = applicantDto.LastName;
+            applicant.Birthdate = applicantDto.Birthdate;
+            applicant.Area = applicantDto.Area;
+            applicant.Gender = applicantDto.Gender;
+
+            return applicant;
         }
     }
+
 }

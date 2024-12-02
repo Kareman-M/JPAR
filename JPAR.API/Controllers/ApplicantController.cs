@@ -18,8 +18,13 @@ namespace JPAR.API.Controllers
         [HttpPut("UpdateGeneralInfo")]
         public IActionResult UpdateGeneralInfo(UpdateApplicantGeneralInfoDTO applicantGeneralInfo)
         {
+            return Ok(_applicantService.UpdateGenralInfo(applicantGeneralInfo));
+        }
 
-            return Ok();
+        [HttpPut("UpdateCareerInterest")]
+        public IActionResult UpdateCareerInterest(UpdateCareerInterestDTO careerInterestDTO)
+        {
+            return Ok(_applicantService.UpdateCareerInterest(careerInterestDTO));
         }
     }
 }

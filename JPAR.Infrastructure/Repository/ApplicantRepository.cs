@@ -22,17 +22,24 @@ namespace JPAR.Infrastructure.Repository
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+           _context.Applicants.Remove(GetById(id));
+           return _context.SaveChanges() > 0;
         }
 
         public Applicant GetById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Applicants.FirstOrDefault(x => x.Id == id);
+        }
+
+        public Applicant GetByUserId(string userId)
+        {
+            return _context.Applicants.FirstOrDefault(x => x.UserId == userId);
         }
 
         public bool Update(Applicant applicant)
         {
-            throw new NotImplementedException();
+            _context.Applicants.Update(applicant);
+           return _context.SaveChanges()> 0;
         }
     }
 }
