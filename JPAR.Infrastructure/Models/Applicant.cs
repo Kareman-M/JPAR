@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using JPAR.Infrastructure.Models;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 public class Applicant
@@ -35,13 +36,19 @@ public class Applicant
     public string UploadedCVPath { get; set; }
 
     public int YearsOfExperince { get; set; }
-    public List<string> Skills { get; set; }
+
+    public List<Experience> Experiences { get; set; }
+
+    //public List<string> Skills { get; set; }
+
+    public List<Skill> Skills { get; set; }
+
 
     public EducationLevel EducationLevel { get; set; }
     public List<UniversityDegree> UniversityDegrees { get; set; }
     public List<Certification> Certifications { get; set; }
     public List<OnlinePresence> OnlinePresences { get; set; }
-    public string Achivement { get; set; }
+    public string Achievements { get; set; }
 
     public string UserId { get; set; }
     [ForeignKey(nameof(UserId))]
