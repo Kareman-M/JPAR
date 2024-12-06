@@ -1,9 +1,12 @@
 ﻿using JPAR.Service.DTOs;
+using JPAR.Service.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace JPAR.Service.IServices
 {
     public interface IUserService
     {
-        public bool Register(UserRegistrationDTO user);
+        Task<AuthenticatedUserModel> Login(UserLoginDTO userLogin);
+        Task<IdentityResult> Register(UserRegistrationDTO userModel);
     }
 }

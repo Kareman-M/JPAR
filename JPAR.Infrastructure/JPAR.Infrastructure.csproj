@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <Folder Include="Mapping\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>
