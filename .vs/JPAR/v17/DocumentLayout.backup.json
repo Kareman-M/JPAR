@@ -1,0 +1,100 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\moham\\Desktop\\JPAR\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{57C9DD69-1581-4B14-8AF9-617B73377EA9}|JPAR.Service\\JPAR.Service.csproj|c:\\users\\moham\\desktop\\jpar\\jpar.service\\services\\applicantservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{57C9DD69-1581-4B14-8AF9-617B73377EA9}|JPAR.Service\\JPAR.Service.csproj|solutionrelative:jpar.service\\services\\applicantservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F52BD34E-CEDC-4424-8724-AB56BEBFCB78}|JPAR.API\\JPAR.API.csproj|c:\\users\\moham\\desktop\\jpar\\jpar.api\\controllers\\applicantcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F52BD34E-CEDC-4424-8724-AB56BEBFCB78}|JPAR.API\\JPAR.API.csproj|solutionrelative:jpar.api\\controllers\\applicantcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{57C9DD69-1581-4B14-8AF9-617B73377EA9}|JPAR.Service\\JPAR.Service.csproj|c:\\users\\moham\\desktop\\jpar\\jpar.service\\iservices\\iapplicantservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{57C9DD69-1581-4B14-8AF9-617B73377EA9}|JPAR.Service\\JPAR.Service.csproj|solutionrelative:jpar.service\\iservices\\iapplicantservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{041E3139-7379-47D0-9A50-F7B0EB198507}|JPAR.Infrastructure\\JPAR.Infrastructure.csproj|c:\\users\\moham\\desktop\\jpar\\jpar.infrastructure\\models\\applicant.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{041E3139-7379-47D0-9A50-F7B0EB198507}|JPAR.Infrastructure\\JPAR.Infrastructure.csproj|solutionrelative:jpar.infrastructure\\models\\applicant.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Applicant.cs",
+              "DocumentMoniker": "C:\\Users\\moham\\Desktop\\JPAR\\JPAR.Infrastructure\\Models\\Applicant.cs",
+              "RelativeDocumentMoniker": "JPAR.Infrastructure\\Models\\Applicant.cs",
+              "ToolTip": "C:\\Users\\moham\\Desktop\\JPAR\\JPAR.Infrastructure\\Models\\Applicant.cs",
+              "RelativeToolTip": "JPAR.Infrastructure\\Models\\Applicant.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAmwDEAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T23:29:21.878Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{f677620d-05fd-48ed-8423-72a12db4deef}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IApplicantService.cs",
+              "DocumentMoniker": "C:\\Users\\moham\\Desktop\\JPAR\\JPAR.Service\\IServices\\IApplicantService.cs",
+              "RelativeDocumentMoniker": "JPAR.Service\\IServices\\IApplicantService.cs",
+              "ToolTip": "C:\\Users\\moham\\Desktop\\JPAR\\JPAR.Service\\IServices\\IApplicantService.cs",
+              "RelativeToolTip": "JPAR.Service\\IServices\\IApplicantService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAABgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T19:13:29.481Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ApplicantService.cs",
+              "DocumentMoniker": "C:\\Users\\moham\\Desktop\\JPAR\\JPAR.Service\\Services\\ApplicantService.cs",
+              "RelativeDocumentMoniker": "JPAR.Service\\Services\\ApplicantService.cs",
+              "ToolTip": "C:\\Users\\moham\\Desktop\\JPAR\\JPAR.Service\\Services\\ApplicantService.cs",
+              "RelativeToolTip": "JPAR.Service\\Services\\ApplicantService.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAAwCIAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T19:18:20.159Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ApplicantController.cs",
+              "DocumentMoniker": "C:\\Users\\moham\\Desktop\\JPAR\\JPAR.API\\Controllers\\ApplicantController.cs",
+              "RelativeDocumentMoniker": "JPAR.API\\Controllers\\ApplicantController.cs",
+              "ToolTip": "C:\\Users\\moham\\Desktop\\JPAR\\JPAR.API\\Controllers\\ApplicantController.cs",
+              "RelativeToolTip": "JPAR.API\\Controllers\\ApplicantController.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAgwDAAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T19:30:18.793Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

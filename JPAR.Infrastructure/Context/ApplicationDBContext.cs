@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using JPAR.Infrastructure.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace JPAR.Infrastructure.Context
@@ -13,5 +14,9 @@ namespace JPAR.Infrastructure.Context
         public DbSet<User> Users { get; set; }
         public DbSet<UniversityDegree> UniversityDegrees { get; set; }
         public DbSet<OnlinePresence> OnlinePresences { get; set; }
+
+        public DbSet<Skill> Skills { get; set; }
+        public DbSet<Experience> Experiences { get; set; }
+
     }
 }
