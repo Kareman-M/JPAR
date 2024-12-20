@@ -19,7 +19,7 @@ namespace JPAR.Service.Services.Authentication
         {
             List<Claim> claims = new()
         {
-            new ("id", user.Id.ToString()),
+            new ("userId", user.Id.ToString()),
             new (ClaimTypes.Email, user?.Email??""),
             new (ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
         };

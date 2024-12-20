@@ -47,17 +47,16 @@ namespace JPAR.API.Controllers
         }
 
         [HttpPut("UpdateEducation")]
-        public IActionResult UpdateEducation(
-    [FromBody] List<UpdateUniversityDegreeDTO> universityDegrees,
-    [FromBody] List<UpdateCertificationDTO> certifications,
-    [FromQuery] string userId)
+        public IActionResult UpdateEducation([FromBody]UpdateEducationDTO updateEducation)
         {
-            return Ok(_applicantService.UpdateEducation(universityDegrees, certifications, userId));
+            var userId = "";
+            return Ok(_applicantService.UpdateEducation(updateEducation, userId));
         }
 
         [HttpPut("UpdateOnlinePresence")]
-        public IActionResult UpdateOnlinePresence([FromBody] List<UpdateOnlinePresenceDTO> onlinePresences, [FromQuery] string userId)
+        public IActionResult UpdateOnlinePresence([FromBody] List<UpdateOnlinePresenceDTO> onlinePresences)
         {
+            var userId = "";
             return Ok(_applicantService.UpdateOnlinePresence(userId, onlinePresences));
         }
 
@@ -69,7 +68,5 @@ namespace JPAR.API.Controllers
 
             return Ok(_applicantService.UpdateAchievements(achievements));
         }
-
-
     }
 }

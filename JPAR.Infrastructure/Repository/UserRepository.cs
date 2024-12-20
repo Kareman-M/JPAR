@@ -17,14 +17,24 @@ namespace JPAR.Infrastructure.Repository
 
         public async Task<IdentityResult> Register(User user, UserType userType)
         {
-            var result = await _userManager.CreateAsync(user, user.PasswordHash);
-            if (result.Succeeded)
+            try
             {
-                _context.UserRoles.Add(new IdentityUserRole<string>() { RoleId = userType.ToString(), UserId = user.Id });
-            }
-            await _context.SaveChangesAsync();
+                var password = user.PasswordHash;
+                user.PasswordHash = null;
+                var result = await _userManager.CreateAsync(user, password);
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, userType.ToString());
+                    //_context.UserRoles.Add(new IdentityUserRole<string>() { RoleId = userType.ToString(), UserId = user.Id });
+                }
+                await _context.SaveChangesAsync();
 
-            return result;
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

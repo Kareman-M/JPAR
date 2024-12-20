@@ -223,3 +223,7 @@
 /JPAR.Service/bin/Debug/net8.0/JPAR.Service.deps.json
 /JPAR.Service/bin/Debug/net8.0/JPAR.Service.pdb
 /JPAR.Service/obj/Debug/net8.0/JPAR.Service.GeneratedMSBuildEditorConfig.editorconfig
+/.vs/JPAR/v17/DocumentLayout.backup.json
+/.vs/ProjectEvaluation/jpar.metadata.v9.bin
+/.vs/ProjectEvaluation/jpar.projects.v9.bin
+/.vs/ProjectEvaluation/jpar.strings.v9.bin

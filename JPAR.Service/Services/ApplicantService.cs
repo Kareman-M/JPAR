@@ -59,14 +59,14 @@ namespace JPAR.Service.Services
         }
 
 
-        public bool UpdateEducation(List<UpdateUniversityDegreeDTO> universityDegrees, List<UpdateCertificationDTO> certifications, string userId)
+        public bool UpdateEducation(UpdateEducationDTO updateEducation, string userId)
         {
             var applicant = _applicantRepository.GetByUserId(userId);
             if (applicant == null) return false;
 
             // Update University Degrees
             applicant.UniversityDegrees.Clear();
-            applicant.UniversityDegrees = universityDegrees.Select(d => new UniversityDegree
+            applicant.UniversityDegrees = updateEducation.UniversityDegrees.Select(d => new UniversityDegree
             {
                 Id = d.Id ?? 0,
                 DegreeLevel = d.DegreeLevel,
@@ -80,7 +80,7 @@ namespace JPAR.Service.Services
 
             // Update Certifications
             applicant.Certifications.Clear();
-            applicant.Certifications = certifications.Select(c => new Certification
+            applicant.Certifications = updateEducation.Certifications.Select(c => new Certification
             {
                 Id = c.Id ?? 0,
                 Name = c.Name,
@@ -199,8 +199,8 @@ namespace JPAR.Service.Services
         private Applicant UpdateInfo(Applicant applicant, UpdateApplicantGeneralInfoDTO applicantDto)
         {
 
-            applicant.FirstName = applicantDto.FirstName;
-            applicant.LastName = applicantDto.LastName;
+            applicant.User.FirstName = applicantDto.FirstName;
+            applicant.User.LastName = applicantDto.LastName;
             applicant.Birthdate = applicantDto.Birthdate;
             applicant.Area = applicantDto.Area;
             applicant.Gender = applicantDto.Gender;
