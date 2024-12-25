@@ -15,10 +15,16 @@ namespace JPAR.API.Controllers
             _userService = userService;
         }
 
-        [HttpPost("Register")]
+        [HttpPost("ApplicantRegister")]
         public IActionResult Register(UserRegistrationDTO userDto)
         {
-            return Ok(_userService.Register(userDto));
+            return Ok(_userService.Register(userDto, Infrastructure.Enums.UserType.Applicant));
+        }
+
+        [HttpPost("RecruiterRegister")]
+        public IActionResult RecruiterRegister(UserRegistrationDTO userDto )
+        {
+            return Ok(_userService.Register(userDto, Infrastructure.Enums.UserType.Recruiter));
         }
 
 

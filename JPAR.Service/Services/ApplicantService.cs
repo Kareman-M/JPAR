@@ -34,7 +34,6 @@ namespace JPAR.Service.Services
             return _applicantRepository.Update(applicant);
         }
 
-
         public bool UpdateOnlinePresence(string userId, List<UpdateOnlinePresenceDTO> onlinePresences)
         {
             var applicant = _applicantRepository.GetByUserId(userId);
@@ -57,7 +56,6 @@ namespace JPAR.Service.Services
 
             return _applicantRepository.Update(applicant);
         }
-
 
         public bool UpdateEducation(UpdateEducationDTO updateEducation, string userId)
         {
@@ -95,7 +93,6 @@ namespace JPAR.Service.Services
             return _applicantRepository.Update(applicant);
         }
 
-
         public bool UpdateSkills(UpdateSkillsDTO updateSkills)
         {
             var applicant = _applicantRepository.GetByUserId(updateSkills.UserId);
@@ -115,7 +112,6 @@ namespace JPAR.Service.Services
 
             return _applicantRepository.Update(applicant);
         }
-
 
         public bool UpdateExperience(UpdateExperienceDTO updateExperience)
         {
@@ -147,7 +143,6 @@ namespace JPAR.Service.Services
 
             return _applicantRepository.Update(applicant);
         }
-
 
         public bool UpdateCv(UpdateCvDTO updateCv)
         {
@@ -186,7 +181,6 @@ namespace JPAR.Service.Services
             applicant.DesiredNetSalaryPerMonth = updateCareerInterest.DesiredNetSalaryPerMonth;
 
             return _applicantRepository.Update(applicant);
-
         }
 
         public bool UpdateGenralInfo(UpdateApplicantGeneralInfoDTO applicantDto)
@@ -198,15 +192,21 @@ namespace JPAR.Service.Services
 
         private Applicant UpdateInfo(Applicant applicant, UpdateApplicantGeneralInfoDTO applicantDto)
         {
-
             applicant.User.FirstName = applicantDto.FirstName;
             applicant.User.LastName = applicantDto.LastName;
             applicant.Birthdate = applicantDto.Birthdate;
+            applicant.User.PhoneNumber = applicantDto.MobileNumber;
             applicant.Area = applicantDto.Area;
             applicant.Gender = applicantDto.Gender;
+            applicant.Nationality = applicantDto.Nationality;
+            applicant.MaritalStatus = applicantDto.MaritalStatus;
+            applicant.Country = applicantDto.Country;
+            applicant.City = applicantDto.City;
+            applicant.Area = applicantDto.Area;
+            applicant.PostalCode = applicantDto.PostalCode;
+            applicant.AlternativeMobileNumber = applicantDto.AlternativeMobileNumber;
 
             return applicant;
         }
     }
-
 }

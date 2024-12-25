@@ -1,5 +1,6 @@
 ﻿using JPAR.Infrastructure.Context;
 using JPAR.Infrastructure.IRepository;
+using Microsoft.EntityFrameworkCore;
 
 namespace JPAR.Infrastructure.Repository
 {
@@ -33,7 +34,7 @@ namespace JPAR.Infrastructure.Repository
 
         public Applicant GetByUserId(string userId)
         {
-            return _context.Applicants.FirstOrDefault(x => x.UserId == userId);
+            return _context.Applicants.Include(x=> x.User).FirstOrDefault(x => x.UserId == userId);
         }
 
         public bool Update(Applicant applicant)

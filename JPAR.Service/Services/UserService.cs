@@ -51,7 +51,7 @@ namespace JPAR.Service.Services
             else return null;
         }
 
-        public  Task<IdentityResult> Register(UserRegistrationDTO userModel)
+        public  Task<IdentityResult> Register(UserRegistrationDTO userModel, UserType userType)
         {
             bool addApplicantResult;
             IdentityResult result;
@@ -69,8 +69,8 @@ namespace JPAR.Service.Services
                 result =  _userManager.CreateAsync(user, userModel.Password).Result;
                 if (result.Succeeded)
                 {
-                     _userManager.AddToRoleAsync(user, userModel.UserType.ToString());
-                    if (userModel.UserType == UserType.Applicant)  addApplicantResult = _applicantRepository.Add(user.Id);
+                     _userManager.AddToRoleAsync(user, userType.ToString());
+                    if (userType == UserType.Applicant)  addApplicantResult = _applicantRepository.Add(user.Id);
                 }
            //}
             return null;

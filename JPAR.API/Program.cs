@@ -12,6 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDBContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection")),ServiceLifetime.Transient);
 builder.Services.AddInjectUtility();
+builder.Services.AddCorsUtility(builder.Configuration);
 var app = builder.Build();
 
 

@@ -9,10 +9,5 @@
         public List<string> JobTitles { get; set; }
         public List<string> JobCategories { get; set; }
         public decimal DesiredNetSalaryPerMonth { get; set; }
-     
-
-
-
-
     }
 }
