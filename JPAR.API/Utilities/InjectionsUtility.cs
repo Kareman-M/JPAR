@@ -19,22 +19,26 @@ namespace JPAR.API.Utilities
         internal static IServiceCollection AddInjectUtility(this IServiceCollection services)
         => services.InjectServices().InjectReposytories().InjectUserIdentity().AddSecurityUtility();
 
-
         private static IServiceCollection InjectReposytories(this IServiceCollection services)
         {
-            services.AddScoped<IApplicantRepository, ApplicantRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
+            services
+                .AddScoped<IApplicantRepository, ApplicantRepository>()
+                .AddScoped<IUserRepository, UserRepository>()
+                .AddScoped<IRecruiterRepository,RecruiterRepository>()
+                .AddScoped<IJobPostRepository, JobPostRepository>();
             return services;
         }
 
         private static IServiceCollection InjectServices(this IServiceCollection services)
         {
-            services.AddScoped<IApplicantService, ApplicantService>();
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IAuthenticatorService, AuthenticatorService>();
-            services.AddScoped<IAccessTokenGeneratorService, AccessTokenGeneratorService>();
-            services.AddScoped<IRefreshTokenGeneratorService, RefreshTokenGeneratorService>();
-            services.AddScoped<ITokenGeneratorService, TokenGeneratorService>();
+            services
+                .AddScoped<IApplicantService, ApplicantService>()
+                .AddScoped<IUserService, UserService>()
+                .AddScoped<IJobPostService, JobPostService>()
+                .AddScoped<IAuthenticatorService, AuthenticatorService>()
+                .AddScoped<IAccessTokenGeneratorService, AccessTokenGeneratorService>()
+                .AddScoped<IRefreshTokenGeneratorService, RefreshTokenGeneratorService>()
+                .AddScoped<ITokenGeneratorService, TokenGeneratorService>();
             return services;
         }
 
@@ -52,7 +56,6 @@ namespace JPAR.API.Utilities
 
             return services;
         }
-
 
         public static IServiceCollection AddSecurityUtility(this IServiceCollection services)
         {
