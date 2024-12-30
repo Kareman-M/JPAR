@@ -16,6 +16,7 @@ namespace JPAR.API.Controllers
             _jobPostService = jobPostService;
         }
 
+        [HttpPost("Add")]
         public IActionResult Add(AddJobPostDTO addJobPostDTO)
         {
             var userId = "";
