@@ -48,6 +48,13 @@ namespace JPAR.Infrastructure.Migrations
                     b.Property<string>("Country")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal?>("DesiredNetSalaryPerMonth")
                         .HasColumnType("decimal(18,2)");
 
@@ -240,7 +247,7 @@ namespace JPAR.Infrastructure.Migrations
                     b.ToTable("Experiences");
                 });
 
-            modelBuilder.Entity("JPAR.Infrastructure.Models.JobPost", b =>
+            modelBuilder.Entity("JPAR.Infrastructure.Models.Job", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -260,6 +267,13 @@ namespace JPAR.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -373,15 +387,15 @@ namespace JPAR.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9816af4d-9239-41d6-8ab5-b384fe30f56a",
-                            ConcurrencyStamp = "0c0fe544-bb05-4a85-a944-aec809ed62c9",
+                            Id = "191badb4-9708-4924-a646-88af697efb3b",
+                            ConcurrencyStamp = "93a5a3ac-0de2-4150-b14c-91c66270137e",
                             Name = "Applicant",
                             NormalizedName = "APPLICANT"
                         },
                         new
                         {
-                            Id = "48e27911-3242-496a-ab98-06561bb3a8f6",
-                            ConcurrencyStamp = "dc1cff0e-dd8a-4543-82a8-78e08b8c5f39",
+                            Id = "084ecc7e-918b-44c2-8d7f-ca286aced42c",
+                            ConcurrencyStamp = "2722a0ac-6827-492e-ba1a-b409d72ed6a7",
                             Name = "Recruiter",
                             NormalizedName = "RECRUITER"
                         });
@@ -578,6 +592,17 @@ namespace JPAR.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("CompanyName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -738,7 +763,7 @@ namespace JPAR.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("JPAR.Infrastructure.Models.JobPost", "JobPost")
+                    b.HasOne("JPAR.Infrastructure.Models.Job", "JobPost")
                         .WithMany()
                         .HasForeignKey("JobPostId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -760,7 +785,7 @@ namespace JPAR.Infrastructure.Migrations
                     b.Navigation("Applicant");
                 });
 
-            modelBuilder.Entity("JPAR.Infrastructure.Models.JobPost", b =>
+            modelBuilder.Entity("JPAR.Infrastructure.Models.Job", b =>
                 {
                     b.HasOne("Recruiter", "Recruiter")
                         .WithMany("Jobs")
