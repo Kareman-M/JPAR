@@ -1,13 +1,7 @@
-﻿using JPAR.Infrastructure.Enums;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace JPAR.Infrastructure.Models
+﻿namespace JPAR.Service.DTOs
 {
-    public class JobPost
+    public class AddJobDTO
     {
-        [Key]
-        public int Id { get; set; }
         public string Title { get; set; }
         public List<string> Categories { get; set; }
         public List<JobType> JobTypes { get; set; }
@@ -20,12 +14,7 @@ namespace JPAR.Infrastructure.Models
         public decimal MaxSalaryRange { get; set; }
         public bool HideSalary { get; set; }
         public string AdditinalSalaryDetails { get; set; }
-        public JobPostStatus Status { get; set; }
         public int NumberOfVecancy { get; set; }
         public string JobDescription { get; set; }
-        public int RecruiterId { get; set; }
-
-        [ForeignKey(nameof(RecruiterId))]
-        public Recruiter Recruiter { get; set; }
     }
 }

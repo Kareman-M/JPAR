@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-public class Applicant
+public class Applicant : BaseModel
 {
     [Key]
     public int Id { get; set; }

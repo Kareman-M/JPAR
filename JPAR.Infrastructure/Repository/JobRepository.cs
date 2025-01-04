@@ -5,23 +5,23 @@ using JPAR.Infrastructure.Models;
 
 namespace JPAR.Infrastructure.Repository
 {
-    public class JobPostRepository : IJobPostRepository
+    public class JobRepository : IJobRepository
     {
 
         public ApplicationDBContext _context;
 
-        public JobPostRepository(ApplicationDBContext context)
+        public JobRepository(ApplicationDBContext context)
         {
             _context = context;
         }
 
-        public bool Add(JobPost jobPost)
+        public bool Add(Job jobPost)
         {
             _context.JobPosts.Add(jobPost);
             return _context.SaveChanges() > 0;
         }
 
-        public bool ChangeStatus(int jobPostId, JobPostStatus jobPostStatus)
+        public bool ChangeStatus(int jobPostId, JobStatus jobPostStatus)
         {
             var jobPost = _context.JobPosts.FirstOrDefault(x => x.Id == jobPostId);
             if(jobPost is null) return false;
@@ -29,7 +29,12 @@ namespace JPAR.Infrastructure.Repository
             return _context.SaveChanges() >0;
         }
 
-        public List<JobPost> GetByUserId(string userId)
+        public IQueryable<Job> GetAll()
+        {
+            return _context.JobPosts.AsQueryable();
+        }
+
+        public List<Job> GetByUserId(string userId)
         {
             var recruiterId = _context.Recruiters.FirstOrDefault(x => x.UserId == userId)?.Id;
             return _context.JobPosts.Where(x => x.RecruiterId == recruiterId).ToList();

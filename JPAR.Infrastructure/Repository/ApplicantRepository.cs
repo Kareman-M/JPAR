@@ -17,6 +17,8 @@ namespace JPAR.Infrastructure.Repository
         {
             var applicant = new Applicant();
             applicant.UserId = userId;
+            applicant.CreatedBy = userId;
+            applicant.CreatedAt = DateTime.Now;
             _context.Applicants.Add(applicant);
             return _context.SaveChanges() > 0;
         }

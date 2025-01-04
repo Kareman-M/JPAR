@@ -12,6 +12,6 @@ namespace JPAR.Infrastructure.Models
         public Applicant Applicant { get; set; }
         public int JobPostId { get; set; }
         [ForeignKey(nameof(JobPostId))]
-        public JobPost JobPost { get; set; }
+        public Job JobPost { get; set; }
     }
 }

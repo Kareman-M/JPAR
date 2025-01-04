@@ -7,24 +7,24 @@ namespace JPAR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class JobPostController : ControllerBase
+    public class JobController : ControllerBase
     {
-        private readonly IJobPostService _jobPostService;
+        private readonly IJobService _jobPostService;
 
-        public JobPostController(IJobPostService jobPostService)
+        public JobController(IJobService jobPostService)
         {
             _jobPostService = jobPostService;
         }
 
         [HttpPost("Add")]
-        public IActionResult Add(AddJobPostDTO addJobPostDTO)
+        public IActionResult Add(AddJobDTO addJobPostDTO)
         {
             var userId = "";
             return Ok(_jobPostService.Add(addJobPostDTO, userId));
         }
 
         [HttpPut("ChangeStstus")]
-        public IActionResult ChangeStstus(int jobPostId, JobPostStatus jobPostStatus)
+        public IActionResult ChangeStstus(int jobPostId, JobStatus jobPostStatus)
         {
             return Ok(_jobPostService.ChangeStatus(jobPostId, jobPostStatus));
         }
@@ -34,6 +34,13 @@ namespace JPAR.API.Controllers
         {
             var userId = "";
             return Ok(_jobPostService.GetByUserId(userId));
+        }
+
+        [HttpPost("GetApplicantJobs")]
+        public IActionResult GetApplicantJobs(ApplicantJobFilterDTO filter)
+        {
+            var userId = "";
+            return Ok(_jobPostService.GetApplicantMatchedJobs(filter, userId));
         }
     }
 }

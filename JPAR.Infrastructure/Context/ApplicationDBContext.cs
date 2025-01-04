@@ -19,7 +19,7 @@ namespace JPAR.Infrastructure.Context
         public DbSet<OnlinePresence> OnlinePresences { get; set; }
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Experience> Experiences { get; set; }
-        public DbSet<JobPost> JobPosts { get; set; }
+        public DbSet<Job> JobPosts { get; set; }
         public DbSet<ApplicantJob> ApplicantJob { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
