@@ -4,6 +4,7 @@ using JPAR.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JPAR.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250104112945_addbaseModel")]
+    partial class addbaseModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -387,15 +390,15 @@ namespace JPAR.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8cfa56e3-a327-4ff3-ab44-6466b52436fc",
-                            ConcurrencyStamp = "f75e9477-c977-4fcf-a4c1-74bc62749163",
+                            Id = "191badb4-9708-4924-a646-88af697efb3b",
+                            ConcurrencyStamp = "93a5a3ac-0de2-4150-b14c-91c66270137e",
                             Name = "Applicant",
                             NormalizedName = "APPLICANT"
                         },
                         new
                         {
-                            Id = "e12a5a55-5fd6-45ed-8cb0-87ff332782a3",
-                            ConcurrencyStamp = "22746457-3a74-41b9-a5d1-a7b1013448a6",
+                            Id = "084ecc7e-918b-44c2-8d7f-ca286aced42c",
+                            ConcurrencyStamp = "2722a0ac-6827-492e-ba1a-b409d72ed6a7",
                             Name = "Recruiter",
                             NormalizedName = "RECRUITER"
                         });
@@ -719,9 +722,6 @@ namespace JPAR.Infrastructure.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
-
-                    b.Property<int>("UserType")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

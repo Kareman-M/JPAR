@@ -17,13 +17,14 @@ namespace JPAR.Service.Services.Authentication
 
         public AccessTokenModel GenerateToken(User user, List<Claim> permissionsClaims)
         {
-            List<Claim> claims = new()
-        {
+            List<Claim> claims =
+        [
             new ("userId", user.Id.ToString()),
+            new ("userType", user.UserType.ToString()),
             new (ClaimTypes.Email, user?.Email??""),
             new (ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
-        };
-            claims.AddRange(permissionsClaims);
+            .. permissionsClaims,
+        ];
 
             DateTime expirationTime = DateTime.Now.AddMinutes(_jwtConfiguration.AccessTokenExpirationDurationMinutes);
             string value = _tokenGenerator.GenerateToken(

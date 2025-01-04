@@ -30,7 +30,8 @@ namespace JPAR.Service.Services.Authentication
                 FullName = $"{user.FirstName} {user.LastName}",
                 UserId = user.Id,
                 Email = user.Email,
-                UserName = user.UserName
+                UserName = user.UserName,
+                UserType = user.UserType,
             };
         }
     }

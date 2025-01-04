@@ -6,7 +6,6 @@ using JPAR.Service.IServices.IAuthentication;
 using JPAR.Service.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
-using System.Transactions;
 
 namespace JPAR.Service.Services
 {
@@ -28,30 +27,30 @@ namespace JPAR.Service.Services
 
         public async Task<AuthenticatedUserModel> Login(UserLoginDTO userLogin)
         {
-            var user =  _userManager.FindByEmailAsync(userLogin.Email).Result;
+            var user = _userManager.FindByEmailAsync(userLogin.Email).Result;
             var isCorrectPassword = _userManager.CheckPasswordAsync(user, userLogin.Password).Result;
             if (!isCorrectPassword)
             {
                 await _userManager.AccessFailedAsync(user);
-                return null; 
+                return null;
             }
 
-             _ = _userManager.UpdateSecurityStampAsync(user).Result;
-           
-             _ =  _userManager.ResetAccessFailedCountAsync(user).Result;
-            
+            _ = _userManager.UpdateSecurityStampAsync(user).Result;
+
+            _ = _userManager.ResetAccessFailedCountAsync(user).Result;
+
             if (user is not null)
             {
-                var claims = new List<Claim>{ new("role", ( _userManager.GetRolesAsync(user))?.Result?.FirstOrDefault())};
+                var claims = new List<Claim> { new("role", (_userManager.GetRolesAsync(user))?.Result?.FirstOrDefault()) };
                 AuthenticatedUserModel response = await _authenticator.Authenticate(user, claims);
 
                 return response;
             }
-            
+
             else return null;
         }
 
-        public  Task<IdentityResult> Register(UserRegistrationDTO userModel, UserType userType)
+        public Task<IdentityResult> Register(UserRegistrationDTO userModel, UserType userType)
         {
             bool addApplicantResult;
             IdentityResult result;
@@ -62,17 +61,15 @@ namespace JPAR.Service.Services
                 Email = userModel.Email,
                 FirstName = userModel.FirstName,
                 LastName = userModel.LastName,
-                UserName = userModel.Email.Split("@")[0].ToLower()
+                UserName = userModel.Email.Split("@")[0].ToLower(),
+                UserType = userType,
             };
-            //using (var scpoe = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-            //{
-                result =  _userManager.CreateAsync(user, userModel.Password).Result;
-                if (result.Succeeded)
-                {
-                     _userManager.AddToRoleAsync(user, userType.ToString());
-                    if (userType == UserType.Applicant)  addApplicantResult = _applicantRepository.Add(user.Id);
-                }
-           //}
+            result = _userManager.CreateAsync(user, userModel.Password).Result;
+            if (result.Succeeded)
+            {
+                _userManager.AddToRoleAsync(user, userType.ToString());
+                if (userType == UserType.Applicant) addApplicantResult = _applicantRepository.Add(user.Id);
+            }
             return null;
         }
     }
