@@ -50,7 +50,7 @@ namespace JPAR.Service.Services
             else return null;
         }
 
-        public Task<IdentityResult> Register(UserRegistrationDTO userModel, UserType userType)
+        public Task<IdentityResult> Register(ApplicantRegistrationDTO userModel, UserType userType)
         {
             bool addApplicantResult;
             IdentityResult result;

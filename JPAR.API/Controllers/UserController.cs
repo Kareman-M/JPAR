@@ -16,22 +16,21 @@ namespace JPAR.API.Controllers
         }
 
         [HttpPost("ApplicantRegister")]
-        public IActionResult Register(UserRegistrationDTO userDto)
+        public async Task<IActionResult> RegisterAsync(ApplicantRegistrationDTO userDto)
         {
-            return Ok(_userService.Register(userDto, Infrastructure.Enums.UserType.Applicant));
+            return Ok(await _userService.Register(userDto, Infrastructure.Enums.UserType.Applicant));
         }
 
         [HttpPost("RecruiterRegister")]
-        public IActionResult RecruiterRegister(UserRegistrationDTO userDto )
+        public async Task<IActionResult> RecruiterRegisterAsync(ApplicantRegistrationDTO userDto )
         {
-            return Ok(_userService.Register(userDto, Infrastructure.Enums.UserType.Recruiter));
+            return Ok(await _userService.Register(userDto, Infrastructure.Enums.UserType.Recruiter));
         }
 
-
         [HttpPost("Login")]
-        public IActionResult Login(UserLoginDTO userLogin)
+        public async Task<IActionResult> LoginAsync(UserLoginDTO userLogin)
         {
-            var result = _userService.Login(userLogin);
+            var result = await _userService.Login(userLogin);
             return result is not null ? Ok(result): BadRequest("Email Or Password Is Not Correct");
         }
     }

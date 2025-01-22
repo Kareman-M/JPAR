@@ -8,6 +8,6 @@ namespace JPAR.Service.IServices
     public interface IUserService
     {
         Task<AuthenticatedUserModel> Login(UserLoginDTO userLogin);
-        Task<IdentityResult> Register(UserRegistrationDTO userModel, UserType userType);
+        Task<IdentityResult> Register(ApplicantRegistrationDTO userModel, UserType userType);
     }
 }
