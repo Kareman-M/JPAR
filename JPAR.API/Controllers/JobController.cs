@@ -34,7 +34,7 @@ namespace JPAR.API.Controllers
         {
             var userId = "";
             return Ok(_jobPostService.GetByUserId(userId));
-        }
+        } 
 
         [HttpPost("GetApplicantJobs")]
         public IActionResult GetApplicantJobs(ApplicantJobFilterDTO filter)
@@ -42,5 +42,7 @@ namespace JPAR.API.Controllers
             var userId = "";
             return Ok(_jobPostService.GetApplicantMatchedJobs(filter, userId));
         }
+
+        
     }
 }

@@ -8,6 +8,7 @@ public class Recruiter :BaseModel
     public int Id { get; set; }
     public string UserId { get; set; }
     public string CompanyName { get; set; }
+    public string JobTitle { get; set; }
 
     [ForeignKey(nameof(UserId))]
     public User User { get; set; }

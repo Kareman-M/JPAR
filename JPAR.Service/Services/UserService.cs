@@ -13,16 +13,18 @@ namespace JPAR.Service.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IApplicantRepository _applicantRepository;
+        private readonly IRecruiterRepository _recruiterRepository;
         private readonly IAuthenticatorService _authenticator;
         private readonly UserManager<User> _userManager;
 
 
-        public UserService(IUserRepository userRepository, IApplicantRepository applicantRepository, UserManager<User> userManager, IAuthenticatorService authenticator)
+        public UserService(IUserRepository userRepository, IApplicantRepository applicantRepository, UserManager<User> userManager, IAuthenticatorService authenticator, IRecruiterRepository recruiterRepository)
         {
             _userRepository = userRepository;
             _applicantRepository = applicantRepository;
             _userManager = userManager;
             _authenticator = authenticator;
+            _recruiterRepository = recruiterRepository;
         }
 
         public async Task<AuthenticatedUserModel> Login(UserLoginDTO userLogin)
@@ -50,7 +52,7 @@ namespace JPAR.Service.Services
             else return null;
         }
 
-        public Task<IdentityResult> Register(ApplicantRegistrationDTO userModel, UserType userType)
+        public Task<IdentityResult> ApplicantRegister(ApplicantRegistrationDTO userModel)
         {
             bool addApplicantResult;
             IdentityResult result;
@@ -62,14 +64,40 @@ namespace JPAR.Service.Services
                 FirstName = userModel.FirstName,
                 LastName = userModel.LastName,
                 UserName = userModel.Email.Split("@")[0].ToLower(),
-                UserType = userType,
+                UserType = UserType.Applicant,
             };
             result = _userManager.CreateAsync(user, userModel.Password).Result;
             if (result.Succeeded)
             {
-                _userManager.AddToRoleAsync(user, userType.ToString());
-                if (userType == UserType.Applicant) addApplicantResult = _applicantRepository.Add(user.Id);
+                _userManager.AddToRoleAsync(user, UserType.Applicant.ToString());
+                 addApplicantResult = _applicantRepository.Add(user.Id);
             }
+            return null;
+        }
+
+        public Task<IdentityResult> RecruiterRegister(RecruiterRegistrationDTO userModel)
+        {
+            bool addrecruiterResult;
+            IdentityResult result;
+
+            var user = new User
+            {
+                Id = Guid.NewGuid().ToString(),
+                Email = userModel.Email,
+                FirstName = userModel.FirstName,
+                LastName = userModel.LastName,
+                UserName = userModel.Email.Split("@")[0].ToLower(),
+                UserType = UserType.Recruiter,
+            };
+
+            result = _userManager.CreateAsync(user, userModel.Password).Result;
+
+            if (result.Succeeded)
+            {
+                _userManager.AddToRoleAsync(user, UserType.Recruiter.ToString());
+                addrecruiterResult = _recruiterRepository.Add(user.Id);
+            }
+
             return null;
         }
     }

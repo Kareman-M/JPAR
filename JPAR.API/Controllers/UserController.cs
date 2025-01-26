@@ -18,13 +18,13 @@ namespace JPAR.API.Controllers
         [HttpPost("ApplicantRegister")]
         public async Task<IActionResult> RegisterAsync(ApplicantRegistrationDTO userDto)
         {
-            return Ok(await _userService.Register(userDto, Infrastructure.Enums.UserType.Applicant));
+            return Ok(await _userService.ApplicantRegister(userDto));
         }
 
         [HttpPost("RecruiterRegister")]
-        public async Task<IActionResult> RecruiterRegisterAsync(ApplicantRegistrationDTO userDto )
+        public async Task<IActionResult> RecruiterRegisterAsync(RecruiterRegistrationDTO userDto )
         {
-            return Ok(await _userService.Register(userDto, Infrastructure.Enums.UserType.Recruiter));
+            return Ok(await _userService.RecruiterRegister(userDto));
         }
 
         [HttpPost("Login")]

@@ -4,21 +4,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JPAR.Infrastructure.Models
 {
-    public class ApplicantJob
+    public class ApplicationProcess
     {
         [Key]
         public int Id { get; set; }
-        public int ApplicantId { get; set; }
-        public int JobId { get; set; }
-        public ApplicationStatus Status { get; set; }
+        public ProcessStage ProcessStage { get; set; }
+        public int ApplicantJobId { get; set; }
+        
+        [ForeignKey(nameof(ApplicantJobId))]
+        public ApplicantJob ApplicantJob { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public string Comment { get; set; }
-
-        [ForeignKey(nameof(ApplicantId))]
-        public Applicant Applicant { get; set; }
-
-        [ForeignKey(nameof(JobId))]
-        public Job Job { get; set; }
     }
 }

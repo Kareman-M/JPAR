@@ -4,6 +4,7 @@ using JPAR.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JPAR.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250122193558_removeapplicantJob")]
+    partial class removeapplicantJob
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -106,21 +109,6 @@ namespace JPAR.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Applicants");
-                });
-
-            modelBuilder.Entity("ApplicantJob", b =>
-                {
-                    b.Property<int>("ApplicantsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("JobsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ApplicantsId", "JobsId");
-
-                    b.HasIndex("JobsId");
-
-                    b.ToTable("ApplicantJob");
                 });
 
             modelBuilder.Entity("Certification", b =>
@@ -379,15 +367,15 @@ namespace JPAR.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d910c2b4-650a-462d-b130-0e5f85ac20af",
-                            ConcurrencyStamp = "17f682ea-3f67-48c5-bfb4-3bad776b03a8",
+                            Id = "de8d2363-4f79-483a-b910-f4c93d0fd849",
+                            ConcurrencyStamp = "6c2f8569-c83f-4bce-8a13-1ec00d3ccb83",
                             Name = "Applicant",
                             NormalizedName = "APPLICANT"
                         },
                         new
                         {
-                            Id = "d3e69f53-f753-4bd8-ac24-eb3011502f6b",
-                            ConcurrencyStamp = "4fb91a92-9291-4af4-8e75-66fce7e52212",
+                            Id = "34266ec1-836d-4742-aaff-179e2f02428f",
+                            ConcurrencyStamp = "b224ccaf-be1b-4915-8cea-be842beab56b",
                             Name = "Recruiter",
                             NormalizedName = "RECRUITER"
                         });
@@ -737,21 +725,6 @@ namespace JPAR.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("ApplicantJob", b =>
-                {
-                    b.HasOne("Applicant", null)
-                        .WithMany()
-                        .HasForeignKey("ApplicantsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("JPAR.Infrastructure.Models.Job", null)
-                        .WithMany()
-                        .HasForeignKey("JobsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Certification", b =>
