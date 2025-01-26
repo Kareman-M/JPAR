@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
+[PrimaryKey(nameof(Number), nameof(ApplicantId))]
 public class OnlinePresence
 {
-    [Key]
-    public int Id { get; set; }
+    public int Number { get; set; }
     public Social AccountName { get; set; }
     public string AccountLink { get; set; }
 

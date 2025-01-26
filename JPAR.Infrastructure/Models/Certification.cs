@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
+[PrimaryKey(nameof(Number), nameof(ApplicantId))]
 public class Certification
 {
-    [Key]
-    public int Id { get; set; }
+    public int Number { get; set; }
     public string Name { get; set; }
     public int AwardedYear { get; set; }
     public int AwardedMonth { get; set; }

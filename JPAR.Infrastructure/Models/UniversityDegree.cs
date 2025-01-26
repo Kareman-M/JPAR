@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
+[PrimaryKey(nameof(Number), nameof(ApplicantId))]
 public class UniversityDegree
 {
-    [Key]
-    public int Id { get; set; }
+    public int Number { get; set; }
 
     public DegreeLevel DegreeLevel { get; set; }
     public string Country { get; set; }

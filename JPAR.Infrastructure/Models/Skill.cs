@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.EntityFrameworkCore;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace JPAR.Infrastructure.Models
 {
+    [PrimaryKey(nameof(Number), nameof(ApplicantId))]
     public class Skill
     {
-        public int Id { get; set; }
+        public int Number { get; set; }
         public string SkillName { get; set; }
         public int Proficiency { get; set; } // 1 to 5 stars
         public int Interest { get; set; }    // 1 to 5 stars

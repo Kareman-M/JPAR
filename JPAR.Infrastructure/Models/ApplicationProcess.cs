@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JPAR.Infrastructure.Models
 {
-    public class ApplicationProcess
+    public class ApplicationProcess : BaseModel
     {
         [Key]
         public int Id { get; set; }
@@ -13,8 +13,6 @@ namespace JPAR.Infrastructure.Models
         
         [ForeignKey(nameof(ApplicantJobId))]
         public ApplicantJob ApplicantJob { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
         public string Comment { get; set; }
     }
 }

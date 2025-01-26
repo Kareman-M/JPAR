@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JPAR.Infrastructure.Models
 {
+    [PrimaryKey(nameof(Number), nameof(ApplicantId))]
     public class Experience
     {
-        public int Id { get; set; }
+        public int Number { get; set; }
         public string JobTitle { get; set; }
         public string CompanyName { get; set; }
         public JobType JobType { get; set; }
