@@ -43,6 +43,7 @@ namespace JPAR.Infrastructure.Context
               );
 
             builder.Entity<ApplicantJob>().HasKey(applicantJob => new { applicantJob.ApplicantId, applicantJob.JobId });
+           
             builder.Entity<ApplicationStage>()
                 .HasOne(x=> x.ApplicantJob).WithMany(x=> x.ApplicationStages)
                 .HasForeignKey(x => new { x.ApplicantId, x.JobId });

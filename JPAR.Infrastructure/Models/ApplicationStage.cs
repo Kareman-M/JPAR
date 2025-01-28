@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 namespace JPAR.Infrastructure.Models
 {
-    [PrimaryKey(nameof(ApplicantId), nameof(JobId))]
+    [PrimaryKey(nameof(ApplicantId), nameof(JobId), nameof(Stage))]
     public class ApplicationStage : BaseModel
     {
         public Stage Stage { get; set; }
