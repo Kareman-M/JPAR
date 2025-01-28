@@ -18,5 +18,6 @@ namespace JPAR.Infrastructure.Models
 
         [ForeignKey(nameof(JobId))]
         public Job Job { get; set; }
+        public List<ApplicationStage> ApplicationStages { get; set; }
     }
 }

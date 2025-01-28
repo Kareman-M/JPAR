@@ -47,7 +47,6 @@ namespace JPAR.Service.Services
                 .Where(op => !string.IsNullOrEmpty(op.AccountName)) // Skip if AccountName is null or empty
                 .Select(op => new OnlinePresence
                 {
-                    Id = op.Id ?? 0,
                     AccountName = Enum.TryParse<Social>(op.AccountName, true, out var account)
                                   ? account
                                   : Social.Other, // Use 'Other' or a default enum value
@@ -66,7 +65,6 @@ namespace JPAR.Service.Services
             applicant.UniversityDegrees.Clear();
             applicant.UniversityDegrees = updateEducation.UniversityDegrees.Select(d => new UniversityDegree
             {
-                Id = d.Id ?? 0,
                 DegreeLevel = d.DegreeLevel,
                 Country = d.Country,
                 University = d.University,
@@ -80,7 +78,6 @@ namespace JPAR.Service.Services
             applicant.Certifications.Clear();
             applicant.Certifications = updateEducation.Certifications.Select(c => new Certification
             {
-                Id = c.Id ?? 0,
                 Name = c.Name,
                 AwardedYear = c.AwardedYear,
                 AwardedMonth = c.AwardedMonth,
@@ -102,7 +99,6 @@ namespace JPAR.Service.Services
             applicant.Skills.Clear();
             applicant.Skills = updateSkills.Skills.Select(skill => new Skill
             {
-                Id = skill.Id ?? 0, // Use 0 for new skills
                 SkillName = skill.SkillName,
                 Proficiency = skill.Proficiency,
                 Interest = skill.Interest,
@@ -124,7 +120,6 @@ namespace JPAR.Service.Services
             // Map new experiences
             applicant.Experiences = updateExperience.Experiences.Select(e => new Experience
             {
-                Id = e.Id ?? 0,
                 JobTitle = e.JobTitle,
                 CompanyName = e.CompanyName,
                 JobType = e.JobType,

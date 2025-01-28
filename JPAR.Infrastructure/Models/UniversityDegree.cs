@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 public class UniversityDegree
 {
     public int Number { get; set; }
-
     public DegreeLevel DegreeLevel { get; set; }
     public string Country { get; set; }
     public string University { get; set; }

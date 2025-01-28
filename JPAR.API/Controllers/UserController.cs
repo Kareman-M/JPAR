@@ -22,7 +22,7 @@ namespace JPAR.API.Controllers
         }
 
         [HttpPost("RecruiterRegister")]
-        public async Task<IActionResult> RecruiterRegisterAsync(RecruiterRegistrationDTO userDto )
+        public async Task<IActionResult> RecruiterRegister(RecruiterRegistrationDTO userDto )
         {
             return Ok(await _userService.RecruiterRegister(userDto));
         }
