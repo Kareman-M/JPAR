@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace JPAR.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class initialmigration : Migration
+    public partial class initialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -20,6 +20,7 @@ namespace JPAR.Infrastructure.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserType = table.Column<int>(type: "int", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -85,27 +86,30 @@ namespace JPAR.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Birthdate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Gender = table.Column<int>(type: "int", nullable: false),
-                    Nationality = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MaritalStatus = table.Column<int>(type: "int", nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Area = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MobileNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AlternativeMobileNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Level = table.Column<int>(type: "int", nullable: false),
-                    JobType = table.Column<int>(type: "int", nullable: false),
-                    WorkPlace = table.Column<int>(type: "int", nullable: false),
-                    JobTitles = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    JobCategories = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DesiredNetSalaryPerMonth = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    UploadedCVPath = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    YearsOfExperince = table.Column<int>(type: "int", nullable: false),
-                    EducationLevel = table.Column<int>(type: "int", nullable: false),
-                    Achievements = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    Birthdate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Gender = table.Column<int>(type: "int", nullable: true),
+                    Nationality = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MaritalStatus = table.Column<int>(type: "int", nullable: true),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Area = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MobileNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AlternativeMobileNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Level = table.Column<int>(type: "int", nullable: true),
+                    JobType = table.Column<int>(type: "int", nullable: true),
+                    WorkPlace = table.Column<int>(type: "int", nullable: true),
+                    JobTitles = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    JobCategories = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DesiredNetSalaryPerMonth = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    UploadedCVPath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    YearsOfExperince = table.Column<int>(type: "int", nullable: true),
+                    EducationLevel = table.Column<int>(type: "int", nullable: true),
+                    Achievements = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -115,7 +119,7 @@ namespace JPAR.Infrastructure.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -124,7 +128,12 @@ namespace JPAR.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    JobTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -134,7 +143,7 @@ namespace JPAR.Infrastructure.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -155,7 +164,7 @@ namespace JPAR.Infrastructure.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -175,7 +184,7 @@ namespace JPAR.Infrastructure.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -195,7 +204,7 @@ namespace JPAR.Infrastructure.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -216,7 +225,7 @@ namespace JPAR.Infrastructure.Migrations
                         column: x => x.RoleId,
                         principalTable: "Roles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -234,21 +243,21 @@ namespace JPAR.Infrastructure.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_UserRole_Roles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "Roles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Certifications",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Number = table.Column<int>(type: "int", nullable: false),
+                    ApplicantId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AwardedYear = table.Column<int>(type: "int", nullable: false),
                     AwardedMonth = table.Column<int>(type: "int", nullable: false),
@@ -256,26 +265,25 @@ namespace JPAR.Infrastructure.Migrations
                     ResultOutOfTotal = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CertificateLink = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CertificateID = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AdditionalInfo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ApplicantId = table.Column<int>(type: "int", nullable: false)
+                    AdditionalInfo = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Certifications", x => x.Id);
+                    table.PrimaryKey("PK_Certifications", x => new { x.Number, x.ApplicantId });
                     table.ForeignKey(
                         name: "FK_Certifications_Applicants_ApplicantId",
                         column: x => x.ApplicantId,
                         principalTable: "Applicants",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Experiences",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Number = table.Column<int>(type: "int", nullable: false),
+                    ApplicantId = table.Column<int>(type: "int", nullable: false),
                     JobTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     JobType = table.Column<int>(type: "int", nullable: false),
@@ -289,71 +297,68 @@ namespace JPAR.Infrastructure.Migrations
                     Achievements = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CompanySize = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Industry = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CompanyWebsite = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ApplicantId = table.Column<int>(type: "int", nullable: false)
+                    CompanyWebsite = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Experiences", x => x.Id);
+                    table.PrimaryKey("PK_Experiences", x => new { x.Number, x.ApplicantId });
                     table.ForeignKey(
                         name: "FK_Experiences_Applicants_ApplicantId",
                         column: x => x.ApplicantId,
                         principalTable: "Applicants",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
                 name: "OnlinePresences",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Number = table.Column<int>(type: "int", nullable: false),
+                    ApplicantId = table.Column<int>(type: "int", nullable: false),
                     AccountName = table.Column<int>(type: "int", nullable: false),
-                    AccountLink = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ApplicantId = table.Column<int>(type: "int", nullable: false)
+                    AccountLink = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OnlinePresences", x => x.Id);
+                    table.PrimaryKey("PK_OnlinePresences", x => new { x.Number, x.ApplicantId });
                     table.ForeignKey(
                         name: "FK_OnlinePresences_Applicants_ApplicantId",
                         column: x => x.ApplicantId,
                         principalTable: "Applicants",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Skills",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Number = table.Column<int>(type: "int", nullable: false),
+                    ApplicantId = table.Column<int>(type: "int", nullable: false),
                     SkillName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Proficiency = table.Column<int>(type: "int", nullable: false),
                     Interest = table.Column<int>(type: "int", nullable: false),
                     Justification = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    YearsOfExperience = table.Column<int>(type: "int", nullable: false),
-                    ApplicantId = table.Column<int>(type: "int", nullable: false)
+                    YearsOfExperience = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Skills", x => x.Id);
+                    table.PrimaryKey("PK_Skills", x => new { x.Number, x.ApplicantId });
                     table.ForeignKey(
                         name: "FK_Skills_Applicants_ApplicantId",
                         column: x => x.ApplicantId,
                         principalTable: "Applicants",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
                 name: "UniversityDegrees",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Number = table.Column<int>(type: "int", nullable: false),
+                    ApplicantId = table.Column<int>(type: "int", nullable: false),
                     DegreeLevel = table.Column<int>(type: "int", nullable: false),
                     Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     University = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -361,18 +366,106 @@ namespace JPAR.Infrastructure.Migrations
                     StrtYear = table.Column<int>(type: "int", nullable: false),
                     EndYear = table.Column<int>(type: "int", nullable: false),
                     Grade = table.Column<int>(type: "int", nullable: false),
-                    Info = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ApplicantId = table.Column<int>(type: "int", nullable: false)
+                    Info = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UniversityDegrees", x => x.Id);
+                    table.PrimaryKey("PK_UniversityDegrees", x => new { x.Number, x.ApplicantId });
                     table.ForeignKey(
                         name: "FK_UniversityDegrees_Applicants_ApplicantId",
                         column: x => x.ApplicantId,
                         principalTable: "Applicants",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "JobPosts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Categories = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    JobTypes = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    WorkPlace = table.Column<int>(type: "int", nullable: false),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CareerLevel = table.Column<int>(type: "int", nullable: false),
+                    MinYearsOfExperince = table.Column<int>(type: "int", nullable: false),
+                    MaxYearsOfExperince = table.Column<int>(type: "int", nullable: false),
+                    MinSalaryRange = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    MaxSalaryRange = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    HideSalary = table.Column<bool>(type: "bit", nullable: false),
+                    AdditinalSalaryDetails = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    NumberOfVecancy = table.Column<int>(type: "int", nullable: false),
+                    JobDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RecruiterId = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_JobPosts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_JobPosts_Recruiters_RecruiterId",
+                        column: x => x.RecruiterId,
+                        principalTable: "Recruiters",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ApplicantJob",
+                columns: table => new
+                {
+                    ApplicantId = table.Column<int>(type: "int", nullable: false),
+                    JobId = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    Comment = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApplicantJob", x => new { x.ApplicantId, x.JobId });
+                    table.ForeignKey(
+                        name: "FK_ApplicantJob_Applicants_ApplicantId",
+                        column: x => x.ApplicantId,
+                        principalTable: "Applicants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_ApplicantJob_JobPosts_JobId",
+                        column: x => x.JobId,
+                        principalTable: "JobPosts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ApplicationStage",
+                columns: table => new
+                {
+                    ApplicantId = table.Column<int>(type: "int", nullable: false),
+                    JobId = table.Column<int>(type: "int", nullable: false),
+                    Stage = table.Column<int>(type: "int", nullable: false),
+                    Comment = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApplicationStage", x => new { x.ApplicantId, x.JobId });
+                    table.ForeignKey(
+                        name: "FK_ApplicationStage_ApplicantJob_ApplicantId_JobId",
+                        columns: x => new { x.ApplicantId, x.JobId },
+                        principalTable: "ApplicantJob",
+                        principalColumns: new[] { "ApplicantId", "JobId" },
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.InsertData(
@@ -380,9 +473,14 @@ namespace JPAR.Infrastructure.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "843dc522-61dc-4667-b2bb-b9fc8527c07a", "709ae56a-8b2b-4b47-a6b1-58464bc7d306", "Applicant", "APPLICANT" },
-                    { "c9d93642-c01d-4086-9084-d6aec71085a9", "2ef46851-c55e-43c4-9d4c-4ed7245e4b71", "Recruiter", "RECRUITER" }
+                    { "02323f4f-477a-4566-9159-32662862cfbf", "21e748e5-f9bb-43cd-bec7-405a866bf10e", "Applicant", "APPLICANT" },
+                    { "7d2b15f7-1de6-4f6e-be0a-e0383c6d7b24", "051aaad4-2500-4e1c-aa29-e3ad20a5352c", "Recruiter", "RECRUITER" }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ApplicantJob_JobId",
+                table: "ApplicantJob",
+                column: "JobId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Applicants_UserId",
@@ -410,6 +508,11 @@ namespace JPAR.Infrastructure.Migrations
                 name: "IX_Experiences_ApplicantId",
                 table: "Experiences",
                 column: "ApplicantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_JobPosts_RecruiterId",
+                table: "JobPosts",
+                column: "RecruiterId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OnlinePresences_ApplicantId",
@@ -463,6 +566,9 @@ namespace JPAR.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "ApplicationStage");
+
+            migrationBuilder.DropTable(
                 name: "Certifications");
 
             migrationBuilder.DropTable(
@@ -470,9 +576,6 @@ namespace JPAR.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "OnlinePresences");
-
-            migrationBuilder.DropTable(
-                name: "Recruiters");
 
             migrationBuilder.DropTable(
                 name: "RoleClaim");
@@ -499,10 +602,19 @@ namespace JPAR.Infrastructure.Migrations
                 name: "UserToken");
 
             migrationBuilder.DropTable(
-                name: "Applicants");
+                name: "ApplicantJob");
 
             migrationBuilder.DropTable(
                 name: "Roles");
+
+            migrationBuilder.DropTable(
+                name: "Applicants");
+
+            migrationBuilder.DropTable(
+                name: "JobPosts");
+
+            migrationBuilder.DropTable(
+                name: "Recruiters");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

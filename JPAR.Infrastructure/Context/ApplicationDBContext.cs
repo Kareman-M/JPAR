@@ -20,6 +20,7 @@ namespace JPAR.Infrastructure.Context
         public DbSet<Experience> Experiences { get; set; }
         public DbSet<Job> JobPosts { get; set; }
         public DbSet<ApplicantJob> ApplicantJob { get; set; }
+        public DbSet<ApplicationStage> ApplicationStage { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
@@ -40,6 +41,11 @@ namespace JPAR.Infrastructure.Context
                new IdentityRole { Id = Guid.NewGuid().ToString(), Name = UserType.Applicant.ToString(), NormalizedName = UserType.Applicant.ToString().ToUpper(), ConcurrencyStamp = Guid.NewGuid().ToString() },
                new IdentityRole { Id = Guid.NewGuid().ToString(), Name = UserType.Recruiter.ToString(), NormalizedName = UserType.Recruiter.ToString().ToUpper(), ConcurrencyStamp = Guid.NewGuid().ToString() }
               );
+
+            builder.Entity<ApplicantJob>().HasKey(applicantJob => new { applicantJob.ApplicantId, applicantJob.JobId });
+            builder.Entity<ApplicationStage>()
+                .HasOne(x=> x.ApplicantJob).WithMany(x=> x.ApplicationStages)
+                .HasForeignKey(x => new { x.ApplicantId, x.JobId });
         }
     }
 }

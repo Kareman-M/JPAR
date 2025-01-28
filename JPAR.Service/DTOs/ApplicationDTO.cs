@@ -2,7 +2,8 @@
 {
     public class ApplicationDTO
     {
-        public int ApplicantJobId { get; set; }
+        public int JobId { get; set; }
+        public int ApplicantId { get; set; }
         public ApplicantDTO Applicant { get; set; }
     }
 }

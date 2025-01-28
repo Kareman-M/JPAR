@@ -22,7 +22,8 @@ namespace JPAR.Service.Services
         {
             return _applicantJobRepository.GetByJobId(jobId).Select(x=> new ApplicationDTO
             {
-                ApplicantJobId = x.Id,
+                ApplicantId = x.ApplicantId,
+                JobId = x.JobId,
                 Applicant = new ApplicantDTO 
                 {
                     Achievements = x.Applicant?.Achievements,
@@ -55,7 +56,7 @@ namespace JPAR.Service.Services
             return _applicantJobRepository.GetByApplicantId(applicantId)
                 .Select(x => new ApplicantJobDTO
                 {
-                    Id = x.Id,
+                    ApplicantId = x.ApplicantId,
                     CompanyName = x.Job.Recruiter.CompanyName,
                     JobTitle = x.Job.Title,
                     CreatedAt = x.CreatedAt,

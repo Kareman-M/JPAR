@@ -48,7 +48,7 @@ namespace JPAR.Infrastructure.Repository
 
         public bool UpdateStatus(int jobId, int applicantId, ApplicationStatus newStatus, string comment)
         {
-            var app = _context.ApplicantJob.FirstOrDefault(p => p.Id == jobId && p.ApplicantId == applicantId);
+            var app = _context.ApplicantJob.FirstOrDefault(p => p.JobId == jobId && p.ApplicantId == applicantId);
             if(app is null) return false;
             app.Status = newStatus;
             app.UpdatedAt = DateTime.Now;

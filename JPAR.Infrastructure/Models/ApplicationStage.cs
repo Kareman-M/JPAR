@@ -1,17 +1,13 @@
 ﻿using JPAR.Infrastructure.Enums;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
+using Microsoft.EntityFrameworkCore;
 namespace JPAR.Infrastructure.Models
 {
+    [PrimaryKey(nameof(ApplicantId), nameof(JobId))]
     public class ApplicationStage : BaseModel
     {
-        [Key]
-        public int Id { get; set; }
         public Stage Stage { get; set; }
-        public int ApplicantJobId { get; set; }
-        
-        [ForeignKey(nameof(ApplicantJobId))]
+        public int ApplicantId { get; set; }
+        public int JobId { get; set; }
         public ApplicantJob ApplicantJob { get; set; }
         public string Comment { get; set; }
     }

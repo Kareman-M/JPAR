@@ -52,6 +52,4 @@ public class Applicant : BaseModel
     [ForeignKey(nameof(UserId))]
     public User User { get; set; }
 
-    public List<Job> Jobs { get; }
-
 }

@@ -88,6 +88,9 @@ namespace JPAR.Infrastructure.Migrations
                     b.Property<string>("PostalCode")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("UploadedCVPath")
                         .HasColumnType("nvarchar(max)");
 
@@ -108,35 +111,17 @@ namespace JPAR.Infrastructure.Migrations
                     b.ToTable("Applicants");
                 });
 
-            modelBuilder.Entity("ApplicantJob", b =>
-                {
-                    b.Property<int>("ApplicantsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("JobsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ApplicantsId", "JobsId");
-
-                    b.HasIndex("JobsId");
-
-                    b.ToTable("ApplicantJob");
-                });
-
             modelBuilder.Entity("Certification", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("Number")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<int>("ApplicantId")
+                        .HasColumnType("int");
 
                     b.Property<string>("AdditionalInfo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ApplicantId")
-                        .HasColumnType("int");
 
                     b.Property<int>("AwardedMonth")
                         .HasColumnType("int");
@@ -164,27 +149,86 @@ namespace JPAR.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("Number", "ApplicantId");
 
                     b.HasIndex("ApplicantId");
 
                     b.ToTable("Certifications");
                 });
 
-            modelBuilder.Entity("JPAR.Infrastructure.Models.Experience", b =>
+            modelBuilder.Entity("JPAR.Infrastructure.Models.ApplicantJob", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("ApplicantId")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<int>("JobId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ApplicantId", "JobId");
+
+                    b.HasIndex("JobId");
+
+                    b.ToTable("ApplicantJob");
+                });
+
+            modelBuilder.Entity("JPAR.Infrastructure.Models.ApplicationStage", b =>
+                {
+                    b.Property<int>("ApplicantId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("JobId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Stage")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ApplicantId", "JobId");
+
+                    b.ToTable("ApplicationStage");
+                });
+
+            modelBuilder.Entity("JPAR.Infrastructure.Models.Experience", b =>
+                {
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ApplicantId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Achievements")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ApplicantId")
-                        .HasColumnType("int");
 
                     b.Property<string>("CompanyName")
                         .IsRequired()
@@ -232,7 +276,7 @@ namespace JPAR.Infrastructure.Migrations
                     b.Property<decimal>("StartingSalary")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("Id");
+                    b.HasKey("Number", "ApplicantId");
 
                     b.HasIndex("ApplicantId");
 
@@ -305,6 +349,9 @@ namespace JPAR.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("WorkPlace")
                         .HasColumnType("int");
 
@@ -317,11 +364,8 @@ namespace JPAR.Infrastructure.Migrations
 
             modelBuilder.Entity("JPAR.Infrastructure.Models.Skill", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("Number")
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("ApplicantId")
                         .HasColumnType("int");
@@ -343,7 +387,7 @@ namespace JPAR.Infrastructure.Migrations
                     b.Property<int>("YearsOfExperience")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("Number", "ApplicantId");
 
                     b.HasIndex("ApplicantId");
 
@@ -379,15 +423,15 @@ namespace JPAR.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d910c2b4-650a-462d-b130-0e5f85ac20af",
-                            ConcurrencyStamp = "17f682ea-3f67-48c5-bfb4-3bad776b03a8",
+                            Id = "02323f4f-477a-4566-9159-32662862cfbf",
+                            ConcurrencyStamp = "21e748e5-f9bb-43cd-bec7-405a866bf10e",
                             Name = "Applicant",
                             NormalizedName = "APPLICANT"
                         },
                         new
                         {
-                            Id = "d3e69f53-f753-4bd8-ac24-eb3011502f6b",
-                            ConcurrencyStamp = "4fb91a92-9291-4af4-8e75-66fce7e52212",
+                            Id = "7d2b15f7-1de6-4f6e-be0a-e0383c6d7b24",
+                            ConcurrencyStamp = "051aaad4-2500-4e1c-aa29-e3ad20a5352c",
                             Name = "Recruiter",
                             NormalizedName = "RECRUITER"
                         });
@@ -553,11 +597,11 @@ namespace JPAR.Infrastructure.Migrations
 
             modelBuilder.Entity("OnlinePresence", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("Number")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<int>("ApplicantId")
+                        .HasColumnType("int");
 
                     b.Property<string>("AccountLink")
                         .IsRequired()
@@ -566,10 +610,7 @@ namespace JPAR.Infrastructure.Migrations
                     b.Property<int>("AccountName")
                         .HasColumnType("int");
 
-                    b.Property<int>("ApplicantId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
+                    b.HasKey("Number", "ApplicantId");
 
                     b.HasIndex("ApplicantId");
 
@@ -595,6 +636,13 @@ namespace JPAR.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("JobTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -608,11 +656,8 @@ namespace JPAR.Infrastructure.Migrations
 
             modelBuilder.Entity("UniversityDegree", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("Number")
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("ApplicantId")
                         .HasColumnType("int");
@@ -645,7 +690,7 @@ namespace JPAR.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("Number", "ApplicantId");
 
                     b.HasIndex("ApplicantId");
 
@@ -739,21 +784,6 @@ namespace JPAR.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ApplicantJob", b =>
-                {
-                    b.HasOne("Applicant", null)
-                        .WithMany()
-                        .HasForeignKey("ApplicantsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("JPAR.Infrastructure.Models.Job", null)
-                        .WithMany()
-                        .HasForeignKey("JobsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Certification", b =>
                 {
                     b.HasOne("Applicant", "Applicant")
@@ -763,6 +793,36 @@ namespace JPAR.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Applicant");
+                });
+
+            modelBuilder.Entity("JPAR.Infrastructure.Models.ApplicantJob", b =>
+                {
+                    b.HasOne("Applicant", "Applicant")
+                        .WithMany()
+                        .HasForeignKey("ApplicantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("JPAR.Infrastructure.Models.Job", "Job")
+                        .WithMany()
+                        .HasForeignKey("JobId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Applicant");
+
+                    b.Navigation("Job");
+                });
+
+            modelBuilder.Entity("JPAR.Infrastructure.Models.ApplicationStage", b =>
+                {
+                    b.HasOne("JPAR.Infrastructure.Models.ApplicantJob", "ApplicantJob")
+                        .WithMany("ApplicationStages")
+                        .HasForeignKey("ApplicantId", "JobId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicantJob");
                 });
 
             modelBuilder.Entity("JPAR.Infrastructure.Models.Experience", b =>
@@ -893,6 +953,11 @@ namespace JPAR.Infrastructure.Migrations
                     b.Navigation("Skills");
 
                     b.Navigation("UniversityDegrees");
+                });
+
+            modelBuilder.Entity("JPAR.Infrastructure.Models.ApplicantJob", b =>
+                {
+                    b.Navigation("ApplicationStages");
                 });
 
             modelBuilder.Entity("Recruiter", b =>
