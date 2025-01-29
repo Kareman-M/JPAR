@@ -52,7 +52,7 @@ namespace JPAR.Service.Services
             else return null;
         }
 
-        public Task<IdentityResult> ApplicantRegister(ApplicantRegistrationDTO userModel)
+        public async Task<IdentityResult> ApplicantRegister(ApplicantRegistrationDTO userModel)
         {
             bool addApplicantResult;
             IdentityResult result;
@@ -69,13 +69,13 @@ namespace JPAR.Service.Services
             result = _userManager.CreateAsync(user, userModel.Password).Result;
             if (result.Succeeded)
             {
-                _userManager.AddToRoleAsync(user, UserType.Applicant.ToString());
+                 _ = _userManager.AddToRoleAsync(user, UserType.Applicant.ToString()).Result;
                  addApplicantResult = _applicantRepository.Add(user.Id);
             }
-            return null;
+            return result;
         }
 
-        public Task<IdentityResult> RecruiterRegister(RecruiterRegistrationDTO userModel)
+        public async Task<IdentityResult> RecruiterRegister(RecruiterRegistrationDTO userModel)
         {
             bool addrecruiterResult;
             IdentityResult result;
@@ -94,11 +94,11 @@ namespace JPAR.Service.Services
 
             if (result.Succeeded)
             {
-                _userManager.AddToRoleAsync(user, UserType.Recruiter.ToString());
-                addrecruiterResult = _recruiterRepository.Add(user.Id);
+                _ =_userManager.AddToRoleAsync(user, UserType.Recruiter.ToString()).Result;
+                addrecruiterResult = _recruiterRepository.Add(user.Id,userModel.CompanyName, userModel.JobTitle );
             }
 
-            return null;
+            return result;
         }
     }
 }

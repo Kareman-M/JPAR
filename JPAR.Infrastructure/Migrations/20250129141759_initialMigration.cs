@@ -282,7 +282,8 @@ namespace JPAR.Infrastructure.Migrations
                 name: "Experiences",
                 columns: table => new
                 {
-                    Number = table.Column<int>(type: "int", nullable: false),
+                    Number = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ApplicantId = table.Column<int>(type: "int", nullable: false),
                     JobTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -314,7 +315,8 @@ namespace JPAR.Infrastructure.Migrations
                 name: "OnlinePresences",
                 columns: table => new
                 {
-                    Number = table.Column<int>(type: "int", nullable: false),
+                    Number = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ApplicantId = table.Column<int>(type: "int", nullable: false),
                     AccountName = table.Column<int>(type: "int", nullable: false),
                     AccountLink = table.Column<string>(type: "nvarchar(max)", nullable: false)
@@ -334,7 +336,8 @@ namespace JPAR.Infrastructure.Migrations
                 name: "Skills",
                 columns: table => new
                 {
-                    Number = table.Column<int>(type: "int", nullable: false),
+                    Number = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ApplicantId = table.Column<int>(type: "int", nullable: false),
                     SkillName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Proficiency = table.Column<int>(type: "int", nullable: false),
@@ -357,7 +360,8 @@ namespace JPAR.Infrastructure.Migrations
                 name: "UniversityDegrees",
                 columns: table => new
                 {
-                    Number = table.Column<int>(type: "int", nullable: false),
+                    Number = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ApplicantId = table.Column<int>(type: "int", nullable: false),
                     DegreeLevel = table.Column<int>(type: "int", nullable: false),
                     Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -449,9 +453,9 @@ namespace JPAR.Infrastructure.Migrations
                 name: "ApplicationStage",
                 columns: table => new
                 {
+                    Stage = table.Column<int>(type: "int", nullable: false),
                     ApplicantId = table.Column<int>(type: "int", nullable: false),
                     JobId = table.Column<int>(type: "int", nullable: false),
-                    Stage = table.Column<int>(type: "int", nullable: false),
                     Comment = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -459,7 +463,7 @@ namespace JPAR.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ApplicationStage", x => new { x.ApplicantId, x.JobId });
+                    table.PrimaryKey("PK_ApplicationStage", x => new { x.ApplicantId, x.JobId, x.Stage });
                     table.ForeignKey(
                         name: "FK_ApplicationStage_ApplicantJob_ApplicantId_JobId",
                         columns: x => new { x.ApplicantId, x.JobId },
@@ -473,8 +477,8 @@ namespace JPAR.Infrastructure.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "02323f4f-477a-4566-9159-32662862cfbf", "21e748e5-f9bb-43cd-bec7-405a866bf10e", "Applicant", "APPLICANT" },
-                    { "7d2b15f7-1de6-4f6e-be0a-e0383c6d7b24", "051aaad4-2500-4e1c-aa29-e3ad20a5352c", "Recruiter", "RECRUITER" }
+                    { "780be431-2d4f-4be9-974a-6e73add89a1f", "30874f8b-75d6-41b5-9d9b-a45edd4e39fc", "Recruiter", "RECRUITER" },
+                    { "96edd679-c075-4a87-98b7-c4e5e79bdc38", "248233ef-cd4f-4837-ab08-3aaa28b21875", "Applicant", "APPLICANT" }
                 });
 
             migrationBuilder.CreateIndex(

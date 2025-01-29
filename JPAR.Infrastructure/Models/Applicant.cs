@@ -1,4 +1,5 @@
-﻿using JPAR.Infrastructure.Models;
+﻿using JPAR.Infrastructure.Enums;
+using JPAR.Infrastructure.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

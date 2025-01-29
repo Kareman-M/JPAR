@@ -221,7 +221,10 @@ namespace JPAR.Infrastructure.Migrations
             modelBuilder.Entity("JPAR.Infrastructure.Models.Experience", b =>
                 {
                     b.Property<int>("Number")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Number"));
 
                     b.Property<int>("ApplicantId")
                         .HasColumnType("int");
@@ -365,7 +368,10 @@ namespace JPAR.Infrastructure.Migrations
             modelBuilder.Entity("JPAR.Infrastructure.Models.Skill", b =>
                 {
                     b.Property<int>("Number")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Number"));
 
                     b.Property<int>("ApplicantId")
                         .HasColumnType("int");
@@ -423,15 +429,15 @@ namespace JPAR.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "819a87e9-7179-4be6-b34e-349d9202e471",
-                            ConcurrencyStamp = "69114520-dd10-479f-a20d-3c88723cd0f5",
+                            Id = "96edd679-c075-4a87-98b7-c4e5e79bdc38",
+                            ConcurrencyStamp = "248233ef-cd4f-4837-ab08-3aaa28b21875",
                             Name = "Applicant",
                             NormalizedName = "APPLICANT"
                         },
                         new
                         {
-                            Id = "526fe92b-eef4-46ff-8604-57cfb8396fe5",
-                            ConcurrencyStamp = "9b43f60e-1d8f-4688-b5af-2942e92ddc05",
+                            Id = "780be431-2d4f-4be9-974a-6e73add89a1f",
+                            ConcurrencyStamp = "30874f8b-75d6-41b5-9d9b-a45edd4e39fc",
                             Name = "Recruiter",
                             NormalizedName = "RECRUITER"
                         });
@@ -598,7 +604,10 @@ namespace JPAR.Infrastructure.Migrations
             modelBuilder.Entity("OnlinePresence", b =>
                 {
                     b.Property<int>("Number")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Number"));
 
                     b.Property<int>("ApplicantId")
                         .HasColumnType("int");
@@ -657,7 +666,10 @@ namespace JPAR.Infrastructure.Migrations
             modelBuilder.Entity("UniversityDegree", b =>
                 {
                     b.Property<int>("Number")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Number"));
 
                     b.Property<int>("ApplicantId")
                         .HasColumnType("int");

@@ -2,7 +2,7 @@
 {
     public interface IRecruiterRepository
     {
-        bool Add(string userId);
+        bool Add(string userId, string companyName, string jobTitle);
         Recruiter GetByUserId(string userId);
     }
 }

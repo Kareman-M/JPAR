@@ -12,12 +12,14 @@ namespace JPAR.Infrastructure.Repository
             _context = context;
         }
 
-        public bool Add(string userId)
+        public bool Add(string userId, string companyName, string jobTitle)
         {
             var recruiter = new Recruiter();
             recruiter.UserId = userId;
             recruiter.CreatedBy = userId;
             recruiter.CreatedAt = DateTime.Now;
+            recruiter.CompanyName = companyName;
+            recruiter.JobTitle = jobTitle;
             _context.Recruiters.Add(recruiter);
             return _context.SaveChanges() > 0;
         }

@@ -6,21 +6,21 @@ namespace JPAR.Service.IServices
     {
         ApplicantDTO GetById(int id);
         
-        bool UpdateGenralInfo(UpdateApplicantGeneralInfoDTO applicant);
+        bool UpdateGenralInfo(string userId, UpdateApplicantGeneralInfoDTO applicant);
         
-        bool UpdateCareerInterest(UpdateCareerInterestDTO updateCareerInterest);
+        bool UpdateCareerInterest(string userId, UpdateCareerInterestDTO updateCareerInterest);
         
-        bool UpdateCv(UpdateCvDTO updateCv);
+        bool UpdateCv(string userId, UpdateCvDTO updateCv);
 
-        bool UpdateExperience(UpdateExperienceDTO updateExperience);
+        bool UpdateExperience(string userId, UpdateExperienceDTO updateExperience);
 
-        bool UpdateSkills(UpdateSkillsDTO updateSkills);
+        bool UpdateSkills( string userId, UpdateSkillsDTO updateSkills);
       
-        bool UpdateEducation(UpdateEducationDTO updateEducation, string userId);
+        bool UpdateEducation( string userId, UpdateEducationDTO updateEducation);
 
         bool UpdateOnlinePresence(string userId, List<UpdateOnlinePresenceDTO> onlinePresences);
 
-        bool UpdateAchievements(UpdateAchievementsDTO achievements);
+        bool UpdateAchievements(string userId, UpdateAchievementsDTO achievements);
 
         bool Delete(int id);
     }

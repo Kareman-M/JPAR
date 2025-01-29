@@ -12,12 +12,12 @@ namespace JPAR.Infrastructure.Context
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options):base(options) { }
 
         public DbSet<Applicant> Applicants { get; set; }
-        public DbSet<Certification> Certifications { get; set; }
-        public DbSet<Recruiter> Recruiters { get; set; }
-        public DbSet<UniversityDegree> UniversityDegrees { get; set; }
         public DbSet<OnlinePresence> OnlinePresences { get; set; }
-        public DbSet<Skill> Skills { get; set; }
+        public DbSet<Certification> Certifications { get; set; }
+        public DbSet<UniversityDegree> UniversityDegrees { get; set; }
         public DbSet<Experience> Experiences { get; set; }
+        public DbSet<Skill> Skills { get; set; }
+        public DbSet<Recruiter> Recruiters { get; set; }
         public DbSet<Job> JobPosts { get; set; }
         public DbSet<ApplicantJob> ApplicantJob { get; set; }
         public DbSet<ApplicationStage> ApplicationStage { get; set; }
@@ -47,6 +47,10 @@ namespace JPAR.Infrastructure.Context
             builder.Entity<ApplicationStage>()
                 .HasOne(x=> x.ApplicantJob).WithMany(x=> x.ApplicationStages)
                 .HasForeignKey(x => new { x.ApplicantId, x.JobId });
+            builder.Entity<Experience>().Property(p=> p.Number).ValueGeneratedOnAdd();
+            builder.Entity<Skill>().Property(p=> p.Number).ValueGeneratedOnAdd();
+            builder.Entity<OnlinePresence>().Property(p=> p.Number).ValueGeneratedOnAdd();
+            builder.Entity<UniversityDegree>().Property(p=> p.Number).ValueGeneratedOnAdd();
         }
     }
 }

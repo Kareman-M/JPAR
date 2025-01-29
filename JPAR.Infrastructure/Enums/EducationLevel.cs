@@ -1,9 +1,12 @@
-﻿public enum EducationLevel
+﻿namespace JPAR.Infrastructure.Enums
 {
-    HighSchool,
-    Vocational,
-    Diploma,
-    Bachelors,
-    Masters,
-    Doctorate
+    public enum EducationLevel
+    {
+        HighSchool,
+        Vocational,
+        Diploma,
+        Bachelors,
+        Masters,
+        Doctorate
+    }
 }

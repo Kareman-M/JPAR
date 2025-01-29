@@ -1,12 +1,14 @@
 ﻿using JPAR.Infrastructure.Enums;
 using JPAR.Service.DTOs;
 using JPAR.Service.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JPAR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class JobController : ControllerBase
     {
         private readonly IJobService _jobPostService;

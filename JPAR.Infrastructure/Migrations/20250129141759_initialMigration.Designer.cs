@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JPAR.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20250128201447_initialMigration")]
+    [Migration("20250129141759_initialMigration")]
     partial class initialMigration
     {
         /// <inheritdoc />
@@ -199,6 +199,9 @@ namespace JPAR.Infrastructure.Migrations
                     b.Property<int>("JobId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Stage")
+                        .HasColumnType("int");
+
                     b.Property<string>("Comment")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -210,13 +213,10 @@ namespace JPAR.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Stage")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("ApplicantId", "JobId");
+                    b.HasKey("ApplicantId", "JobId", "Stage");
 
                     b.ToTable("ApplicationStage");
                 });
@@ -224,7 +224,10 @@ namespace JPAR.Infrastructure.Migrations
             modelBuilder.Entity("JPAR.Infrastructure.Models.Experience", b =>
                 {
                     b.Property<int>("Number")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Number"));
 
                     b.Property<int>("ApplicantId")
                         .HasColumnType("int");
@@ -368,7 +371,10 @@ namespace JPAR.Infrastructure.Migrations
             modelBuilder.Entity("JPAR.Infrastructure.Models.Skill", b =>
                 {
                     b.Property<int>("Number")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Number"));
 
                     b.Property<int>("ApplicantId")
                         .HasColumnType("int");
@@ -426,15 +432,15 @@ namespace JPAR.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "02323f4f-477a-4566-9159-32662862cfbf",
-                            ConcurrencyStamp = "21e748e5-f9bb-43cd-bec7-405a866bf10e",
+                            Id = "96edd679-c075-4a87-98b7-c4e5e79bdc38",
+                            ConcurrencyStamp = "248233ef-cd4f-4837-ab08-3aaa28b21875",
                             Name = "Applicant",
                             NormalizedName = "APPLICANT"
                         },
                         new
                         {
-                            Id = "7d2b15f7-1de6-4f6e-be0a-e0383c6d7b24",
-                            ConcurrencyStamp = "051aaad4-2500-4e1c-aa29-e3ad20a5352c",
+                            Id = "780be431-2d4f-4be9-974a-6e73add89a1f",
+                            ConcurrencyStamp = "30874f8b-75d6-41b5-9d9b-a45edd4e39fc",
                             Name = "Recruiter",
                             NormalizedName = "RECRUITER"
                         });
@@ -601,7 +607,10 @@ namespace JPAR.Infrastructure.Migrations
             modelBuilder.Entity("OnlinePresence", b =>
                 {
                     b.Property<int>("Number")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Number"));
 
                     b.Property<int>("ApplicantId")
                         .HasColumnType("int");
@@ -660,7 +669,10 @@ namespace JPAR.Infrastructure.Migrations
             modelBuilder.Entity("UniversityDegree", b =>
                 {
                     b.Property<int>("Number")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Number"));
 
                     b.Property<int>("ApplicantId")
                         .HasColumnType("int");
