@@ -27,10 +27,10 @@ namespace JPAR.Service.Services
                 Title = addJobPostDTO.Title,
                 JobDescription = addJobPostDTO.JobDescription,
                 CareerLevel = addJobPostDTO.CareerLevel,
-                Categories = addJobPostDTO.Categories,
+                JobCategories = addJobPostDTO.Categories.Select(x=> new JobCategory { Category= x}).ToList(),
                 Country = addJobPostDTO.Country,
                 HideSalary = addJobPostDTO.HideSalary,
-                JobTypes = addJobPostDTO.JobTypes,
+                JobTypes = addJobPostDTO.JobTypes.Select(x => new JobType { Type = x }).ToList(),
                 NumberOfVecancy = addJobPostDTO.NumberOfVecancy,
                 WorkPlace = addJobPostDTO.WorkPlace,
                 AdditinalSalaryDetails = addJobPostDTO.AdditinalSalaryDetails,
@@ -38,7 +38,7 @@ namespace JPAR.Service.Services
                 MaxSalaryRange = addJobPostDTO.MaxSalaryRange,
                 MinYearsOfExperince = addJobPostDTO.MinYearsOfExperince,
                 MaxYearsOfExperince = addJobPostDTO.MaxYearsOfExperince,
-                Status = Infrastructure.Enums.JobStatus.Open,
+                Status = JobStatus.Open,
                 RecruiterId = recruiterId,
                 CreatedAt = DateTime.Now,
                 CreatedBy = userId,
@@ -84,13 +84,13 @@ namespace JPAR.Service.Services
                 jobs = jobs.Where(x => x.CareerLevel == user.Level);
 
             if (user.JobType != null)
-                jobs = jobs.Where(x => x.JobTypes.Contains((JobType)user.JobType));
+                jobs = jobs.Where(x => x.JobTypes.Any(x => user.JobType.Any(c => c.Name == x.Type)));
 
-            if (user.JobCategories.Any())
-                jobs = jobs.Where(x => x.Categories.Any(j=> user.JobCategories.Contains(j)));
+            if (user.IndustryCategories.Any())
+                jobs = jobs.Where(x => x.JobCategories.Select(x=> x.Category).Any(j=> user.IndustryCategories.Select(x=> x.Category).Contains(j)));
 
             if (user.WorkPlace != null)
-                jobs = jobs.Where(x => x.WorkPlace == user.WorkPlace);
+                jobs = jobs.Where(x => user.WorkPlace.Any(w=> w.Name == x.WorkPlace));
 
             if (user.DesiredNetSalaryPerMonth != null || user.DesiredNetSalaryPerMonth > 0)
                 jobs = jobs.Where(x => x.MinSalaryRange >= user.DesiredNetSalaryPerMonth);
@@ -105,7 +105,7 @@ namespace JPAR.Service.Services
             if (!string.IsNullOrEmpty(filter.CareerLevel))
                 jobs = jobs.Where(x => x.CareerLevel.ToString().ToLower().Contains(filter.CareerLevel.ToLower()));
             if (!string.IsNullOrEmpty(filter.JobCategory))
-                jobs = jobs.Where(x => x.Categories.Any(c => c.ToLower().Contains(filter.JobCategory.ToLower())));
+                jobs = jobs.Where(x => x.JobCategories.Select(x=> x.Category).Any(c => c.ToLower().Contains(filter.JobCategory.ToLower())));
             return jobs;
         }
      
@@ -128,7 +128,7 @@ namespace JPAR.Service.Services
                 AdditinalSalaryDetails = x.AdditinalSalaryDetails,
                 JobDescription = x.JobDescription,
                 CareerLevel = x.CareerLevel.ToString(),
-                Categories = x.Categories,
+                Categories = x.JobCategories.Select(x=> x.Category).ToList(),
                 Country = x.Country,
                 HideSalary = x.HideSalary,
                 CreatedAt = x.CreatedAt,

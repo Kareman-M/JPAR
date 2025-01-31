@@ -170,10 +170,10 @@ namespace JPAR.Service.Services
             var applicant = _applicantRepository.GetByUserId(updateCareerInterest.UserId);
 
             applicant.Level = updateCareerInterest.Level;
-            applicant.JobType = updateCareerInterest.JobType;
-            applicant.WorkPlace = updateCareerInterest.WorkPlace;
-            applicant.JobTitles = updateCareerInterest.JobTitles;
-            applicant.JobCategories = updateCareerInterest.JobCategories;
+            applicant.JobType = updateCareerInterest.JobType.Select(x=> new ContractType { ApplicantId = applicant.Id, Name = x}).ToList();
+            applicant.WorkPlace = updateCareerInterest.WorkPlace.Select(x=> new WorkPlace { ApplicantId = applicant.Id, Name = x}).ToList();
+            applicant.JobTitles = updateCareerInterest.JobTitles.Select(x=> new JobTitle { ApplicantId = applicant.Id, Title = x}).ToList();
+            applicant.IndustryCategories = updateCareerInterest.JobCategories.Select(x=> new IndustryCategory { ApplicantId = applicant.Id, Category = x}).ToList();
             applicant.DesiredNetSalaryPerMonth = updateCareerInterest.DesiredNetSalaryPerMonth;
 
             return _applicantRepository.Update(applicant);

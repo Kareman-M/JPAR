@@ -9,7 +9,7 @@ namespace JPAR.Infrastructure.Models
         public int Number { get; set; }
         public string JobTitle { get; set; }
         public string CompanyName { get; set; }
-        public JobType JobType { get; set; }
+        public JobTypeEnum JobType { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public bool IsCurrent { get; set; }

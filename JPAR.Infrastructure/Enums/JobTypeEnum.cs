@@ -1,4 +1,4 @@
-﻿public enum JobType
+﻿public enum JobTypeEnum
 {
     FullTime = 1,
     PartTime,

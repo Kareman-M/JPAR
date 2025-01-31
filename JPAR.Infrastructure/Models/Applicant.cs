@@ -1,5 +1,4 @@
-﻿using JPAR.Infrastructure.Enums;
-using JPAR.Infrastructure.Models;
+﻿using JPAR.Infrastructure.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -22,13 +21,13 @@ public class Applicant : BaseModel
 
     public Level? Level { get; set; }
     //Full time, part time, Freelance, internship, contract
-    public JobType? JobType { get; set; }
+    public List<ContractType> JobType { get; set; }
     //onSite/ remote
-    public WorkPlace? WorkPlace { get; set; }
+    public List<WorkPlace> WorkPlace { get; set; }
     //List of Strings > web dev, full stack,..
-    public List<string>? JobTitles { get; set; }
+    public List<JobTitle> JobTitles { get; set; }
     //List of Strings -> IT, Marketing, Finance, HR,..
-    public List<string>? JobCategories { get; set; }
+    public List<IndustryCategory> IndustryCategories { get; set; }
     //Expected salary
     public decimal? DesiredNetSalaryPerMonth { get; set; }
     //DB stores only path of CV, not the CV itself.

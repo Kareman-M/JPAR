@@ -17,6 +17,7 @@ namespace JPAR.API.Controllers
             _applicantService = applicantService;
         }
 
+      
         [HttpPut("UpdateGeneralInfo")]
         public IActionResult UpdateGeneralInfo(UpdateApplicantGeneralInfoDTO applicantGeneralInfo)
         {
@@ -25,6 +26,7 @@ namespace JPAR.API.Controllers
             return Ok(_applicantService.UpdateGenralInfo(userId, applicantGeneralInfo));
         }
 
+        
         [HttpPut("UpdateCareerInterest")]
         public IActionResult UpdateCareerInterest(UpdateCareerInterestDTO careerInterestDTO)
         {
@@ -33,6 +35,7 @@ namespace JPAR.API.Controllers
             return Ok(_applicantService.UpdateCareerInterest(userId, careerInterestDTO));
         }
 
+        
         [HttpPost("UpdateCv")]
         public IActionResult UpdateCv([FromForm] UpdateCvDTO updateCvDTO)
         {
@@ -42,6 +45,7 @@ namespace JPAR.API.Controllers
 
         }
 
+       
         [HttpPut("UpdateExperience")]
         public IActionResult UpdateExperience([FromBody] UpdateExperienceDTO updateExperience)
         {
@@ -50,6 +54,7 @@ namespace JPAR.API.Controllers
             return Ok(_applicantService.UpdateExperience(userId,updateExperience));
         }
 
+      
         [HttpPut("UpdateSkills")]
         public IActionResult UpdateSkills([FromBody] UpdateSkillsDTO updateSkills)
         {
@@ -58,6 +63,7 @@ namespace JPAR.API.Controllers
             return Ok(_applicantService.UpdateSkills(userId, updateSkills));
         }
 
+        
         [HttpPut("UpdateEducation")]
         public IActionResult UpdateEducation([FromBody]UpdateEducationDTO updateEducation)
         {
@@ -66,6 +72,7 @@ namespace JPAR.API.Controllers
             return Ok(_applicantService.UpdateEducation(userId, updateEducation));
         }
 
+        
         [HttpPut("UpdateOnlinePresence")]
         public IActionResult UpdateOnlinePresence([FromBody] List<UpdateOnlinePresenceDTO> onlinePresences)
         {
@@ -74,6 +81,7 @@ namespace JPAR.API.Controllers
             return Ok(_applicantService.UpdateOnlinePresence(userId, onlinePresences));
         }
 
+        
         [HttpPut("UpdateAchievements")]
         public IActionResult UpdateAchievements([FromBody] UpdateAchievementsDTO achievements)
         {

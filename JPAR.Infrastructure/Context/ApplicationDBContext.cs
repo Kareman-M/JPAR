@@ -21,6 +21,13 @@ namespace JPAR.Infrastructure.Context
         public DbSet<Job> JobPosts { get; set; }
         public DbSet<ApplicantJob> ApplicantJob { get; set; }
         public DbSet<ApplicationStage> ApplicationStage { get; set; }
+        public DbSet<JobCategory> JobCategories { get; set; }
+        public DbSet<IndustryCategory> IndustryCategories { get; set; }
+        public DbSet<ContractType> ContractTypes { get; set; }
+        public DbSet<JobTitle> JobTitles { get; set; }
+        public DbSet<JobType> JobTypes { get; set; }
+        public DbSet<WorkPlace> WorkPlaces { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);

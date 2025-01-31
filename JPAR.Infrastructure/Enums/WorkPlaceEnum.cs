@@ -1,4 +1,4 @@
-﻿public enum WorkPlace
+﻿public enum WorkPlaceEnum
 {
     Onsite =1,
     Remote,
