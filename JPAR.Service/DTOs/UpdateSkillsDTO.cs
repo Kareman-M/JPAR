@@ -8,7 +8,6 @@ namespace JPAR.Service.DTOs
 {
     public class UpdateSkillsDTO
     {
-        public string UserId { get; set; }
         public List<SkillDTO> Skills { get; set; }
     }
 

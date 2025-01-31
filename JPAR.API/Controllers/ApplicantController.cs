@@ -7,7 +7,7 @@ namespace JPAR.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles ="Applicant")]
+    [Authorize(Roles= "Applicant")]
     public class ApplicantController : ControllerBase
     {
         private readonly IApplicantService _applicantService;

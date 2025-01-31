@@ -4,7 +4,6 @@ namespace JPAR.Service.DTOs
 {
     public class UpdateExperienceDTO
     {
-        public string UserId { get; set; }
         public List<ExperienceDTO> Experiences { get; set; }
     }
 

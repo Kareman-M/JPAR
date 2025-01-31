@@ -97,7 +97,7 @@ namespace JPAR.Service.Services
 
         public bool UpdateSkills(string userId ,UpdateSkillsDTO updateSkills)
         {
-            var applicant = _applicantRepository.GetByUserId(updateSkills.UserId);
+            var applicant = _applicantRepository.GetByUserId(userId);
             if (applicant == null) return false;
 
             var skills = updateSkills.Skills.Select(skill => new Skill
@@ -116,7 +116,7 @@ namespace JPAR.Service.Services
 
         public bool UpdateExperience(string userId, UpdateExperienceDTO updateExperience)
         {
-            var applicant = _applicantRepository.GetByUserId(updateExperience.UserId);
+            var applicant = _applicantRepository.GetByUserId(userId);
             if (applicant == null) return false;
 
             var newExperinces = updateExperience.Experiences.Select(e => new Experience
@@ -167,7 +167,7 @@ namespace JPAR.Service.Services
 
         public bool UpdateCareerInterest(string userId, UpdateCareerInterestDTO updateCareerInterest)
         {
-            var applicant = _applicantRepository.GetByUserId(updateCareerInterest.UserId);
+            var applicant = _applicantRepository.GetByUserId(userId);
 
             applicant.Level = updateCareerInterest.Level;
             applicant.JobType = updateCareerInterest.JobType.Select(x=> new ContractType { ApplicantId = applicant.Id, Name = x}).ToList();
@@ -181,7 +181,7 @@ namespace JPAR.Service.Services
 
         public bool UpdateGenralInfo(string userId, UpdateApplicantGeneralInfoDTO applicantDto)
         {
-            var applicant = _applicantRepository.GetByUserId(applicantDto.UserId);
+            var applicant = _applicantRepository.GetByUserId(userId);
             applicant = UpdateInfo(applicant, applicantDto);
             return _applicantRepository.Update(applicant);
         }
