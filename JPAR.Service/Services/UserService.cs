@@ -63,7 +63,7 @@ namespace JPAR.Service.Services
                 Email = userModel.Email,
                 FirstName = userModel.FirstName,
                 LastName = userModel.LastName,
-                UserName = userModel.Email.Split("@")[0].ToLower(),
+                UserName = Guid.NewGuid().ToString(),
                 UserType = UserType.Applicant,
             };
             result = _userManager.CreateAsync(user, userModel.Password).Result;
@@ -86,7 +86,7 @@ namespace JPAR.Service.Services
                 Email = userModel.Email,
                 FirstName = userModel.FirstName,
                 LastName = userModel.LastName,
-                UserName = userModel.Email.Split("@")[0].ToLower(),
+                UserName = Guid.NewGuid().ToString(),
                 UserType = UserType.Recruiter,
             };
 
