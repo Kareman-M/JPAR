@@ -111,10 +111,10 @@ namespace JPAR.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("AwardedMonth")
+                    b.Property<int?>("AwardedMonth")
                         .HasColumnType("int");
 
-                    b.Property<int>("AwardedYear")
+                    b.Property<int?>("AwardedYear")
                         .HasColumnType("int");
 
                     b.Property<string>("CertificateID")
@@ -257,27 +257,27 @@ namespace JPAR.Infrastructure.Migrations
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("EndingSalary")
+                    b.Property<decimal?>("EndingSalary")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Industry")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsCurrent")
+                    b.Property<bool?>("IsCurrent")
                         .HasColumnType("bit");
 
                     b.Property<string>("JobTitle")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("JobType")
+                    b.Property<int?>("JobType")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("StartDate")
+                    b.Property<DateTime?>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("StartingSalary")
+                    b.Property<decimal?>("StartingSalary")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Number", "ApplicantId");
@@ -487,15 +487,15 @@ namespace JPAR.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7b72cd5a-c98b-47fb-83f6-b81e73f87dae",
-                            ConcurrencyStamp = "a1b7d5b5-58c3-48b0-b130-77da55ca870c",
+                            Id = "981d4c60-7189-4c07-80a5-7c2b852a4dbb",
+                            ConcurrencyStamp = "7302799a-a4e5-4960-a376-42f5c3a96ad2",
                             Name = "Applicant",
                             NormalizedName = "APPLICANT"
                         },
                         new
                         {
-                            Id = "9df0941d-527b-4c1c-8083-405b997469b4",
-                            ConcurrencyStamp = "fa5086b0-2b3f-4a23-b4cd-2ac2b8b115a4",
+                            Id = "c6402034-3fbb-4005-aec2-dd1dfb9f876a",
+                            ConcurrencyStamp = "49c0b2c3-8304-458a-9dee-c997fc2a6b6b",
                             Name = "Recruiter",
                             NormalizedName = "RECRUITER"
                         });
@@ -736,20 +736,20 @@ namespace JPAR.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DegreeLevel")
+                    b.Property<int?>("DegreeLevel")
                         .HasColumnType("int");
 
-                    b.Property<int>("EndYear")
+                    b.Property<int?>("EndYear")
                         .HasColumnType("int");
 
-                    b.Property<int>("Grade")
+                    b.Property<int?>("Grade")
                         .HasColumnType("int");
 
                     b.Property<string>("Info")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StrtYear")
+                    b.Property<int?>("StrtYear")
                         .HasColumnType("int");
 
                     b.Property<string>("StudyField")

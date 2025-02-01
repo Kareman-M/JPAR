@@ -13,11 +13,10 @@ namespace JPAR.Service.DTOs
 
     public class SkillDTO
     {
-        public int? Id { get; set; } // Null for new skills
         public string SkillName { get; set; }
-        public int Proficiency { get; set; } // 1 to 5
-        public int Interest { get; set; }    // 1 to 5
-        public int YearsOfExperience { get; set; }
+        public int? Proficiency { get; set; } // 1 to 5
+        public int? Interest { get; set; }    // 1 to 5
+        public int? YearsOfExperience { get; set; }
         public string Justification { get; set; } // Optional
     }
 

@@ -5,22 +5,22 @@ namespace JPAR.Service.IServices
     public interface IApplicantService
     {
         ApplicantDTO GetById(int id);
-        
-        bool UpdateGenralInfo(string userId, UpdateApplicantGeneralInfoDTO applicant);
-        
-        bool UpdateCareerInterest(string userId, UpdateCareerInterestDTO updateCareerInterest);
-        
-        bool UpdateCv(string userId, UpdateCvDTO updateCv);
 
-        bool UpdateExperience(string userId, UpdateExperienceDTO updateExperience);
+        (UpdateApplicantGeneralInfoDTO, int ApplicantId) UpdateGenralInfo(string userId, UpdateApplicantGeneralInfoDTO applicant);
 
-        bool UpdateSkills( string userId, UpdateSkillsDTO updateSkills);
-      
-        bool UpdateEducation( string userId, UpdateEducationDTO updateEducation);
+        (UpdateCareerInterestDTO, int ApplicantId) UpdateCareerInterest(string userId, UpdateCareerInterestDTO updateCareerInterest);
 
-        bool UpdateOnlinePresence(string userId, List<UpdateOnlinePresenceDTO> onlinePresences);
+        (string FileName, string FilePath, int ApplicantId) UpdateCv(string userId, UpdateCvDTO updateCv);
 
-        bool UpdateAchievements(string userId, UpdateAchievementsDTO achievements);
+        (UpdateExperienceDTO, int ApplicantId) UpdateExperience(string userId, UpdateExperienceDTO updateExperience);
+
+        (UpdateSkillsDTO, int ApplicantId) UpdateSkills(string userId, UpdateSkillsDTO updateSkills);
+
+        (UpdateEducationDTO, int ApplicantId) UpdateEducation(string userId, UpdateEducationDTO updateEducation);
+
+        (List<UpdateOnlinePresenceDTO>, int ApplicantId) UpdateOnlinePresence(string userId, List<UpdateOnlinePresenceDTO> onlinePresences);
+
+        (UpdateAchievementsDTO, int ApplicantId) UpdateAchievements(string userId, UpdateAchievementsDTO achievements);
 
         bool Delete(int id);
     }

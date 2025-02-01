@@ -39,10 +39,11 @@ namespace JPAR.Infrastructure.Repository
             return _context.Applicants.Include(x=> x.User).FirstOrDefault(x => x.UserId == userId);
         }
 
-        public bool Update(Applicant applicant)
+        public Applicant Update(Applicant applicant)
         {
-            _context.Applicants.Update(applicant);
-           return _context.SaveChanges()> 0;
+            var _applicant  = _context.Applicants.Update(applicant);
+            _context.SaveChanges();
+            return _applicant.Entity;
         }
     }
 }

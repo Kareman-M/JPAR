@@ -6,10 +6,10 @@ namespace JPAR.Service.DTOs
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public DateTime Birthdate { get; set; }
-        public Gender Gender { get; set; }
+        public DateTime? Birthdate { get; set; }
+        public Gender? Gender { get; set; }
         public string Nationality { get; set; }
-        public MaritalStatus MaritalStatus { get; set; } 
+        public MaritalStatus? MaritalStatus { get; set; } 
         public string Country { get; set; }
         public string City { get; set; }
         public string Area { get; set; }

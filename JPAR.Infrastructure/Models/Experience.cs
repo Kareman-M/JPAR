@@ -9,13 +9,13 @@ namespace JPAR.Infrastructure.Models
         public int Number { get; set; }
         public string JobTitle { get; set; }
         public string CompanyName { get; set; }
-        public JobTypeEnum JobType { get; set; }
-        public DateTime StartDate { get; set; }
+        public JobTypeEnum? JobType { get; set; }
+        public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public bool IsCurrent { get; set; }
+        public bool? IsCurrent { get; set; }
         public string Description { get; set; }
-        public decimal StartingSalary { get; set; }
-        public decimal EndingSalary { get; set; }
+        public decimal? StartingSalary { get; set; }
+        public decimal? EndingSalary { get; set; }
         public string Country { get; set; }
         public string Achievements { get; set; }
         public string CompanySize { get; set; }

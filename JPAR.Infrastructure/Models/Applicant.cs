@@ -33,14 +33,13 @@ public class Applicant : BaseModel
     //DB stores only path of CV, not the CV itself.
     public string? UploadedCVPath { get; set; }
 
+    public string? UploadedCVFileName { get; set; }
+
     public int? YearsOfExperince { get; set; }
 
     public List<Experience> Experiences { get; set; }
 
-    //public List<string> Skills { get; set; }
-
     public List<Skill> Skills { get; set; }
-
 
     public EducationLevel? EducationLevel { get; set; }
     public List<UniversityDegree> UniversityDegrees { get; set; }

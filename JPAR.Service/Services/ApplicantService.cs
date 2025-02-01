@@ -24,42 +24,46 @@ namespace JPAR.Service.Services
             throw new NotImplementedException();
         }
 
-        public bool UpdateAchievements(string userId, UpdateAchievementsDTO achievements)
+        public (UpdateAchievementsDTO, int ApplicantId) UpdateAchievements(string userId, UpdateAchievementsDTO achievements)
         {
             var applicant = _applicantRepository.GetByUserId(userId);
-            if (applicant == null) return false;
+            if (applicant == null) return (null, applicant.Id);
 
             applicant.Achievements = achievements.Achievements;
 
-            return _applicantRepository.Update(applicant);
+            var upadtedApplicant = _applicantRepository.Update(applicant);
+            return (new UpdateAchievementsDTO { Achievements = upadtedApplicant.Achievements, }, upadtedApplicant.Id);
         }
 
-        public bool UpdateOnlinePresence(string userId, List<UpdateOnlinePresenceDTO> onlinePresences)
+        public (List<UpdateOnlinePresenceDTO>, int ApplicantId) UpdateOnlinePresence(string userId, List<UpdateOnlinePresenceDTO> onlinePresences)
         {
             var applicant = _applicantRepository.GetByUserId(userId);
-            if (applicant == null) return false;
+            if (applicant == null) return (null, applicant.Id);
 
             var _onlinePresences = onlinePresences
                 .Select(op => new OnlinePresence
                 {
-                    AccountName = Enum.TryParse<Social>(op.AccountName, true, out var account)
-                                  ? account
-                                  : Social.Other, 
+                    AccountName = op.AccountName,
                     AccountLink = op.AccountLink,
                     ApplicantId = applicant.Id
                 }).ToList();
 
-            if(applicant.OnlinePresences is null) applicant.OnlinePresences = new List<OnlinePresence>();
+            if (applicant.OnlinePresences is null) applicant.OnlinePresences = new List<OnlinePresence>();
 
             applicant.OnlinePresences.AddRange(_onlinePresences);
 
-            return _applicantRepository.Update(applicant);
+            var updatedApplicant = _applicantRepository.Update(applicant);
+
+            return (
+                updatedApplicant.OnlinePresences.Select(x => new UpdateOnlinePresenceDTO { AccountLink = x.AccountLink, AccountName = x.AccountName }).ToList(),
+                updatedApplicant.Id
+                );
         }
 
-        public bool UpdateEducation(string userId, UpdateEducationDTO updateEducation)
+        public (UpdateEducationDTO, int ApplicantId) UpdateEducation(string userId, UpdateEducationDTO updateEducation)
         {
             var applicant = _applicantRepository.GetByUserId(userId);
-            if (applicant == null) return false;
+            if (applicant == null) return (null, applicant.Id);
 
             var universityDegrees = updateEducation.UniversityDegrees.Select(d => new UniversityDegree
             {
@@ -70,6 +74,7 @@ namespace JPAR.Service.Services
                 StrtYear = d.StartYear,
                 EndYear = d.EndYear,
                 Info = d.Info,
+                Grade = d.Grade,
                 ApplicantId = applicant.Id
             }).ToList();
 
@@ -82,7 +87,7 @@ namespace JPAR.Service.Services
                 CertificateLink = c.CertificateLink,
                 CertificateID = c.CertificateID,
                 AdditionalInfo = c.AdditionalInfo,
-                ResultOutOfTotal =c.ResultOutOfTotal,
+                ResultOutOfTotal = c.ResultOutOfTotal,
                 ApplicantId = applicant.Id
             }).ToList();
 
@@ -92,32 +97,73 @@ namespace JPAR.Service.Services
             applicant.Certifications.AddRange(certifications);
             applicant.UniversityDegrees.AddRange(universityDegrees);
 
-            return _applicantRepository.Update(applicant);
+            var updatedApllicant = _applicantRepository.Update(applicant);
+
+            return
+                (
+                    new UpdateEducationDTO
+                    {
+                        Certifications = updatedApllicant.Certifications.Select(x => new UpdateCertificationDTO
+                        {
+                            Name = x.Name,
+                            AwardedYear = x.AwardedYear,
+                            AwardedMonth = x.AwardedMonth,
+                            OrganizationName = x.OrganizationName,
+                            CertificateLink = x.CertificateLink,
+                            CertificateID = x.CertificateID,
+                            AdditionalInfo = x.AdditionalInfo,
+                            ResultOutOfTotal = x.ResultOutOfTotal,
+                        }).ToList(),
+                        UniversityDegrees = updatedApllicant.UniversityDegrees.Select(x => new UpdateUniversityDegreeDTO
+                        {
+                            DegreeLevel = x.DegreeLevel,
+                            StartYear = x.StrtYear,
+                            EndYear = x.EndYear,
+                            Country = x.Country,
+                            Grade = x.Grade,
+                            Info = x.Info,
+                            StudyField = x.StudyField,
+                            University = x.University
+                        }).ToList()
+                    }, updatedApllicant.Id
+                );
         }
 
-        public bool UpdateSkills(string userId ,UpdateSkillsDTO updateSkills)
+        public (UpdateSkillsDTO, int ApplicantId) UpdateSkills(string userId, UpdateSkillsDTO updateSkills)
         {
             var applicant = _applicantRepository.GetByUserId(userId);
-            if (applicant == null) return false;
+            if (applicant == null) return (null, applicant.Id);
 
             var skills = updateSkills.Skills.Select(skill => new Skill
             {
                 SkillName = skill.SkillName,
-                Proficiency = skill.Proficiency,
-                Interest = skill.Interest,
-                YearsOfExperience = skill.YearsOfExperience,
+                Proficiency = skill?.Proficiency ?? 0,
+                Interest = skill?.Interest ?? 0,
+                YearsOfExperience = skill?.YearsOfExperience ?? 0,
                 Justification = skill.Justification,
                 ApplicantId = applicant.Id,
             }).ToList();
             if (applicant.Skills is null) applicant.Skills = new List<Skill>();
             applicant.Skills.AddRange(skills);
-            return _applicantRepository.Update(applicant);
+            var updatedApplicant = _applicantRepository.Update(applicant);
+            return (
+               new UpdateSkillsDTO
+               {
+                   Skills = updatedApplicant.Skills.Select(x => new SkillDTO
+                   {
+                       Interest = x.Interest,
+                       Justification = x.Justification,
+                       Proficiency = x.Proficiency,
+                       SkillName = x.SkillName,
+                       YearsOfExperience = x.YearsOfExperience,
+                   }).ToList(),
+               }, updatedApplicant.Id);
         }
 
-        public bool UpdateExperience(string userId, UpdateExperienceDTO updateExperience)
+        public (UpdateExperienceDTO, int ApplicantId) UpdateExperience(string userId, UpdateExperienceDTO updateExperience)
         {
             var applicant = _applicantRepository.GetByUserId(userId);
-            if (applicant == null) return false;
+            if (applicant == null) return (null, applicant.Id);
 
             var newExperinces = updateExperience.Experiences.Select(e => new Experience
             {
@@ -139,13 +185,35 @@ namespace JPAR.Service.Services
             }).ToList();
             if (applicant.Experiences is null) applicant.Experiences = new List<Experience>();
             applicant.Experiences.AddRange(newExperinces);
-            return _applicantRepository.Update(applicant);
+            var updatedApplicant = _applicantRepository.Update(applicant);
+            return (
+                new UpdateExperienceDTO
+                {
+                    Experiences = updateExperience.Experiences.Select(x => new ExperienceDTO
+                    {
+                        JobTitle = x.JobTitle,
+                        CompanyName = x.CompanyName,
+                        JobType = x.JobType,
+                        StartDate = x.StartDate,
+                        EndDate = x.EndDate,
+                        IsCurrent = x.IsCurrent,
+                        Description = x.Description,
+                        StartingSalary = x.StartingSalary,
+                        EndingSalary = x.EndingSalary,
+                        Country = x.Country,
+                        Achievements = x.Achievements,
+                        CompanySize = x.CompanySize,
+                        CompanyWebsite = x.CompanyWebsite,
+                        Industry = x.Industry,
+                    }).ToList()
+                },
+                updatedApplicant.Id);
         }
 
-        public bool UpdateCv(string userId, UpdateCvDTO updateCv)
+        public (string FileName, string FilePath, int ApplicantId) UpdateCv(string userId, UpdateCvDTO updateCv)
         {
             var applicant = _applicantRepository.GetByUserId(userId);
-            if (applicant == null) return false;
+            if (applicant == null) return (null, null, applicant.Id);
 
             var uploadsFolder = Path.Combine("UploadedCVs");
             if (!Directory.Exists(uploadsFolder))
@@ -162,31 +230,68 @@ namespace JPAR.Service.Services
             }
 
             applicant.UploadedCVPath = filePath;
-            return _applicantRepository.Update(applicant);
+            applicant.UploadedCVFileName = updateCv.CvFile.FileName;
+            var updatedApplicant = _applicantRepository.Update(applicant);
+            return (updatedApplicant.UploadedCVFileName, updatedApplicant.UploadedCVPath, updatedApplicant.Id);
         }
 
-        public bool UpdateCareerInterest(string userId, UpdateCareerInterestDTO updateCareerInterest)
+        public (UpdateCareerInterestDTO, int ApplicantId) UpdateCareerInterest(string userId, UpdateCareerInterestDTO updateCareerInterest)
         {
             var applicant = _applicantRepository.GetByUserId(userId);
+            if (applicant == null) return (null, applicant.Id);
 
             applicant.Level = updateCareerInterest.Level;
-            applicant.JobType = updateCareerInterest.JobType.Select(x=> new ContractType { ApplicantId = applicant.Id, Name = x}).ToList();
-            applicant.WorkPlace = updateCareerInterest.WorkPlace.Select(x=> new WorkPlace { ApplicantId = applicant.Id, Name = x}).ToList();
-            applicant.JobTitles = updateCareerInterest.JobTitles.Select(x=> new JobTitle { ApplicantId = applicant.Id, Title = x}).ToList();
-            applicant.IndustryCategories = updateCareerInterest.JobCategories.Select(x=> new IndustryCategory { ApplicantId = applicant.Id, Category = x}).ToList();
+            applicant.JobType = updateCareerInterest.JobType.Select(x => new ContractType { ApplicantId = applicant.Id, Name = x }).ToList();
+            applicant.WorkPlace = updateCareerInterest.WorkPlace.Select(x => new WorkPlace { ApplicantId = applicant.Id, Name = x }).ToList();
+            applicant.JobTitles = updateCareerInterest.JobTitles.Select(x => new JobTitle { ApplicantId = applicant.Id, Title = x }).ToList();
+            applicant.IndustryCategories = updateCareerInterest.JobCategories.Select(x => new IndustryCategory { ApplicantId = applicant.Id, Category = x }).ToList();
             applicant.DesiredNetSalaryPerMonth = updateCareerInterest.DesiredNetSalaryPerMonth;
 
-            return _applicantRepository.Update(applicant);
+            var updatedApplicant = _applicantRepository.Update(applicant);
+
+            return
+                (
+                 new UpdateCareerInterestDTO
+                 {
+                     DesiredNetSalaryPerMonth = updatedApplicant.DesiredNetSalaryPerMonth,
+                     JobCategories = updatedApplicant.IndustryCategories.Select(x => x.Category).ToList(),
+                     JobTitles = updatedApplicant.JobTitles.Select(x => x.Title).ToList(),
+                     JobType = updatedApplicant.JobType.Select(x => x.Name).ToList(),
+                     Level = updatedApplicant.Level,
+                     WorkPlace = updatedApplicant.WorkPlace.Select(x => x.Name).ToList(),
+                 },
+                 updatedApplicant.Id
+                );
         }
 
-        public bool UpdateGenralInfo(string userId, UpdateApplicantGeneralInfoDTO applicantDto)
+        public (UpdateApplicantGeneralInfoDTO, int ApplicantId) UpdateGenralInfo(string userId, UpdateApplicantGeneralInfoDTO applicantDto)
         {
             var applicant = _applicantRepository.GetByUserId(userId);
             applicant = UpdateInfo(applicant, applicantDto);
-            return _applicantRepository.Update(applicant);
+            if (applicant == null) return (null, applicant.Id);
+
+            var updatedApllicant = _applicantRepository.Update(applicant);
+
+            return
+                (
+                new UpdateApplicantGeneralInfoDTO
+                {
+                    FirstName = updatedApllicant.User.FirstName,
+                    LastName = updatedApllicant.User.LastName,
+                    Area = updatedApllicant.Area,
+                    AlternativeMobileNumber = updatedApllicant.AlternativeMobileNumber,
+                    Birthdate = updatedApllicant.Birthdate,
+                    City = updatedApllicant.City,
+                    Country = updatedApllicant.Country,
+                    Gender = updatedApllicant.Gender,
+                    MaritalStatus = updatedApllicant.MaritalStatus,
+                    MobileNumber = updatedApllicant.MobileNumber,
+                    Nationality = updatedApllicant.Nationality,
+                    PostalCode = updatedApllicant.PostalCode
+                }, updatedApllicant.Id);
         }
 
-        private Applicant UpdateInfo( Applicant applicant, UpdateApplicantGeneralInfoDTO applicantDto)
+        private Applicant UpdateInfo(Applicant applicant, UpdateApplicantGeneralInfoDTO applicantDto)
         {
             applicant.User.FirstName = applicantDto.FirstName;
             applicant.User.LastName = applicantDto.LastName;

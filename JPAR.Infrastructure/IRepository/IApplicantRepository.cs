@@ -5,7 +5,7 @@
         Applicant GetById(int id);
         Applicant GetByUserId(string userId);
         bool Add(string userId);
-        bool Update(Applicant applicant);
+        Applicant Update(Applicant applicant);
         bool Delete(int id);
     }
 }
