@@ -21,31 +21,41 @@ namespace JPAR.API.Controllers
         [Authorize(Roles = "Recruiter"),HttpPost("Add")]
         public IActionResult Add(AddJobDTO addJobPostDTO)
         {
-            var userId = "";
+            var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userId").Value;
+            if (userId == null) return Unauthorized();
             return Ok(_jobPostService.Add(addJobPostDTO, userId));
         }
 
 
-        [Authorize(Roles = "Recruiter"),HttpPut("ChangeStstus")]
+        [Authorize(Roles ="Recruiter"),HttpPut("ChangeStstus")]
         public IActionResult ChangeStstus(int jobPostId, JobStatus jobPostStatus)
         {
             return Ok(_jobPostService.ChangeStatus(jobPostId, jobPostStatus));
         }
 
 
-        [Authorize(Roles = "Recruiter"), HttpGet("GetByUserId")]
+        [Authorize(Roles ="Recruiter"), HttpGet("GetByUserId")]
         public IActionResult GetByUserId()
         {
-            var userId = "";
+            var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userId").Value;
+            if (userId == null) return Unauthorized();
             return Ok(_jobPostService.GetByUserId(userId));
         } 
 
 
-        [Authorize(Roles = "Applicant"), HttpPost("GetApplicantJobs")]
+        [Authorize(Roles="Applicant"), HttpPost("GetApplicantJobs")]
         public IActionResult GetApplicantJobs(ApplicantJobFilterDTO filter)
         {
-            var userId = "";
+            var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userId").Value;
+            if (userId == null) return Unauthorized();
             return Ok(_jobPostService.GetApplicantMatchedJobs(filter, userId));
+        }
+
+       // [Authorize(Roles="Applicant"),
+       [HttpGet("GetJobDetails/{jobId}")]
+        public IActionResult GetJobDetails(int jobId)
+        {
+            return Ok(_jobPostService.GetById(jobId));
         }
     }
 }

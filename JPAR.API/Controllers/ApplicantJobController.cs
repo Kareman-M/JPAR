@@ -20,7 +20,8 @@ namespace JPAR.API.Controllers
         [Authorize(Roles = "Applicant"), HttpPost("Applay")]
         public IActionResult Applay(int jobId)
         {
-            var userId = 0;
+            var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userId").Value;
+            if (userId == null) return Unauthorized();
             return Ok(_jobService.Applay(jobId, userId));
         }
 
@@ -28,8 +29,9 @@ namespace JPAR.API.Controllers
         [Authorize(Roles = "Applicant"), HttpGet("GetByApplicantId")]
         public IActionResult GetByApplicantId()
         {
-            var applicantId = 0;
-            return Ok(_jobService.GetByApplicantId(applicantId));
+            var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userId").Value;
+            if (userId == null) return Unauthorized();
+            return Ok(_jobService.GetByApplicantId(userId));
         }
 
         

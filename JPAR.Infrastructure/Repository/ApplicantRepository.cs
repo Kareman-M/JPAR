@@ -36,7 +36,17 @@ namespace JPAR.Infrastructure.Repository
 
         public Applicant GetByUserId(string userId)
         {
-            return _context.Applicants.Include(x=> x.User).FirstOrDefault(x => x.UserId == userId);
+            return _context.Applicants
+                .Include(x=> x.User)
+                .Include(x=> x.IndustryCategories)
+                .Include(x=> x.OnlinePresences)
+                .Include(x=> x.Skills)
+                .Include(x=> x.UniversityDegrees)
+                .Include(x=> x.Experiences)
+                .Include(x=> x.WorkPlace)
+                .Include(x=> x.JobTitles)
+                .Include(x=> x.JobType)
+                .FirstOrDefault(x => x.UserId == userId);
         }
 
         public Applicant Update(Applicant applicant)

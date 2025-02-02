@@ -26,5 +26,6 @@ namespace JPAR.Service.DTOs
         public List<Certification> Certifications { get; set; }
         public List<OnlinePresence> OnlinePresences { get; set; }
         public string? Achievements { get; set; }
+        public List<ApplicationStage> ApplicationStages { get; set; }
     }
 }

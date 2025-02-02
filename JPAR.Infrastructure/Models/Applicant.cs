@@ -50,5 +50,6 @@ public class Applicant : BaseModel
     public string UserId { get; set; }
     [ForeignKey(nameof(UserId))]
     public User User { get; set; }
+    public List<ApplicantJob> ApplicantJobs { get; set; }
 
 }

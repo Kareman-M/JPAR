@@ -63,15 +63,73 @@ namespace JPAR.Service.Services
 
             jobs = GetFilteredJobs(filter, jobs);
 
-            jobs = GetMatchedJobs(jobs, user);
+            //var data = GetMatchedJobs(jobs, user).ToList();
 
-            return jobs.OrderBy(x => x.CreatedAt).Select(x => new JobDTO
-            {
-
-            }).ToList();
+            return MapJobToDTO(jobs.OrderBy(x => x.CreatedAt).ToList());
         }
 
-        private IQueryable<Job> GetMatchedJobs(IQueryable<Job> jobs, Applicant user)
+        public JobDTO GetById(int jobPostId)
+        {
+            var job = _jobPostRepository.GetById(jobPostId);
+            if (job == null) return null;
+            return new JobDTO
+            {
+                AdditinalSalaryDetails = job.AdditinalSalaryDetails,
+                JobDescription = job.JobDescription,
+                CareerLevel = job.CareerLevel.ToString(),
+                Categories = job.JobCategories.Select(x=> x.Category).ToList(),
+                CompanyName = job.Recruiter.CompanyName,
+                WorkPlace = job.WorkPlace.ToString(),
+                Country = job.Country,
+                CreatedAt= job.CreatedAt,
+                CreatedBy= job.CreatedBy,
+                HideSalary= job.HideSalary,
+                Id = jobPostId,
+                JobTypes = job.JobTypes.Select(x=> x.Type.ToString()).ToList(),
+                MaxSalaryRange = job.MaxSalaryRange,
+                MaxYearsOfExperince = job.MaxYearsOfExperince,
+                MinSalaryRange = job.MinSalaryRange,
+                MinYearsOfExperince = job.MinYearsOfExperince,
+                NumberOfVecancy = job.NumberOfVecancy,
+                RecruiterId = job.RecruiterId,
+                Status = job.Status.ToString(),
+                Title = job.Title,
+            };
+        }
+
+        public List<JobApplications> GetRecruiterJobsApplications(string userId)
+        {
+           return _jobPostRepository.GetDetailedJobsByUserId(userId).Select(x=> new JobApplications
+           {
+               Title = x.Title,
+               JobTypes = x.JobTypes.Select(j => j.Type.ToString()).ToList(),
+               Status = x.Status.ToString(),
+               MaxSalaryRange = x.MaxSalaryRange,
+               MaxYearsOfExperince = x.MaxYearsOfExperince,
+               MinSalaryRange = x.MinSalaryRange,
+               MinYearsOfExperince = x.MinYearsOfExperince,
+               NumberOfVecancy = x.NumberOfVecancy,
+               WorkPlace = x.WorkPlace.ToString(),
+               JobDescription = x.JobDescription,
+               CareerLevel = x.CareerLevel.ToString(),
+               Categories = x.JobCategories.Select(x => x.Category).ToList(),
+               Country = x.Country,
+               CreatedAt = x.CreatedAt,
+               Applicants = x.ApplicantJobs.Select(y=> new ApplicantJob
+              {
+                  Applicant = y.Applicant,
+                  Status = y.Status,
+                  ApplicationStages = y.ApplicationStages,
+                  ApplicantId = y.ApplicantId,
+                  Comment = y.Comment,
+                  CreatedAt = y.CreatedAt,
+                  CreatedBy = y.CreatedBy,
+                  JobId = y.JobId,
+                  UpdatedAt = y.UpdatedAt,
+              }).ToList(),
+           }).ToList();
+        }
+        private IEnumerable<Job> GetMatchedJobs(IEnumerable<Job> jobs, Applicant user)
         {
 
             if (!string.IsNullOrEmpty(user.Country) || !string.IsNullOrEmpty(user.City) || !string.IsNullOrEmpty(user.Area))
@@ -98,7 +156,7 @@ namespace JPAR.Service.Services
             return jobs;
         }
 
-        private IQueryable<Job> GetFilteredJobs(ApplicantJobFilterDTO filter, IQueryable<Job> jobs)
+        private IEnumerable<Job> GetFilteredJobs(ApplicantJobFilterDTO filter, IEnumerable<Job> jobs)
         {
             if (!string.IsNullOrEmpty(filter.Location))
                 jobs = jobs.Where(x => x.Country.ToLower().Contains(filter.Location.ToLower()));
@@ -115,7 +173,7 @@ namespace JPAR.Service.Services
             {
                 Id = x.Id,
                 Title = x.Title,
-                JobTypes = x.JobTypes.Select(j => j.ToString()).ToList(),
+                JobTypes = x.JobTypes.Select(j => j.Type.ToString()).ToList(),
                 Status = x.Status.ToString(),
                 MaxSalaryRange = x.MaxSalaryRange,
                 MaxYearsOfExperince = x.MaxYearsOfExperince,

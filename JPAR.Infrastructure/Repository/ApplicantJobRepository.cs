@@ -15,13 +15,14 @@ namespace JPAR.Infrastructure.Repository
             _context = context;
         }
 
-        public bool Applay(int jobId, int applicantId)
+        public bool Applay(int jobId, string userId)
         {
             var job = _context.JobPosts.FirstOrDefault(p => p.Id == jobId);
-            if(job is null) return false;
+            var applicant = _context.Applicants.FirstOrDefault(x => x.UserId == userId);
+            if(job is null || applicant is null) return false;
             _context.ApplicantJob.Add(new Models.ApplicantJob
             {
-                ApplicantId = applicantId,
+                ApplicantId = applicant.Id,
                 JobId = jobId,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now,
@@ -30,10 +31,11 @@ namespace JPAR.Infrastructure.Repository
             return _context.SaveChanges() > 0;
         }
 
-        public List<ApplicantJob> GetByApplicantId(int applicantId)
+        public List<ApplicantJob> GetByApplicantId(string userId)
         {
             return _context.ApplicantJob
-                .Where(x => x.ApplicantId == applicantId)
+                .Include(x=> x.Applicant)
+                .Where(x => x.Applicant.UserId == userId)
                 .Include(x => x.Job).ThenInclude(x=> x.Recruiter)
                 .ToList();
         }

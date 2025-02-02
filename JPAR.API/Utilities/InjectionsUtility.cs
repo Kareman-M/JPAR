@@ -25,7 +25,8 @@ namespace JPAR.API.Utilities
                 .AddScoped<IApplicantRepository, ApplicantRepository>()
                 .AddScoped<IUserRepository, UserRepository>()
                 .AddScoped<IRecruiterRepository,RecruiterRepository>()
-                .AddScoped<IJobRepository, JobRepository>();
+                .AddScoped<IJobRepository, JobRepository>()
+                .AddScoped<IApplicantJobRepository, ApplicantJobRepository>();
             return services;
         }
 
@@ -35,6 +36,7 @@ namespace JPAR.API.Utilities
                 .AddScoped<IApplicantService, ApplicantService>()
                 .AddScoped<IUserService, UserService>()
                 .AddScoped<IJobService, JobService>()
+                .AddScoped<IApplicantJobService, ApplicantJobService>()
                 .AddScoped<IAuthenticatorService, AuthenticatorService>()
                 .AddScoped<IAccessTokenGeneratorService, AccessTokenGeneratorService>()
                 .AddScoped<IRefreshTokenGeneratorService, RefreshTokenGeneratorService>()

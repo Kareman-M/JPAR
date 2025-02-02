@@ -6,9 +6,9 @@ namespace JPAR.Service.IServices
 {
     public interface IApplicantJobService
     {
-        bool Applay(int jobId, int applicantId);
+        bool Applay(int jobId, string userId);
         bool UpdateStatus(UpdateApplicationStatusDTO updateStatus);
-        List<ApplicantJobDTO> GetByApplicantId(int applicantId);
+        List<ApplicantJobDTO> GetByApplicantId(string userId);
         List<ApplicationDTO> GetApplicationsByJobId(int jobId);
     }
 }

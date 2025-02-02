@@ -6,6 +6,7 @@ namespace JPAR.Infrastructure.Models
     public class ApplicationStage : BaseModel
     {
         public Stage Stage { get; set; }
+        public StageStatus Status { get; set; }
         public int ApplicantId { get; set; }
         public int JobId { get; set; }
         public ApplicantJob ApplicantJob { get; set; }

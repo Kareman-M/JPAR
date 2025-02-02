@@ -23,7 +23,8 @@ namespace JPAR.API.Controllers
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(x=> x.Type == "userId").Value;
             if (userId == null) return Unauthorized();
-            return Ok(_applicantService.UpdateGenralInfo(userId, applicantGeneralInfo));
+            var data = _applicantService.UpdateGenralInfo(userId, applicantGeneralInfo);
+            return Ok(new {data = data.Data , applicanId = data.ApplicantId });
         }
 
         
@@ -32,7 +33,8 @@ namespace JPAR.API.Controllers
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userId").Value;
             if (userId == null) return Unauthorized();
-            return Ok(_applicantService.UpdateCareerInterest(userId, careerInterestDTO));
+            var data = _applicantService.UpdateCareerInterest(userId, careerInterestDTO);
+            return Ok(new { data = data.Data, applicanId = data.ApplicantId });
         }
 
         
@@ -41,7 +43,8 @@ namespace JPAR.API.Controllers
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userId").Value;
             if (userId == null) return Unauthorized();
-            return Ok(_applicantService.UpdateCv( userId, updateCvDTO));
+            var data = _applicantService.UpdateCv(userId, updateCvDTO);
+            return Ok(new { FileName = data.FileName,FilePath = data.FilePath, applicanId = data.ApplicantId });
 
         }
 
@@ -51,7 +54,8 @@ namespace JPAR.API.Controllers
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userId").Value;
             if (userId == null) return Unauthorized();
-            return Ok(_applicantService.UpdateExperience(userId,updateExperience));
+            var data = _applicantService.UpdateExperience(userId, updateExperience);
+            return Ok(new { data = data.Data, applicanId = data.ApplicantId });
         }
 
       
@@ -60,7 +64,8 @@ namespace JPAR.API.Controllers
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userId").Value;
             if (userId == null) return Unauthorized();
-            return Ok(_applicantService.UpdateSkills(userId, updateSkills));
+            var data = _applicantService.UpdateSkills(userId, updateSkills);
+            return Ok(new { data = data.Data, applicanId = data.ApplicantId });
         }
 
         
@@ -69,7 +74,8 @@ namespace JPAR.API.Controllers
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userId").Value;
             if (userId == null) return Unauthorized();
-            return Ok(_applicantService.UpdateEducation(userId, updateEducation));
+            var data = _applicantService.UpdateEducation(userId, updateEducation);
+            return Ok(new { data = data.Data, applicanId = data.ApplicantId });
         }
 
         
@@ -78,7 +84,8 @@ namespace JPAR.API.Controllers
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userId").Value;
             if (userId == null) return Unauthorized();
-            return Ok(_applicantService.UpdateOnlinePresence(userId, onlinePresences));
+            var data = _applicantService.UpdateOnlinePresence(userId, onlinePresences);
+            return Ok(new { data = data.Data, applicanId = data.ApplicantId });
         }
 
         
@@ -87,7 +94,8 @@ namespace JPAR.API.Controllers
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userId").Value;
             if (userId == null) return Unauthorized();
-            return Ok(_applicantService.UpdateAchievements(userId,achievements));
+            var data = _applicantService.UpdateAchievements(userId,achievements);
+            return Ok(new { data = data.Data, applicanId = data.ApplicantId });
         }
     }
 }

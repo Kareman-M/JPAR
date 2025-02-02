@@ -24,7 +24,7 @@ namespace JPAR.Service.Services
             throw new NotImplementedException();
         }
 
-        public (UpdateAchievementsDTO, int ApplicantId) UpdateAchievements(string userId, UpdateAchievementsDTO achievements)
+        public (UpdateAchievementsDTO Data, int ApplicantId) UpdateAchievements(string userId, UpdateAchievementsDTO achievements)
         {
             var applicant = _applicantRepository.GetByUserId(userId);
             if (applicant == null) return (null, applicant.Id);
@@ -35,7 +35,7 @@ namespace JPAR.Service.Services
             return (new UpdateAchievementsDTO { Achievements = upadtedApplicant.Achievements, }, upadtedApplicant.Id);
         }
 
-        public (List<UpdateOnlinePresenceDTO>, int ApplicantId) UpdateOnlinePresence(string userId, List<UpdateOnlinePresenceDTO> onlinePresences)
+        public (List<UpdateOnlinePresenceDTO> Data, int ApplicantId) UpdateOnlinePresence(string userId, List<UpdateOnlinePresenceDTO> onlinePresences)
         {
             var applicant = _applicantRepository.GetByUserId(userId);
             if (applicant == null) return (null, applicant.Id);
@@ -55,12 +55,12 @@ namespace JPAR.Service.Services
             var updatedApplicant = _applicantRepository.Update(applicant);
 
             return (
-                updatedApplicant.OnlinePresences.Select(x => new UpdateOnlinePresenceDTO { AccountLink = x.AccountLink, AccountName = x.AccountName }).ToList(),
+                 updatedApplicant.OnlinePresences.Select(x => new UpdateOnlinePresenceDTO { AccountLink = x.AccountLink, AccountName = x.AccountName }).ToList(),
                 updatedApplicant.Id
                 );
         }
 
-        public (UpdateEducationDTO, int ApplicantId) UpdateEducation(string userId, UpdateEducationDTO updateEducation)
+        public (UpdateEducationDTO Data, int ApplicantId) UpdateEducation(string userId, UpdateEducationDTO updateEducation)
         {
             var applicant = _applicantRepository.GetByUserId(userId);
             if (applicant == null) return (null, applicant.Id);
@@ -129,7 +129,7 @@ namespace JPAR.Service.Services
                 );
         }
 
-        public (UpdateSkillsDTO, int ApplicantId) UpdateSkills(string userId, UpdateSkillsDTO updateSkills)
+        public (UpdateSkillsDTO Data, int ApplicantId) UpdateSkills(string userId, UpdateSkillsDTO updateSkills)
         {
             var applicant = _applicantRepository.GetByUserId(userId);
             if (applicant == null) return (null, applicant.Id);
@@ -160,7 +160,7 @@ namespace JPAR.Service.Services
                }, updatedApplicant.Id);
         }
 
-        public (UpdateExperienceDTO, int ApplicantId) UpdateExperience(string userId, UpdateExperienceDTO updateExperience)
+        public (UpdateExperienceDTO Data, int ApplicantId) UpdateExperience(string userId, UpdateExperienceDTO updateExperience)
         {
             var applicant = _applicantRepository.GetByUserId(userId);
             if (applicant == null) return (null, applicant.Id);
@@ -235,7 +235,7 @@ namespace JPAR.Service.Services
             return (updatedApplicant.UploadedCVFileName, updatedApplicant.UploadedCVPath, updatedApplicant.Id);
         }
 
-        public (UpdateCareerInterestDTO, int ApplicantId) UpdateCareerInterest(string userId, UpdateCareerInterestDTO updateCareerInterest)
+        public (UpdateCareerInterestDTO Data, int ApplicantId) UpdateCareerInterest(string userId, UpdateCareerInterestDTO updateCareerInterest)
         {
             var applicant = _applicantRepository.GetByUserId(userId);
             if (applicant == null) return (null, applicant.Id);
@@ -264,7 +264,7 @@ namespace JPAR.Service.Services
                 );
         }
 
-        public (UpdateApplicantGeneralInfoDTO, int ApplicantId) UpdateGenralInfo(string userId, UpdateApplicantGeneralInfoDTO applicantDto)
+        public (UpdateApplicantGeneralInfoDTO Data, int ApplicantId) UpdateGenralInfo(string userId, UpdateApplicantGeneralInfoDTO applicantDto)
         {
             var applicant = _applicantRepository.GetByUserId(userId);
             applicant = UpdateInfo(applicant, applicantDto);

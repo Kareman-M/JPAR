@@ -27,5 +27,6 @@ namespace JPAR.Infrastructure.Models
 
         [ForeignKey(nameof(RecruiterId))]
         public Recruiter Recruiter { get; set; }
+        public List<ApplicantJob> ApplicantJobs { get; set; }
     }
 }

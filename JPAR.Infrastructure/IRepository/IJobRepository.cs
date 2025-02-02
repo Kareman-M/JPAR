@@ -8,6 +8,8 @@ namespace JPAR.Infrastructure.IRepository
         bool Add(Job jobPost);
         bool ChangeStatus(int jobPostId, JobStatus jobPostStatus);
         List<Job> GetByUserId(string userId);
-        IQueryable<Job> GetAll();
+        Job GetById(int jobPostId);
+        IEnumerable<Job> GetAll();
+        List<Job> GetDetailedJobsByUserId(string userId);
     }
 }

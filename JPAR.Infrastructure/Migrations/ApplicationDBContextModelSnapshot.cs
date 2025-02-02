@@ -82,6 +82,9 @@ namespace JPAR.Infrastructure.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("UploadedCVFileName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("UploadedCVPath")
                         .HasColumnType("nvarchar(max)");
 
@@ -487,15 +490,15 @@ namespace JPAR.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "981d4c60-7189-4c07-80a5-7c2b852a4dbb",
-                            ConcurrencyStamp = "7302799a-a4e5-4960-a376-42f5c3a96ad2",
+                            Id = "674386ea-9368-4c60-9a5c-aebdfd807476",
+                            ConcurrencyStamp = "6545fb46-aaf2-4197-81a4-02536957a834",
                             Name = "Applicant",
                             NormalizedName = "APPLICANT"
                         },
                         new
                         {
-                            Id = "c6402034-3fbb-4005-aec2-dd1dfb9f876a",
-                            ConcurrencyStamp = "49c0b2c3-8304-458a-9dee-c997fc2a6b6b",
+                            Id = "63a44ebf-f421-41f1-846b-e4030dbf1869",
+                            ConcurrencyStamp = "822b2789-1a9a-48aa-8b3a-a0d4773fa237",
                             Name = "Recruiter",
                             NormalizedName = "RECRUITER"
                         });

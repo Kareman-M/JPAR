@@ -1,5 +1,6 @@
 ﻿using JPAR.Infrastructure.Context;
 using JPAR.Infrastructure.IRepository;
+using Microsoft.EntityFrameworkCore;
 
 namespace JPAR.Infrastructure.Repository
 {
@@ -28,5 +29,6 @@ namespace JPAR.Infrastructure.Repository
         {
             return _context.Recruiters.FirstOrDefault(x => x.UserId == userId);
         }
+
     }
 }
