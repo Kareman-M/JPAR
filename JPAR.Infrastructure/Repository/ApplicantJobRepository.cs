@@ -56,6 +56,11 @@ namespace JPAR.Infrastructure.Repository
               .ToList();
         }
 
+        public Job GetJobById(int id)
+        {
+            return _context.JobPosts.FirstOrDefault(x => x.Id == id);
+        }
+
         public bool UpdateStatus(int jobId, int applicantId, ApplicationStatus newStatus, string comment)
         {
             var app = _context.ApplicantJob.FirstOrDefault(p => p.JobId == jobId && p.ApplicantId == applicantId);

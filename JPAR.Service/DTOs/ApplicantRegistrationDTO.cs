@@ -1,4 +1,5 @@
 ﻿using JPAR.Infrastructure.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace JPAR.Service.DTOs
 {

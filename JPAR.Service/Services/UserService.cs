@@ -17,7 +17,6 @@ namespace JPAR.Service.Services
         private readonly IAuthenticatorService _authenticator;
         private readonly UserManager<User> _userManager;
 
-
         public UserService(IUserRepository userRepository, IApplicantRepository applicantRepository, UserManager<User> userManager, IAuthenticatorService authenticator, IRecruiterRepository recruiterRepository)
         {
             _userRepository = userRepository;
@@ -30,7 +29,7 @@ namespace JPAR.Service.Services
         public async Task<AuthenticatedUserModel> Login(UserLoginDTO userLogin)
         {
             var user = _userManager.FindByEmailAsync(userLogin.Email).Result;
-            var isCorrectPassword = _userManager.CheckPasswordAsync(user, userLogin.Password).Result;
+            var isCorrectPassword =  _userManager.CheckPasswordAsync(user, userLogin.Password).Result;
             if (!isCorrectPassword)
             {
                 await _userManager.AccessFailedAsync(user);
@@ -54,8 +53,14 @@ namespace JPAR.Service.Services
 
         public async Task<IdentityResult> ApplicantRegister(ApplicantRegistrationDTO userModel)
         {
+
+            // create new applicant user
+            // create new applicant in applicant table
+
             bool addApplicantResult;
+
             IdentityResult result;
+
 
             var user = new User
             {
@@ -66,11 +71,14 @@ namespace JPAR.Service.Services
                 UserName = Guid.NewGuid().ToString(),
                 UserType = UserType.Applicant,
             };
+
             result = _userManager.CreateAsync(user, userModel.Password).Result;
+
             if (result.Succeeded)
             {
-                 _ = _userManager.AddToRoleAsync(user, UserType.Applicant.ToString()).Result;
-                 addApplicantResult = _applicantRepository.Add(user.Id);
+                _ = _userManager.AddToRoleAsync(user, UserType.Applicant.ToString()).Result;
+
+                addApplicantResult = _applicantRepository.Add(user.Id);
             }
             return result;
         }

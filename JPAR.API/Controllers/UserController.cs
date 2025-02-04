@@ -15,18 +15,22 @@ namespace JPAR.API.Controllers
             _userService = userService;
         }
 
+      
         [HttpPost("ApplicantRegister")]
         public async Task<IActionResult> RegisterAsync(ApplicantRegistrationDTO userDto)
         {
             return Ok(await _userService.ApplicantRegister(userDto));
         }
 
+        
         [HttpPost("RecruiterRegister")]
         public async Task<IActionResult> RecruiterRegister(RecruiterRegistrationDTO userDto )
         {
-            return Ok(await _userService.RecruiterRegister(userDto));
+            var result = await _userService.RecruiterRegister(userDto);
+            return result.Succeeded?  Ok(result) : BadRequest();
         }
 
+        
         [HttpPost("Login")]
         public async Task<IActionResult> LoginAsync(UserLoginDTO userLogin)
         {

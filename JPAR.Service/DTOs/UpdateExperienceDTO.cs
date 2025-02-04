@@ -12,7 +12,7 @@ namespace JPAR.Service.DTOs
         public string JobTitle { get; set; }
         public string CompanyName { get; set; }
         public JobTypeEnum? JobType { get; set; }
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public bool? IsCurrent { get; set; }
         public string Description { get; set; }

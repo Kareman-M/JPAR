@@ -30,6 +30,15 @@ namespace JPAR.Infrastructure.Repository
             return _context.SaveChanges() >0;
         }
 
+        public bool Delete(int jobId)
+        {
+            var job = _context.JobPosts.FirstOrDefault(x=> x.Id == jobId);
+            if (job is null) return false;
+            _context.JobPosts.Remove(job);
+            _context.SaveChanges();
+            return true;
+        }
+
         public IEnumerable<Job> GetAll()
         {
             return _context.JobPosts.Include(x=> x.JobTypes).Include(x=> x.JobCategories).Include(x=> x.Recruiter);

@@ -10,5 +10,6 @@ namespace JPAR.Infrastructure.IRepository
         List<ApplicantJob> GetByApplicantId(string userId);
         List<ApplicantJob> GetByJobId(int jobId);
         bool CanApplicantApplay(string userId, int jobId);
+        Job GetJobById(int id);
     }
 }

@@ -201,6 +201,9 @@ namespace JPAR.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
@@ -490,15 +493,15 @@ namespace JPAR.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "674386ea-9368-4c60-9a5c-aebdfd807476",
-                            ConcurrencyStamp = "6545fb46-aaf2-4197-81a4-02536957a834",
+                            Id = "9349a83d-e697-452f-ab4a-e305e16b51bc",
+                            ConcurrencyStamp = "03ad8520-c29f-4c54-acca-fb9b4439636b",
                             Name = "Applicant",
                             NormalizedName = "APPLICANT"
                         },
                         new
                         {
-                            Id = "63a44ebf-f421-41f1-846b-e4030dbf1869",
-                            ConcurrencyStamp = "822b2789-1a9a-48aa-8b3a-a0d4773fa237",
+                            Id = "f4d030d5-fcb1-4fbe-b9b0-fa7673e93608",
+                            ConcurrencyStamp = "993f76f5-5d59-46b3-83fb-1f7ef8b21314",
                             Name = "Recruiter",
                             NormalizedName = "RECRUITER"
                         });
@@ -871,13 +874,13 @@ namespace JPAR.Infrastructure.Migrations
             modelBuilder.Entity("JPAR.Infrastructure.Models.ApplicantJob", b =>
                 {
                     b.HasOne("Applicant", "Applicant")
-                        .WithMany()
+                        .WithMany("ApplicantJobs")
                         .HasForeignKey("ApplicantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("JPAR.Infrastructure.Models.Job", "Job")
-                        .WithMany()
+                        .WithMany("ApplicantJobs")
                         .HasForeignKey("JobId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1083,6 +1086,8 @@ namespace JPAR.Infrastructure.Migrations
 
             modelBuilder.Entity("Applicant", b =>
                 {
+                    b.Navigation("ApplicantJobs");
+
                     b.Navigation("Certifications");
 
                     b.Navigation("Experiences");
@@ -1109,6 +1114,8 @@ namespace JPAR.Infrastructure.Migrations
 
             modelBuilder.Entity("JPAR.Infrastructure.Models.Job", b =>
                 {
+                    b.Navigation("ApplicantJobs");
+
                     b.Navigation("JobCategories");
 
                     b.Navigation("JobTypes");

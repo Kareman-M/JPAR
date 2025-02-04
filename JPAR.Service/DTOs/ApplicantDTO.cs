@@ -19,13 +19,13 @@ namespace JPAR.Service.DTOs
         public string? AlternativeMobileNumber { get; set; }
         public string Level { get; set; }
         public int? YearsOfExperince { get; set; }
-        public List<Experience> Experiences { get; set; }
-        public List<Skill> Skills { get; set; }
+        public List<ExperienceDTO> Experiences { get; set; }
+        public List<SkillDTO> Skills { get; set; }
         public string EducationLevel { get; set; }
-        public List<UniversityDegree> UniversityDegrees { get; set; }
-        public List<Certification> Certifications { get; set; }
-        public List<OnlinePresence> OnlinePresences { get; set; }
+        public List<UniversityDegreeDTO> UniversityDegrees { get; set; }
+        public List<CertificationDTO> Certifications { get; set; }
+        public List<OnlinePresenceDTO> OnlinePresences { get; set; }
         public string? Achievements { get; set; }
-        public List<ApplicationStage> ApplicationStages { get; set; }
+        public List<ApplicationStageDTO> ApplicationStages { get; set; }
     }
 }

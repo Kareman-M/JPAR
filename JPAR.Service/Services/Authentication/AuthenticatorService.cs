@@ -17,7 +17,6 @@ namespace JPAR.Service.Services.Authentication
 
         public async Task<AuthenticatedUserModel> Authenticate(User user, List<Claim> claims)
         {
-            string refreshToken = _refreshTokenGenerator.GenerateToken();
 
             var accessToken = _accessTokenGeneratorService.GenerateToken(user, claims);
 
@@ -25,7 +24,6 @@ namespace JPAR.Service.Services.Authentication
             {
                 AccessToken = accessToken.Value,
                 AccessTokenExpirationTime = accessToken.ExpirationDate,
-                RefreshToken = refreshToken,
                 SessionId = user.Id,
                 FullName = $"{user.FirstName} {user.LastName}",
                 UserId = user.Id,

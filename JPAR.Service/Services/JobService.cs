@@ -198,5 +198,18 @@ namespace JPAR.Service.Services
                 CreatedBy = x.CreatedBy,
             }).ToList();
         }
+
+        public bool Delete(int jobId)
+        {
+            return _jobPostRepository.Delete(jobId);
+        }
+
+        public JobDTO Edit(EditJobDTO dto)
+        {
+            Job job = _applicantJobRepository.GetJobById(dto.Id);
+            if (job == null) return null;
+            // we will make edit 
+            return null;
+        }
     }
 }

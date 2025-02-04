@@ -27,7 +27,9 @@ namespace JPAR.Service.Services.Authentication
         ];
 
             DateTime expirationTime = DateTime.Now.AddMinutes(_jwtConfiguration.AccessTokenExpirationDurationMinutes);
-            string value = _tokenGenerator.GenerateToken(
+
+            string value = _tokenGenerator.GenerateToken
+                (
                 _jwtConfiguration.AccessTokenSecret,
                 _jwtConfiguration.Issuer,
                 _jwtConfiguration.Audience,

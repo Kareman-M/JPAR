@@ -67,5 +67,18 @@ namespace JPAR.API.Controllers
             if (userId == null) return Unauthorized();
             return Ok(_jobPostService.GetRecruiterJobsApplications(userId));
         }
+
+        [Authorize(Roles = "Recruiter"), HttpDelete("Delete/{jobId}")]
+        public IActionResult Delete(int jobId)
+        {
+           return _jobPostService.Delete(jobId) ? Ok("Deleted Successfully"): NotFound("Job Not Found");
+        }
+
+        [Authorize(Roles = "Recruiter"), HttpPut("Edit")]
+        public IActionResult Edit(EditJobDTO dto)
+        {
+            JobDTO job = _jobPostService.Edit(dto);
+            return  Ok();
+        }
     }
 }
