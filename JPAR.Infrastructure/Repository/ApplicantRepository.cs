@@ -27,33 +27,44 @@ namespace JPAR.Infrastructure.Repository
 
         public bool Delete(int id)
         {
-           _context.Applicants.Remove(GetById(id));
-           return _context.SaveChanges() > 0;
+            var applicant = _context.Applicants.FirstOrDefault(x => x.Id == id);
+            _context.Applicants.Remove(applicant);
+            return _context.SaveChanges() > 0;
         }
 
-        private Applicant GetById(int id)
+        public Applicant GetById(int id)
         {
-            return _context.Applicants.FirstOrDefault(x => x.Id == id);
+            return _context.Applicants
+                    .Include(x => x.User)
+                    .Include(x => x.IndustryCategories)
+                    .Include(x => x.OnlinePresences)
+                    .Include(x => x.Skills)
+                    .Include(x => x.UniversityDegrees)
+                    .Include(x => x.Experiences)
+                    .Include(x => x.WorkPlace)
+                    .Include(x => x.JobTitles)
+                    .Include(x => x.JobType)
+                    .FirstOrDefault(x => x.Id == id);
         }
 
         public Applicant GetByUserId(string userId)
         {
             return _context.Applicants
-                .Include(x=> x.User)
-                .Include(x=> x.IndustryCategories)
-                .Include(x=> x.OnlinePresences)
-                .Include(x=> x.Skills)
-                .Include(x=> x.UniversityDegrees)
-                .Include(x=> x.Experiences)
-                .Include(x=> x.WorkPlace)
-                .Include(x=> x.JobTitles)
-                .Include(x=> x.JobType)
+                .Include(x => x.User)
+                .Include(x => x.IndustryCategories)
+                .Include(x => x.OnlinePresences)
+                .Include(x => x.Skills)
+                .Include(x => x.UniversityDegrees)
+                .Include(x => x.Experiences)
+                .Include(x => x.WorkPlace)
+                .Include(x => x.JobTitles)
+                .Include(x => x.JobType)
                 .FirstOrDefault(x => x.UserId == userId);
         }
 
         public Applicant Update(Applicant applicant)
         {
-            var _applicant  = _context.Applicants.Update(applicant);
+            var _applicant = _context.Applicants.Update(applicant);
             _context.SaveChanges();
             return _applicant.Entity;
         }

@@ -47,5 +47,12 @@ namespace JPAR.API.Controllers
         {
             return Ok(_jobService.GetApplicationsByJobId(jobId));
         }
+
+        [Authorize(Roles = "Recruiter"), HttpGet("GetApplicantDataById/{applicantId}")]
+        public IActionResult GetApplicantDataById(int applicantId)
+        {
+            ApplicantDTO applicant= _jobService.GetApplicantDataById(applicantId);
+            return Ok(applicant);
+        }
     }
 }

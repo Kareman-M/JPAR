@@ -118,17 +118,10 @@ namespace JPAR.Service.Services
                Categories = x.JobCategories.Select(x => x.Category).ToList(),
                Country = x.Country,
                CreatedAt = x.CreatedAt,
-               Applicants = x.ApplicantJobs.Select(y=> new ApplicantJob
-              {
-                  Applicant = y.Applicant,
-                  Status = y.Status,
-                  ApplicationStages = y.ApplicationStages,
-                  ApplicantId = y.ApplicantId,
-                  Comment = y.Comment,
-                  CreatedAt = y.CreatedAt,
-                  CreatedBy = y.CreatedBy,
-                  JobId = y.JobId,
-                  UpdatedAt = y.UpdatedAt,
+               Applicants = x.ApplicantJobs?.Select(y=> new LookUpDTO
+               {
+                   Id =y.ApplicantId,
+                   Name =$"{y.Applicant.User.FirstName} {y.Applicant.User.LastName}"
               }).ToList(),
            }).ToList();
         }

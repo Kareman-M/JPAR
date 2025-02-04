@@ -22,11 +22,11 @@ namespace JPAR.Service.Services
         public ApplicantDTO GetByUserId(string userId)
         {
             var applicant = _applicantRepository.GetByUserId(userId);
-
+            if (applicant is null) return null;
             return new ApplicantDTO
             {
                 FullName =$"{applicant.User.FirstName} {applicant.User.LastName}",
-                UniversityDegrees = applicant.UniversityDegrees.Select(x=> new UniversityDegreeDTO
+                UniversityDegrees = applicant.UniversityDegrees?.Select(x=> new UniversityDegreeDTO
                 {
                     StudyField = x.StudyField,
                     Country = x.Country,
@@ -42,7 +42,7 @@ namespace JPAR.Service.Services
                 AlternativeMobileNumber = applicant.AlternativeMobileNumber,
                 Area = applicant.Area,
                 Birthdate = applicant.Birthdate,
-                Certifications = applicant.Certifications.Select(x=> new CertificationDTO
+                Certifications = applicant.Certifications?.Select(x=> new CertificationDTO
                 {
                     AdditionalInfo = x.AdditionalInfo,
                     AwardedMonth = x.AwardedMonth,
@@ -56,8 +56,8 @@ namespace JPAR.Service.Services
                 }).ToList(),
                 Country = applicant.Country,
                 City = applicant.City,
-                EducationLevel   = applicant.EducationLevel.ToString(),
-                Experiences = applicant.Experiences.Select(x=> new ExperienceDTO
+                EducationLevel   = applicant.EducationLevel?.ToString(),
+                Experiences = applicant.Experiences?.Select(x=> new ExperienceDTO
                 {
                     Achievements=x.Achievements,
                     EndDate = x.EndDate,
@@ -74,19 +74,19 @@ namespace JPAR.Service.Services
                     JobType = x.JobType,
                     StartingSalary = x.StartingSalary,
                 }).ToList(),
-                Gender = applicant.Gender.ToString(),   
+                Gender = applicant.Gender?.ToString(),   
                 Id = applicant.Id,
-                Level = applicant.Level.ToString(),
-                MaritalStatus = applicant.MaritalStatus.ToString(),
+                Level = applicant.Level?.ToString(),
+                MaritalStatus = applicant.MaritalStatus?.ToString(),
                 MobileNumber = applicant.User.PhoneNumber,
                 Nationality =applicant.Nationality,
-                OnlinePresences = applicant.OnlinePresences.Select(x=> new OnlinePresenceDTO
+                OnlinePresences = applicant.OnlinePresences?.Select(x=> new OnlinePresenceDTO
                 {
                     AccountLink = x.AccountLink,
                     AccountName = x.AccountName,
                     Number = x.Number,
                 }).ToList(),
-                Skills = applicant.Skills.Select(x=> new SkillDTO
+                Skills = applicant.Skills?.Select(x=> new SkillDTO
                 {
                     Interest =x.Interest,
                     Justification = x.Justification,
@@ -95,7 +95,10 @@ namespace JPAR.Service.Services
                     YearsOfExperience = x.YearsOfExperience,
                 }).ToList(),
                 PostalCode = applicant.PostalCode,
-                YearsOfExperince = applicant.YearsOfExperince
+                YearsOfExperince = applicant.YearsOfExperince,
+                JobTitles = applicant.JobTitles.Select(x=> x.Title).ToList(),
+                JobTypes= applicant.JobType.Select(x=> x.Name).ToList(),
+                WorkPlaces = applicant.WorkPlace.Select(x=> x.Name).ToList(),
             };
         }
 

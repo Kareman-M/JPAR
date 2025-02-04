@@ -10,5 +10,6 @@ namespace JPAR.Service.IServices
         bool UpdateStatus(UpdateApplicationStatusDTO updateStatus);
         List<ApplicantJobDTO> GetByApplicantId(string userId);
         List<ApplicationDTO> GetApplicationsByJobId(int jobId);
+        ApplicantDTO GetApplicantDataById(int applicantId);
     }
 }

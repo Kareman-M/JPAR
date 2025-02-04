@@ -61,7 +61,7 @@ namespace JPAR.Infrastructure.Repository
                  .Include(x => x.Recruiter)
                  .Include(x => x.JobTypes)
                  .Include(x => x.JobCategories)
-                 .Include(x => x.ApplicantJobs).ThenInclude(x => x.Applicant)
+                 .Include(x => x.ApplicantJobs).ThenInclude(x => x.Applicant).ThenInclude(x=> x.User)
                  .Include(x => x.ApplicantJobs).ThenInclude(x => x.ApplicationStages)
                  .Where(x => x.Recruiter.UserId == userId).ToList();
         }

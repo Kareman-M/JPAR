@@ -27,5 +27,8 @@ namespace JPAR.Service.DTOs
         public List<OnlinePresenceDTO> OnlinePresences { get; set; }
         public string? Achievements { get; set; }
         public List<ApplicationStageDTO> ApplicationStages { get; set; }
+        public List<JobTypeEnum> JobTypes { get; set; }
+        public List<WorkPlaceEnum> WorkPlaces { get; set; }
+        public List<string> JobTitles { get; set; }
     }
 }

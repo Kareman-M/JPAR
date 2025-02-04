@@ -18,6 +18,6 @@ namespace JPAR.Service.DTOs
         public int NumberOfVecancy { get; set; }
         public string JobDescription { get; set; }
         public DateTime CreatedAt { get; set; }
-        public List<ApplicantJob> Applicants { get; set; }
+        public List<LookUpDTO> Applicants { get; set; }
     }
 }
