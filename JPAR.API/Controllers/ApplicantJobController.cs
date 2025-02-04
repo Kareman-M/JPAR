@@ -17,12 +17,12 @@ namespace JPAR.API.Controllers
         }
 
         
-        [Authorize(Roles = "Applicant"), HttpPost("Applay")]
+        [Authorize(Roles = "Applicant"), HttpPost("Applay/{jobId}")]
         public IActionResult Applay(int jobId)
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userId").Value;
             if (userId == null) return Unauthorized();
-            return Ok(_jobService.Applay(jobId, userId));
+            return _jobService.Applay(jobId, userId) ? Ok(true): BadRequest();
         }
 
         

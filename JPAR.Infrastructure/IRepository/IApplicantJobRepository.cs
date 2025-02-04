@@ -9,5 +9,6 @@ namespace JPAR.Infrastructure.IRepository
         bool UpdateStatus(int jobId, int applicantId, ApplicationStatus newStatus, string comment);
         List<ApplicantJob> GetByApplicantId(string userId);
         List<ApplicantJob> GetByJobId(int jobId);
+        bool CanApplicantApplay(string userId, int jobId);
     }
 }

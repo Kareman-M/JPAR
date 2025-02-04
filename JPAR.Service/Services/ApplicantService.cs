@@ -19,19 +19,46 @@ namespace JPAR.Service.Services
             throw new NotImplementedException();
         }
 
-        public ApplicantDTO GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public (UpdateAchievementsDTO Data, int ApplicantId) UpdateAchievements(string userId, UpdateAchievementsDTO achievements)
+        public ApplicantDTO GetByUserId(string userId)
         {
             var applicant = _applicantRepository.GetByUserId(userId);
+
+            return new ApplicantDTO
+            {
+                FullName =$"{applicant.User.FirstName} {applicant.User.LastName}",
+                UniversityDegrees = applicant.UniversityDegrees,
+                Achievements = applicant.Achievements,
+                AlternativeMobileNumber = applicant.AlternativeMobileNumber,
+                Area = applicant.Area,
+                Birthdate = applicant.Birthdate,
+                Certifications = applicant.Certifications,
+                Country = applicant.Country,
+                City = applicant.City,
+                EducationLevel   = applicant.EducationLevel.ToString(),
+                Experiences = applicant.Experiences,
+                Gender = applicant.Gender.ToString(),   
+                Id = applicant.Id,
+                Level = applicant.Level.ToString(),
+                MaritalStatus = applicant.MaritalStatus.ToString(),
+                MobileNumber = applicant.User.PhoneNumber,
+                Nationality =applicant.Nationality,
+                OnlinePresences = applicant.OnlinePresences,
+                Skills = applicant.Skills,
+                PostalCode = applicant.PostalCode,
+                YearsOfExperince = applicant.YearsOfExperince
+            };
+        }
+
+        public (UpdateAchievementsDTO Data, int ApplicantId) UpdateAchievements(string userId, UpdateAchievementsDTO dto)
+        {
+            var applicant = _applicantRepository.GetByUserId(userId);
+
             if (applicant == null) return (null, applicant.Id);
 
-            applicant.Achievements = achievements.Achievements;
+            applicant.Achievements = dto.Achievements;
 
             var upadtedApplicant = _applicantRepository.Update(applicant);
+
             return (new UpdateAchievementsDTO { Achievements = upadtedApplicant.Achievements, }, upadtedApplicant.Id);
         }
 

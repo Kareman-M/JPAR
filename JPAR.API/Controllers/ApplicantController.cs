@@ -17,7 +17,14 @@ namespace JPAR.API.Controllers
             _applicantService = applicantService;
         }
 
-      
+        [HttpGet("GetApplicantData")]
+        public IActionResult GetApplicantData()
+        {
+            var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userId").Value;
+            if (userId == null) return Unauthorized();
+            return Ok(_applicantService.GetByUserId(userId));
+        }
+
         [HttpPut("UpdateGeneralInfo")]
         public IActionResult UpdateGeneralInfo(UpdateApplicantGeneralInfoDTO applicantGeneralInfo)
         {

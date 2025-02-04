@@ -51,11 +51,21 @@ namespace JPAR.API.Controllers
             return Ok(_jobPostService.GetApplicantMatchedJobs(filter, userId));
         }
 
-       // [Authorize(Roles="Applicant"),
-       [HttpGet("GetJobDetails/{jobId}")]
+        [Authorize(Roles="Applicant"), HttpGet("GetJobDetails/{jobId}")]
         public IActionResult GetJobDetails(int jobId)
         {
-            return Ok(_jobPostService.GetById(jobId));
+            var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userId").Value;
+            if (userId == null) return Unauthorized();
+            var result = _jobPostService.GetById(jobId, userId);
+            return Ok(new {data = result.Job, result.CanApply});
+        }
+
+        [Authorize(Roles = "Recruiter"), HttpGet("GetRecruiterJobsApplications")]
+        public IActionResult GetRecruiterJobsApplications()
+        {
+            var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userId").Value;
+            if (userId == null) return Unauthorized();
+            return Ok(_jobPostService.GetRecruiterJobsApplications(userId));
         }
     }
 }

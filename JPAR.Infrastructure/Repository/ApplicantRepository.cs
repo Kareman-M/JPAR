@@ -19,7 +19,9 @@ namespace JPAR.Infrastructure.Repository
             applicant.UserId = userId;
             applicant.CreatedBy = userId;
             applicant.CreatedAt = DateTime.Now;
+
             _context.Applicants.Add(applicant);
+
             return _context.SaveChanges() > 0;
         }
 
@@ -29,7 +31,7 @@ namespace JPAR.Infrastructure.Repository
            return _context.SaveChanges() > 0;
         }
 
-        public Applicant GetById(int id)
+        private Applicant GetById(int id)
         {
             return _context.Applicants.FirstOrDefault(x => x.Id == id);
         }

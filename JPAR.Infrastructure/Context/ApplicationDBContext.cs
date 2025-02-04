@@ -45,6 +45,7 @@ namespace JPAR.Infrastructure.Context
             builder.Entity<IdentityUserToken<string>>().ToTable("UserToken");
             builder.Entity<IdentityUserLogin<string>>().ToTable("UserLogin");
             builder.Entity<IdentityRole>().HasData(
+
                new IdentityRole { Id = Guid.NewGuid().ToString(), Name = UserType.Applicant.ToString(), NormalizedName = UserType.Applicant.ToString().ToUpper(), ConcurrencyStamp = Guid.NewGuid().ToString() },
                new IdentityRole { Id = Guid.NewGuid().ToString(), Name = UserType.Recruiter.ToString(), NormalizedName = UserType.Recruiter.ToString().ToUpper(), ConcurrencyStamp = Guid.NewGuid().ToString() }
               );

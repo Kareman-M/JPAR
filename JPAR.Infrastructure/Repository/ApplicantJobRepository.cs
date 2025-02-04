@@ -27,8 +27,16 @@ namespace JPAR.Infrastructure.Repository
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now,
                 Status = Enums.ApplicationStatus.Applied,
+                Comment = "",
+                CreatedBy = userId
             });
             return _context.SaveChanges() > 0;
+        }
+
+        public bool CanApplicantApplay(string userId , int jobId)
+        {
+            var applicantj = _context.ApplicantJob.FirstOrDefault(x => x.Applicant.UserId == userId && x.JobId == jobId);
+            return applicantj == null ? true : false;
         }
 
         public List<ApplicantJob> GetByApplicantId(string userId)

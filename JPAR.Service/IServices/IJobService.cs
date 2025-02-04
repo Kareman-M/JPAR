@@ -8,7 +8,7 @@ namespace JPAR.Service.IServices
         bool Add(AddJobDTO addJobPostDTO, string userId);
         bool ChangeStatus(int jobPostId, JobStatus jobPostStatus);
         List<JobDTO> GetByUserId(string userId);
-        JobDTO GetById(int jobPostId);
+        (JobDTO Job, bool CanApply) GetById(int jobPostId, string userId);
         List<JobDTO> GetApplicantMatchedJobs(ApplicantJobFilterDTO filter, string applicantUserId);
         List<JobApplications> GetRecruiterJobsApplications(string userId);
     }

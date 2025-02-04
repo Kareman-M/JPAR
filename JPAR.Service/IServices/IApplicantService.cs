@@ -4,7 +4,7 @@ namespace JPAR.Service.IServices
 {
     public interface IApplicantService
     {
-        ApplicantDTO GetById(int id);
+        ApplicantDTO GetByUserId(string userId);
 
         (UpdateApplicantGeneralInfoDTO Data, int ApplicantId) UpdateGenralInfo(string userId, UpdateApplicantGeneralInfoDTO applicant);
 

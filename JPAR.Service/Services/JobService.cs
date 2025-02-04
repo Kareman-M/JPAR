@@ -11,12 +11,14 @@ namespace JPAR.Service.Services
         private readonly IJobRepository _jobPostRepository;
         private readonly IRecruiterRepository _recruiterRepository;
         private readonly IApplicantRepository _applicantRepository;
+        private readonly IApplicantJobRepository _applicantJobRepository;
 
-        public JobService(IJobRepository jobPostRepository, IRecruiterRepository recruiterRepository, IApplicantRepository applicantRepository)
+        public JobService(IJobRepository jobPostRepository, IRecruiterRepository recruiterRepository, IApplicantRepository applicantRepository, IApplicantJobRepository applicantJobRepository)
         {
             this._jobPostRepository = jobPostRepository;
             _recruiterRepository = recruiterRepository;
             _applicantRepository = applicantRepository;
+            _applicantJobRepository = applicantJobRepository;
         }
 
         public bool Add(AddJobDTO addJobPostDTO, string userId)
@@ -68,11 +70,12 @@ namespace JPAR.Service.Services
             return MapJobToDTO(jobs.OrderBy(x => x.CreatedAt).ToList());
         }
 
-        public JobDTO GetById(int jobPostId)
+        public (JobDTO Job, bool CanApply) GetById(int jobPostId, string userId)
         {
             var job = _jobPostRepository.GetById(jobPostId);
-            if (job == null) return null;
-            return new JobDTO
+            if (job == null) return (null, false);
+            var canApplicantApplay = _applicantJobRepository.CanApplicantApplay(userId, jobPostId);
+            return (new JobDTO
             {
                 AdditinalSalaryDetails = job.AdditinalSalaryDetails,
                 JobDescription = job.JobDescription,
@@ -94,10 +97,10 @@ namespace JPAR.Service.Services
                 RecruiterId = job.RecruiterId,
                 Status = job.Status.ToString(),
                 Title = job.Title,
-            };
+            }, canApplicantApplay);
         }
 
-        public List<JobApplications> GetRecruiterJobsApplications(string userId)
+        public List<JobApplications>  GetRecruiterJobsApplications(string userId)
         {
            return _jobPostRepository.GetDetailedJobsByUserId(userId).Select(x=> new JobApplications
            {
@@ -129,6 +132,8 @@ namespace JPAR.Service.Services
               }).ToList(),
            }).ToList();
         }
+  
+        
         private IEnumerable<Job> GetMatchedJobs(IEnumerable<Job> jobs, Applicant user)
         {
 
