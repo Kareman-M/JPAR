@@ -41,12 +41,12 @@ namespace JPAR.Infrastructure.Repository
 
         public IEnumerable<Job> GetAll()
         {
-            return _context.JobPosts.Include(x=> x.JobTypes).Include(x=> x.JobCategories).Include(x=> x.Recruiter);
+            return _context.JobPosts.Include(x=> x.JobTypes).Include(x=> x.JobTypes).Include(x=> x.Recruiter);
         }
 
         public Job GetById(int jobPostId)
         {
-            return _context.JobPosts.Include(x=> x.Recruiter).Include(x => x.JobTypes).Include(x => x.JobCategories).FirstOrDefault(x => x.Id == jobPostId);
+            return _context.JobPosts.Include(x=> x.Recruiter).Include(x => x.JobTypes).Include(x => x.JobTypes).FirstOrDefault(x => x.Id == jobPostId);
         }
 
         public List<Job> GetByUserId(string userId)
@@ -60,10 +60,18 @@ namespace JPAR.Infrastructure.Repository
             return _context.JobPosts
                  .Include(x => x.Recruiter)
                  .Include(x => x.JobTypes)
-                 .Include(x => x.JobCategories)
+                 .Include(x => x.JobTypes)
                  .Include(x => x.ApplicantJobs).ThenInclude(x => x.Applicant).ThenInclude(x=> x.User)
                  .Include(x => x.ApplicantJobs).ThenInclude(x => x.ApplicationStages)
                  .Where(x => x.Recruiter.UserId == userId).ToList();
+        }
+
+        public Job Update(Job job)
+        {
+            var jobUpdated = _context.JobPosts.Update(job);
+            _context.SaveChanges();
+            return jobUpdated.Entity;
+
         }
     }
 }

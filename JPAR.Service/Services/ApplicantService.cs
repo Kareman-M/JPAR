@@ -8,7 +8,6 @@ namespace JPAR.Service.Services
     public class ApplicantService : IApplicantService
     {
         private readonly IApplicantRepository _applicantRepository;
-
         public ApplicantService(IApplicantRepository applicantRepository)
         {
             _applicantRepository = applicantRepository;
@@ -22,11 +21,13 @@ namespace JPAR.Service.Services
         public ApplicantDTO GetByUserId(string userId)
         {
             var applicant = _applicantRepository.GetByUserId(userId);
+
             if (applicant is null) return null;
+
             return new ApplicantDTO
             {
-                FullName =$"{applicant.User.FirstName} {applicant.User.LastName}",
-                UniversityDegrees = applicant.UniversityDegrees?.Select(x=> new UniversityDegreeDTO
+                FullName = $"{applicant.User.FirstName} {applicant.User.LastName}",
+                UniversityDegrees = applicant.UniversityDegrees?.Select(x => new UniversityDegreeDTO
                 {
                     StudyField = x.StudyField,
                     Country = x.Country,
@@ -42,7 +43,7 @@ namespace JPAR.Service.Services
                 AlternativeMobileNumber = applicant.AlternativeMobileNumber,
                 Area = applicant.Area,
                 Birthdate = applicant.Birthdate,
-                Certifications = applicant.Certifications?.Select(x=> new CertificationDTO
+                Certifications = applicant.Certifications?.Select(x => new CertificationDTO
                 {
                     AdditionalInfo = x.AdditionalInfo,
                     AwardedMonth = x.AwardedMonth,
@@ -56,10 +57,10 @@ namespace JPAR.Service.Services
                 }).ToList(),
                 Country = applicant.Country,
                 City = applicant.City,
-                EducationLevel   = applicant.EducationLevel?.ToString(),
-                Experiences = applicant.Experiences?.Select(x=> new ExperienceDTO
+                EducationLevel = applicant.EducationLevel?.ToString(),
+                Experiences = applicant.Experiences?.Select(x => new ExperienceDTO
                 {
-                    Achievements=x.Achievements,
+                    Achievements = x.Achievements,
                     EndDate = x.EndDate,
                     CompanyName = x.CompanyName,
                     CompanySize = x.CompanySize,
@@ -74,21 +75,21 @@ namespace JPAR.Service.Services
                     JobType = x.JobType,
                     StartingSalary = x.StartingSalary,
                 }).ToList(),
-                Gender = applicant.Gender?.ToString(),   
+                Gender = applicant.Gender?.ToString(),
                 Id = applicant.Id,
                 Level = applicant.Level?.ToString(),
                 MaritalStatus = applicant.MaritalStatus?.ToString(),
                 MobileNumber = applicant.User.PhoneNumber,
-                Nationality =applicant.Nationality,
-                OnlinePresences = applicant.OnlinePresences?.Select(x=> new OnlinePresenceDTO
+                Nationality = applicant.Nationality,
+                OnlinePresences = applicant.OnlinePresences?.Select(x => new OnlinePresenceDTO
                 {
                     AccountLink = x.AccountLink,
                     AccountName = x.AccountName,
                     Number = x.Number,
                 }).ToList(),
-                Skills = applicant.Skills?.Select(x=> new SkillDTO
+                Skills = applicant.Skills?.Select(x => new SkillDTO
                 {
-                    Interest =x.Interest,
+                    Interest = x.Interest,
                     Justification = x.Justification,
                     Proficiency = x.Proficiency,
                     SkillName = x.SkillName,
@@ -96,9 +97,13 @@ namespace JPAR.Service.Services
                 }).ToList(),
                 PostalCode = applicant.PostalCode,
                 YearsOfExperince = applicant.YearsOfExperince,
-                JobTitles = applicant.JobTitles.Select(x=> x.Title).ToList(),
-                JobTypes= applicant.JobType.Select(x=> x.Name).ToList(),
-                WorkPlaces = applicant.WorkPlace.Select(x=> x.Name).ToList(),
+                JobTitles = applicant.JobTitles.Select(x => x.Title).ToList(),
+                JobTypes = applicant.JobType.Select(x => x.Name).ToList(),
+                WorkPlaces = applicant.WorkPlace.Select(x => x.Name).ToList(),
+                Categories = applicant.IndustryCategories.Select(x => x.Category).ToList(),
+                DesiredNetSalaryPerMonth = applicant?.DesiredNetSalaryPerMonth,
+                FileName = applicant?.UploadedCVFileName,
+                FilePath = applicant?.UploadedCVPath
             };
         }
 
@@ -348,13 +353,11 @@ namespace JPAR.Service.Services
         {
             var applicant = _applicantRepository.GetByUserId(userId);
             applicant = UpdateInfo(applicant, applicantDto);
-            if (applicant == null) return (null, applicant.Id);
 
             var updatedApllicant = _applicantRepository.Update(applicant);
 
             return
-                (
-                new UpdateApplicantGeneralInfoDTO
+                (new UpdateApplicantGeneralInfoDTO
                 {
                     FirstName = updatedApllicant.User.FirstName,
                     LastName = updatedApllicant.User.LastName,
@@ -388,6 +391,27 @@ namespace JPAR.Service.Services
             applicant.AlternativeMobileNumber = applicantDto.AlternativeMobileNumber;
 
             return applicant;
+        }
+
+        public byte[] DownloadCV(string userId, string contentRootPath)
+        {
+            var applicant = _applicantRepository.GetByUserId(userId);
+            if (applicant is null || applicant.UploadedCVPath is null) return null;
+            string filePath = Path.Combine(contentRootPath, applicant.UploadedCVPath);
+            var file = File.ReadAllBytes(filePath);
+            return file;
+        }
+
+        public bool DeleteCV(string userId, string contentRootPath)
+        {
+            var applicant = _applicantRepository.GetByUserId(userId);
+            if (applicant is null || applicant.UploadedCVPath is null) return false;
+            string filePath = Path.Combine(contentRootPath, applicant.UploadedCVPath);
+            applicant.UploadedCVPath = null;
+            applicant.UploadedCVFileName =null;
+            Directory.Delete(filePath, true);
+            _applicantRepository.Update(applicant);
+            return true;
         }
     }
 }

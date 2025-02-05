@@ -23,5 +23,7 @@ namespace JPAR.Service.IServices
         (UpdateAchievementsDTO Data, int ApplicantId) UpdateAchievements(string userId, UpdateAchievementsDTO achievements);
 
         bool Delete(int id);
+        byte[] DownloadCV(string userId, string contentRootPath);
+        bool  DeleteCV(string userId, string contentRootPath);
     }
 }

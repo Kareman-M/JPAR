@@ -71,7 +71,15 @@ namespace JPAR.API.Controllers
         [Authorize(Roles = "Recruiter"), HttpDelete("Delete/{jobId}")]
         public IActionResult Delete(int jobId)
         {
-           return _jobPostService.Delete(jobId) ? Ok("Deleted Successfully"): NotFound("Job Not Found");
+            try
+            {
+
+               return _jobPostService.Delete(jobId) ? Ok("Deleted Successfully"): NotFound("Job Not Found");
+            }
+            catch(Exception ex)
+            {
+                return BadRequest("Can't Delete or Edit This Job");
+            }
         }
 
         [Authorize(Roles = "Recruiter"), HttpPut("Edit")]

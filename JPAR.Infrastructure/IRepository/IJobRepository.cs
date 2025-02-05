@@ -12,5 +12,6 @@ namespace JPAR.Infrastructure.IRepository
         IEnumerable<Job> GetAll();
         List<Job> GetDetailedJobsByUserId(string userId);
         bool Delete(int jobId);
+        Job Update(Job job);
     }
 }

@@ -25,16 +25,16 @@ namespace JPAR.Service.Services
             return new ApplicantDTO
             {
                 Achievements = applicant?.Achievements,
-                Skills = applicant?.Skills.Select(x => new SkillDTO
+                Skills = applicant?.Skills?.Select(x => new SkillDTO
                 {
                     Interest = x.Interest,
                     Justification = x.Justification,
                     Proficiency = x.Proficiency,
                     SkillName = x.SkillName,
                     YearsOfExperience = x.YearsOfExperience,
-                }).ToList(),
-                MaritalStatus = applicant?.MaritalStatus.ToString(),
-                UniversityDegrees = applicant?.UniversityDegrees.Select(c => new UniversityDegreeDTO
+                })?.ToList(),
+                MaritalStatus = applicant?.MaritalStatus?.ToString(),
+                UniversityDegrees = applicant?.UniversityDegrees?.Select(c => new UniversityDegreeDTO
                 {
                     StudyField = c.StudyField,
                     Country = c.Country,
@@ -45,11 +45,11 @@ namespace JPAR.Service.Services
                     Number = c.Number,
                     StrtYear = c.StrtYear,
                     University = c.University,
-                }).ToList(),
+                })?.ToList(),
                 AlternativeMobileNumber = applicant?.AlternativeMobileNumber,
                 Area = applicant?.Area,
                 Birthdate = applicant?.Birthdate,
-                Certifications = applicant?.Certifications.Select(x => new CertificationDTO
+                Certifications = applicant?.Certifications?.Select(x => new CertificationDTO
                 {
                     AdditionalInfo = x.AdditionalInfo,
                     AwardedMonth = x.AwardedMonth,
@@ -60,11 +60,11 @@ namespace JPAR.Service.Services
                     Number = x.Number,
                     OrganizationName = x.OrganizationName,
                     ResultOutOfTotal = x.ResultOutOfTotal,
-                }).ToList(),
+                })?.ToList(),
                 City = applicant?.City,
                 Country = applicant?.Country,
-                EducationLevel = applicant?.EducationLevel.ToString(),
-                Experiences = applicant.Experiences.Select(c => new ExperienceDTO
+                EducationLevel = applicant?.EducationLevel?.ToString(),
+                Experiences = applicant.Experiences?.Select(c => new ExperienceDTO
                 {
                     Achievements = c.Achievements,
                     EndDate = c.EndDate,
@@ -80,24 +80,28 @@ namespace JPAR.Service.Services
                     JobTitle = c.JobTitle,
                     JobType = c.JobType,
                     StartingSalary = c.StartingSalary,
-                }).ToList(),
+                })?.ToList(),
                 FullName = $"{applicant?.User?.FirstName} {applicant?.User?.LastName}",
-                Gender = applicant?.Gender.ToString(),
+                Gender = applicant?.Gender?.ToString(),
                 Id = applicant?.Id ?? 0,
-                Level =  applicant?.Level.ToString(),
+                Level =  applicant?.Level?.ToString(),
                 MobileNumber = applicant?.MobileNumber,
                 Nationality = applicant?.Nationality,
-                OnlinePresences = applicant?.OnlinePresences.Select(x => new OnlinePresenceDTO
+                OnlinePresences = applicant?.OnlinePresences?.Select(x => new OnlinePresenceDTO
                 {
                     AccountLink = x.AccountLink,
                     AccountName = x.AccountName,
                     Number = x.Number,
-                }).ToList(),
+                })?.ToList(),
                 PostalCode = applicant?.PostalCode,
                 YearsOfExperince = applicant?.YearsOfExperince,
-                JobTitles = applicant.JobTitles.Select(x => x.Title).ToList(),
-                JobTypes = applicant.JobType.Select(x => x.Name).ToList(),
-                WorkPlaces = applicant.WorkPlace.Select(x => x.Name).ToList(),
+                JobTitles = applicant.JobTitles?.Select(x => x.Title)?.ToList(),
+                JobTypes = applicant.JobType?.Select(x => x.Name)?.ToList(),
+                WorkPlaces = applicant.WorkPlace?.Select(x => x.Name)?.ToList(),
+                Categories = applicant.IndustryCategories?.Select(x=> x.Category)?.ToList(),
+                DesiredNetSalaryPerMonth = applicant?.DesiredNetSalaryPerMonth,
+                FileName = applicant?.UploadedCVFileName,
+                FilePath = applicant?.UploadedCVPath
             };
         }
 
@@ -183,6 +187,10 @@ namespace JPAR.Service.Services
                     JobTitles = x.Applicant?.JobTitles.Select(x => x.Title).ToList(),
                     JobTypes = x.Applicant?.JobType.Select(x => x.Name).ToList(),
                     WorkPlaces = x.Applicant?.WorkPlace.Select(x => x.Name).ToList(),
+                    Categories = x.Applicant?.IndustryCategories.Select(x => x.Category).ToList(),
+                    DesiredNetSalaryPerMonth = x.Applicant?.DesiredNetSalaryPerMonth,
+                    FileName = x.Applicant?.UploadedCVFileName,
+                    FilePath = x.Applicant?.UploadedCVPath
                 }
             }).ToList();
         }

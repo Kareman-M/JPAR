@@ -50,6 +50,7 @@ namespace JPAR.Infrastructure.Repository
         public Applicant GetByUserId(string userId)
         {
             return _context.Applicants
+
                 .Include(x => x.User)
                 .Include(x => x.IndustryCategories)
                 .Include(x => x.OnlinePresences)
@@ -59,6 +60,7 @@ namespace JPAR.Infrastructure.Repository
                 .Include(x => x.WorkPlace)
                 .Include(x => x.JobTitles)
                 .Include(x => x.JobType)
+
                 .FirstOrDefault(x => x.UserId == userId);
         }
 

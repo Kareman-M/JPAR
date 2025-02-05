@@ -118,6 +118,7 @@ namespace JPAR.Service.Services
                Categories = x.JobCategories.Select(x => x.Category).ToList(),
                Country = x.Country,
                CreatedAt = x.CreatedAt,
+               JobId= x.Id,
                Applicants = x.ApplicantJobs?.Select(y=> new LookUpDTO
                {
                    Id =y.ApplicantId,
@@ -201,8 +202,52 @@ namespace JPAR.Service.Services
         {
             Job job = _applicantJobRepository.GetJobById(dto.Id);
             if (job == null) return null;
-            // we will make edit 
-            return null;
+            
+            job.Title = dto.Title;
+            job.Country = dto.Country;
+            job.WorkPlace = dto.WorkPlace;
+            job.CareerLevel = dto.CareerLevel;
+            job.MinYearsOfExperince = dto.MinYearsOfExperince;
+            job.MaxYearsOfExperince = dto.MaxYearsOfExperince;
+            job.MaxSalaryRange = dto.MaxSalaryRange;
+            job.MinSalaryRange = dto.MinSalaryRange;
+            job.HideSalary = dto.HideSalary;
+            job.AdditinalSalaryDetails = dto.AdditinalSalaryDetails;
+            job.NumberOfVecancy = dto.NumberOfVecancy;
+            job.JobDescription = dto.JobDescription;
+
+            job.JobCategories?.Clear();
+            if (job.JobCategories is null) job.JobCategories = new List<JobCategory>();
+            job.JobCategories.AddRange(dto.Categories.Select(x => new JobCategory { Category = x, JobId = job.Id }));
+
+            job.JobTypes?.Clear();
+            if (job.JobTypes is null) job.JobTypes = new List<JobType>();
+            job.JobTypes.AddRange(dto.JobTypes.Select(x => new JobType { Type = x, JobId = job.Id }));
+
+            Job updatedJob = _jobPostRepository.Update(job);
+            return new JobDTO
+            {
+                Id = updatedJob.Id,
+                Title = updatedJob?.Title,
+                JobTypes = updatedJob?.JobTypes?.Select(j => j.Type.ToString())?.ToList(),
+                Status = updatedJob?.Status.ToString(),
+                MaxSalaryRange = updatedJob?.MaxSalaryRange,
+                MaxYearsOfExperince = updatedJob?.MaxYearsOfExperince,
+                MinSalaryRange = updatedJob?.MinSalaryRange,
+                MinYearsOfExperince = updatedJob?.MinYearsOfExperince,
+                NumberOfVecancy = updatedJob?.NumberOfVecancy,
+                RecruiterId = updatedJob?.RecruiterId,
+                CompanyName = updatedJob?.Recruiter.CompanyName,
+                WorkPlace = updatedJob?.WorkPlace.ToString(),
+                AdditinalSalaryDetails = updatedJob?.AdditinalSalaryDetails,
+                JobDescription = updatedJob?.JobDescription,
+                CareerLevel = updatedJob?.CareerLevel.ToString(),
+                Categories = updatedJob?.JobCategories?.Select(x => x.Category)?.ToList(),
+                Country = updatedJob?.Country,
+                HideSalary = updatedJob?.HideSalary,
+                CreatedAt = updatedJob.CreatedAt,
+                CreatedBy = updatedJob?.CreatedBy,
+            };
         }
     }
 }

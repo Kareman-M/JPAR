@@ -1,5 +1,6 @@
 ﻿using JPAR.Service.DTOs;
 using JPAR.Service.IServices;
+using JPAR.Service.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,13 +12,16 @@ namespace JPAR.API.Controllers
     public class ApplicantController : ControllerBase
     {
         private readonly IApplicantService _applicantService;
+        private readonly IWebHostEnvironment env;
 
-        public ApplicantController(IApplicantService applicantService)
+        public ApplicantController(IApplicantService applicantService, IWebHostEnvironment env)
         {
             _applicantService = applicantService;
+            this.env = env;
         }
 
-        [HttpGet("GetApplicantData")]
+
+        [HttpGet("GetApplicantData")]  // baseurl/api/applicant/GetApplicantData
         public IActionResult GetApplicantData()
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userId").Value;
@@ -25,7 +29,7 @@ namespace JPAR.API.Controllers
             return Ok(_applicantService.GetByUserId(userId));
         }
 
-        [HttpPut("UpdateGeneralInfo")]
+        [HttpPut("UpdateGeneralInfo")] //baseurl/api/applicant/UpdateGeneralInfo
         public IActionResult UpdateGeneralInfo(UpdateApplicantGeneralInfoDTO applicantGeneralInfo)
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(x=> x.Type == "userId").Value;
@@ -35,7 +39,7 @@ namespace JPAR.API.Controllers
         }
 
         
-        [HttpPut("UpdateCareerInterest")]
+        [HttpPut("UpdateCareerInterest")] 
         public IActionResult UpdateCareerInterest(UpdateCareerInterestDTO careerInterestDTO)
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userId").Value;
@@ -103,6 +107,42 @@ namespace JPAR.API.Controllers
             if (userId == null) return Unauthorized();
             var data = _applicantService.UpdateAchievements(userId,achievements);
             return Ok(new { data = data.Data, applicanId = data.ApplicantId });
+        }
+
+        [HttpGet("DownloadCV")]
+        public IActionResult DownloadCV()
+        {
+            try
+            {
+
+                var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userId").Value;
+                if (userId == null) return Unauthorized();
+                byte[] stream = _applicantService.DownloadCV(userId, env.ContentRootPath);
+                if (stream is null) return NotFound("File Not Found");
+                return File(stream, "application/pdf");
+            }
+            catch(Exception ex)
+            {
+                return BadRequest("File Not Found");
+            }
+        }
+
+        [HttpDelete("DeleteCV")]
+        public IActionResult DeleteCV()
+        {
+            try
+            {
+
+                var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userId").Value;
+                if (userId == null) return Unauthorized();
+                bool result = _applicantService.DeleteCV(userId, env.ContentRootPath);
+                if (!result) return NotFound("File Not Found");
+                return Ok("Deleted Successfully");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("File Not Found");
+            }
         }
     }
 }

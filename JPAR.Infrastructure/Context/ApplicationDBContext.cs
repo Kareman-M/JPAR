@@ -59,6 +59,7 @@ namespace JPAR.Infrastructure.Context
             builder.Entity<Skill>().Property(p=> p.Number).ValueGeneratedOnAdd();
             builder.Entity<OnlinePresence>().Property(p=> p.Number).ValueGeneratedOnAdd();
             builder.Entity<UniversityDegree>().Property(p=> p.Number).ValueGeneratedOnAdd();
+            builder.Entity<Certification>().Property(p=> p.Number).ValueGeneratedOnAdd();
         }
     }
 }

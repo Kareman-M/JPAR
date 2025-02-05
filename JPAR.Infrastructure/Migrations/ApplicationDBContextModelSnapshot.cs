@@ -105,7 +105,10 @@ namespace JPAR.Infrastructure.Migrations
             modelBuilder.Entity("Certification", b =>
                 {
                     b.Property<int>("Number")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Number"));
 
                     b.Property<int>("ApplicantId")
                         .HasColumnType("int");
@@ -493,15 +496,15 @@ namespace JPAR.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9349a83d-e697-452f-ab4a-e305e16b51bc",
-                            ConcurrencyStamp = "03ad8520-c29f-4c54-acca-fb9b4439636b",
+                            Id = "a543067c-8f4b-480c-99ea-d071fbe41ef4",
+                            ConcurrencyStamp = "80ee48c0-dbff-4786-9426-7d7e6f23880f",
                             Name = "Applicant",
                             NormalizedName = "APPLICANT"
                         },
                         new
                         {
-                            Id = "f4d030d5-fcb1-4fbe-b9b0-fa7673e93608",
-                            ConcurrencyStamp = "993f76f5-5d59-46b3-83fb-1f7ef8b21314",
+                            Id = "d41a0511-0891-4e56-8f08-4cd87f29781e",
+                            ConcurrencyStamp = "b488a46d-a541-4663-9a59-3552e747a413",
                             Name = "Recruiter",
                             NormalizedName = "RECRUITER"
                         });

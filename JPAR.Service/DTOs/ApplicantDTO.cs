@@ -19,6 +19,10 @@ namespace JPAR.Service.DTOs
         public string? AlternativeMobileNumber { get; set; }
         public string Level { get; set; }
         public int? YearsOfExperince { get; set; }
+        public decimal? DesiredNetSalaryPerMonth { get; set; }
+        public string FileName { get; init; }
+        public string FilePath { get; init; }
+
         public List<ExperienceDTO> Experiences { get; set; }
         public List<SkillDTO> Skills { get; set; }
         public string EducationLevel { get; set; }
@@ -30,5 +34,6 @@ namespace JPAR.Service.DTOs
         public List<JobTypeEnum> JobTypes { get; set; }
         public List<WorkPlaceEnum> WorkPlaces { get; set; }
         public List<string> JobTitles { get; set; }
+        public List<string> Categories { get; set; }
     }
 }

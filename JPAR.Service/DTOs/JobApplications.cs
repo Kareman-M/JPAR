@@ -4,6 +4,7 @@ namespace JPAR.Service.DTOs
 {
     public class JobApplications
     {
+        public int JobId { get; set; }
         public string Title { get; set; }
         public List<string>? Categories { get; set; }
         public List<string>? JobTypes { get; set; }
