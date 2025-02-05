@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace JPAR.API.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class JobController : ControllerBase
@@ -26,7 +27,7 @@ namespace JPAR.API.Controllers
             return Ok(_jobPostService.Add(addJobPostDTO, userId));
         }
 
-
+     
         [Authorize(Roles ="Recruiter"),HttpPut("ChangeStstus")]
         public IActionResult ChangeStstus(int jobPostId, JobStatus jobPostStatus)
         {
@@ -40,10 +41,10 @@ namespace JPAR.API.Controllers
             var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userId").Value;
             if (userId == null) return Unauthorized();
             return Ok(_jobPostService.GetByUserId(userId));
-        } 
+        }
 
 
-        [Authorize(Roles="Applicant"), HttpPost("GetApplicantJobs")]
+        [Authorize(Roles = "Applicant"), HttpPost("GetApplicantJobs")]
         public IActionResult GetApplicantJobs(ApplicantJobFilterDTO filter)
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userId").Value;
@@ -51,14 +52,16 @@ namespace JPAR.API.Controllers
             return Ok(_jobPostService.GetApplicantMatchedJobs(filter, userId));
         }
 
-        [Authorize(Roles="Applicant"), HttpGet("GetJobDetails/{jobId}")]
+
+        [Authorize(Roles = "Applicant"), HttpGet("GetJobDetails/{jobId}")]
         public IActionResult GetJobDetails(int jobId)
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userId").Value;
             if (userId == null) return Unauthorized();
             var result = _jobPostService.GetById(jobId, userId);
-            return Ok(new {data = result.Job, result.CanApply});
+            return Ok(new { data = result.Job, result.CanApply });
         }
+
 
         [Authorize(Roles = "Recruiter"), HttpGet("GetRecruiterJobsApplications")]
         public IActionResult GetRecruiterJobsApplications()
@@ -67,6 +70,7 @@ namespace JPAR.API.Controllers
             if (userId == null) return Unauthorized();
             return Ok(_jobPostService.GetRecruiterJobsApplications(userId));
         }
+
 
         [Authorize(Roles = "Recruiter"), HttpDelete("Delete/{jobId}")]
         public IActionResult Delete(int jobId)

@@ -60,9 +60,7 @@ namespace JPAR.Infrastructure.Repository
             return _context.JobPosts
                  .Include(x => x.Recruiter)
                  .Include(x => x.JobTypes)
-                 .Include(x => x.JobTypes)
                  .Include(x => x.ApplicantJobs).ThenInclude(x => x.Applicant).ThenInclude(x=> x.User)
-                 .Include(x => x.ApplicantJobs).ThenInclude(x => x.ApplicationStages)
                  .Where(x => x.Recruiter.UserId == userId).ToList();
         }
 

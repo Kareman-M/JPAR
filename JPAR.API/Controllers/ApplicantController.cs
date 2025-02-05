@@ -61,7 +61,7 @@ namespace JPAR.API.Controllers
 
        
         [HttpPut("UpdateExperience")]
-        public IActionResult UpdateExperience([FromBody] UpdateExperienceDTO updateExperience)
+        public IActionResult UpdateExperience( UpdateExperienceDTO updateExperience)
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userId").Value;
             if (userId == null) return Unauthorized();
@@ -71,7 +71,7 @@ namespace JPAR.API.Controllers
 
       
         [HttpPut("UpdateSkills")]
-        public IActionResult UpdateSkills([FromBody] UpdateSkillsDTO updateSkills)
+        public IActionResult UpdateSkills(UpdateSkillsDTO updateSkills)
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userId").Value;
             if (userId == null) return Unauthorized();
@@ -81,7 +81,7 @@ namespace JPAR.API.Controllers
 
         
         [HttpPut("UpdateEducation")]
-        public IActionResult UpdateEducation([FromBody]UpdateEducationDTO updateEducation)
+        public IActionResult UpdateEducation(UpdateEducationDTO updateEducation)
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userId").Value;
             if (userId == null) return Unauthorized();
@@ -91,7 +91,7 @@ namespace JPAR.API.Controllers
 
         
         [HttpPut("UpdateOnlinePresence")]
-        public IActionResult UpdateOnlinePresence([FromBody] List<UpdateOnlinePresenceDTO> onlinePresences)
+        public IActionResult UpdateOnlinePresence( List<UpdateOnlinePresenceDTO> onlinePresences)
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userId").Value;
             if (userId == null) return Unauthorized();
@@ -101,7 +101,7 @@ namespace JPAR.API.Controllers
 
         
         [HttpPut("UpdateAchievements")]
-        public IActionResult UpdateAchievements([FromBody] UpdateAchievementsDTO achievements)
+        public IActionResult UpdateAchievements( UpdateAchievementsDTO achievements)
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userId").Value;
             if (userId == null) return Unauthorized();

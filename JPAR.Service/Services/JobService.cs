@@ -63,9 +63,7 @@ namespace JPAR.Service.Services
 
             var user = _applicantRepository.GetByUserId(applicantUserId);
 
-            jobs = GetFilteredJobs(filter, jobs);
-
-            //var data = GetMatchedJobs(jobs, user).ToList();
+           // var data = GetMatchedJobsForApplicant(jobs, user);
 
             return MapJobToDTO(jobs.OrderBy(x => x.CreatedAt).ToList());
         }
@@ -128,7 +126,7 @@ namespace JPAR.Service.Services
         }
   
         
-        private IEnumerable<Job> GetMatchedJobs(IEnumerable<Job> jobs, Applicant user)
+        private IEnumerable<Job> GetMatchedJobsForApplicant(IEnumerable<Job> jobs, Applicant user)
         {
 
             if (!string.IsNullOrEmpty(user.Country) || !string.IsNullOrEmpty(user.City) || !string.IsNullOrEmpty(user.Area))
@@ -172,7 +170,7 @@ namespace JPAR.Service.Services
             {
                 Id = x.Id,
                 Title = x.Title,
-                JobTypes = x.JobTypes.Select(j => j.Type.ToString()).ToList(),
+                JobTypes = x.JobTypes?.Select(j => j.Type.ToString())?.ToList(),
                 Status = x.Status.ToString(),
                 MaxSalaryRange = x.MaxSalaryRange,
                 MaxYearsOfExperince = x.MaxYearsOfExperince,
@@ -185,11 +183,12 @@ namespace JPAR.Service.Services
                 AdditinalSalaryDetails = x.AdditinalSalaryDetails,
                 JobDescription = x.JobDescription,
                 CareerLevel = x.CareerLevel.ToString(),
-                Categories = x.JobCategories.Select(x=> x.Category).ToList(),
+                Categories = x.JobCategories?.Select(x=> x.Category)?.ToList(),
                 Country = x.Country,
                 HideSalary = x.HideSalary,
                 CreatedAt = x.CreatedAt,
                 CreatedBy = x.CreatedBy,
+                
             }).ToList();
         }
 
