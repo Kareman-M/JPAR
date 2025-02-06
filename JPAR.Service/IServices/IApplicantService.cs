@@ -1,4 +1,5 @@
 ﻿using JPAR.Service.DTOs;
+using Microsoft.AspNetCore.Http;
 
 namespace JPAR.Service.IServices
 {
@@ -10,7 +11,7 @@ namespace JPAR.Service.IServices
 
         (UpdateCareerInterestDTO Data, int ApplicantId) UpdateCareerInterest(string userId, UpdateCareerInterestDTO updateCareerInterest);
 
-        (string FileName, string FilePath, int ApplicantId) UpdateCv(string userId, UpdateCvDTO updateCv);
+        (string FileName, string FilePath, int ApplicantId) UpdateCv(string userId, IFormFile updateCv, string webRootPath);
 
         (UpdateExperienceDTO Data, int ApplicantId) UpdateExperience(string userId, UpdateExperienceDTO updateExperience);
 

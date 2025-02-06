@@ -21,4 +21,8 @@
     <ProjectReference Include="..\JPAR.Service\JPAR.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>

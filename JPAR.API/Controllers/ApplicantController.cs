@@ -50,11 +50,12 @@ namespace JPAR.API.Controllers
 
         
         [HttpPost("UpdateCv")]
-        public IActionResult UpdateCv([FromForm] UpdateCvDTO updateCvDTO)
+        public IActionResult UpdateCv([FromForm] List<IFormFile> file)
         {
+            //var file = HttpContext.Request;
             var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userId").Value;
             if (userId == null) return Unauthorized();
-            var data = _applicantService.UpdateCv(userId, updateCvDTO);
+            var data = _applicantService.UpdateCv(userId, file[0], env.WebRootPath);
             return Ok(new { FileName = data.FileName,FilePath = data.FilePath, applicanId = data.ApplicantId });
 
         }

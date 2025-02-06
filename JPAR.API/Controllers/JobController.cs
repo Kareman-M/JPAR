@@ -72,12 +72,12 @@ namespace JPAR.API.Controllers
         }
 
 
-        [Authorize(Roles = "Recruiter"), HttpDelete("Delete/{jobId}")]
+        //[Authorize(Roles = "Recruiter"),
+            [HttpDelete("Delete/{jobId}")]
         public IActionResult Delete(int jobId)
         {
             try
             {
-
                return _jobPostService.Delete(jobId) ? Ok("Deleted Successfully"): NotFound("Job Not Found");
             }
             catch(Exception ex)

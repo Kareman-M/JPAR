@@ -2,6 +2,7 @@
 using JPAR.Infrastructure.Models;
 using JPAR.Service.DTOs;
 using JPAR.Service.IServices;
+using Microsoft.AspNetCore.Http;
 
 namespace JPAR.Service.Services
 {
@@ -295,27 +296,27 @@ namespace JPAR.Service.Services
                 updatedApplicant.Id);
         }
 
-        public (string FileName, string FilePath, int ApplicantId) UpdateCv(string userId, UpdateCvDTO updateCv)
+        public (string FileName, string FilePath, int ApplicantId) UpdateCv(string userId, IFormFile updateCv, string contentRootPath)
         {
             var applicant = _applicantRepository.GetByUserId(userId);
             if (applicant == null) return (null, null, applicant.Id);
 
-            var uploadsFolder = Path.Combine("UploadedCVs");
+            var uploadsFolder = Path.Combine(contentRootPath,"UploadedCVs");
             if (!Directory.Exists(uploadsFolder))
             {
                 Directory.CreateDirectory(uploadsFolder);
             }
 
-            var uniqueFileName = Guid.NewGuid().ToString() + "_" + updateCv.CvFile.FileName;
+            var uniqueFileName = Guid.NewGuid().ToString() + "_" + updateCv.FileName;
             var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
             using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
-                updateCv.CvFile.CopyTo(fileStream);
+                updateCv.CopyTo(fileStream);
             }
 
             applicant.UploadedCVPath = filePath;
-            applicant.UploadedCVFileName = updateCv.CvFile.FileName;
+            applicant.UploadedCVFileName = updateCv.FileName;
             var updatedApplicant = _applicantRepository.Update(applicant);
             return (updatedApplicant.UploadedCVFileName, updatedApplicant.UploadedCVPath, updatedApplicant.Id);
         }
